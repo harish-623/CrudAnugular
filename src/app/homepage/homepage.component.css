@@ -1,0 +1,129 @@
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #141414; /* Netflix dark background */
+  color: #fff; /* Netflix white text */
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+a.nav-link {
+  color: #fff;
+  font-weight: bold;
+}
+
+a.nav-link:hover {
+  color: #e50914; /* Netflix red */
+  text-decoration: none;
+}
+
+/* Header Styles */
+.netflix-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #000;
+}
+
+.navbar {
+  padding: 1rem 2rem;
+}
+
+/* Hero Section */
+.hero-section {
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.hero-overlay h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero-overlay p {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-overlay button {
+  background-color: #e50914;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.hero-overlay button:hover {
+  background-color: #f40612;
+}
+
+/* Popular Section */
+.popular-section {
+  background-color: #141414;
+  padding: 2rem 1rem;
+}
+
+.popular-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.carousel-inner img {
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Categories Section */
+.categories-section {
+  padding: 2rem 1rem;
+}
+
+.categories-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.categories-section .row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.categories-section img {
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.categories-section img:hover {
+  transform: scale(1.05);
+}
+
+/* Footer */
+.footer {
+  background-color: #000;
+  padding: 1rem;
+  text-align: center;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 1rem;
+}

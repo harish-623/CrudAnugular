@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Hub - Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* General Styles */
+        body {
+            background-color: #141414;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        h2 {
+            color: #ffffff;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        .movie-card {
+            background-color: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .movie-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+        /* Genre Row */
+        .genre-row {
+            display: flex;
+            overflow-x: scroll;
+            padding: 10px;
+        }
+        .genre-row::-webkit-scrollbar {
+            display: none; /* Hides the scrollbar */
+        }
+        .movie-card-title {
+            padding: 10px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="text-center py-3">
+        <h1>Movie Hub</h1>
+    </header>
+
+    <!-- Action Genre Section -->
+    <!-- <section>
+        <h2>Action</h2>
+        <div class="genre-row">
+            <div *ngFor="let movie of actionMovies" class="movie-card mx-2">
+                <img [src]="movie.imageUrl" alt="{{ movie.title }}">
+                <div class="movie-card-title" (click)="viewDetails(movie.title)">{{ movie.title }}</div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Comedy Genre Section -->
+    <section>
+        <h2>Comedy</h2>
+        <div class="genre-row">
+            <div *ngFor="let movie of comedyMovies" class="movie-card mx-2">
+                <img [src]="movie.imageUrl" alt="{{ movie.title }}">
+                <div class="movie-card-title" (click)="viewDetails(movie.title)">{{ movie.title }}</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thriller Genre Section -->
+    <section>
+        <h2>Thriller</h2>
+        <div class="genre-row">
+            <div *ngFor="let movie of thrillerMovies" class="movie-card mx-2">
+                <img [src]="movie.imageUrl" alt="{{ movie.title }}">
+                <div class="movie-card-title" (click)="viewDetails(movie.title)">{{ movie.title }}</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add more genres as needed -->
+
+    <footer class="text-center py-3">
+        &copy; 2024 Movie Hub. All rights reserved.
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

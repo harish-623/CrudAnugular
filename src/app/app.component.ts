@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'login-app';
+
+  constructor(private router: Router) {}
+  showProfile = false;
+userName = 'Harish';
+
+  goToProfile() {
+  this.router.navigate(['/profile']);
+}
+
+goToMyRides() {
+  this.router.navigate(['/my-rides']);
+}
+
+logout() {
+  localStorage.clear();
+  this.router.navigate(['/login']);
+}
+
 }

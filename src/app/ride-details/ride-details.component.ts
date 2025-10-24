@@ -28,7 +28,7 @@ export class RideDetailsComponent {
   }
 
   getRideDetails() {
-    this.http.get<any>(`http://localhost:8095/login/${this.rideId}`)
+    this.http.get<any>(` https://spring-boot-crud-3qhx.onrender.com/login/${this.rideId}`)
       .subscribe(
         (response) => {
           this.ride = response;

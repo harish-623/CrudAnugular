@@ -139,7 +139,84 @@ h1 {
     .container {
         margin: 20px;
     }
+
+
 }
+
+
+/* Ride code */
+.ride-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 12px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.ride-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.ride-header, .ride-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ride-time {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3d3d3d;
+}
+
+.time {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+.arrow {
+  font-weight: bold;
+  color: #555;
+}
+
+.ride-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #027a48;
+}
+
+.ride-footer {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  font-size: 13px;
+}
+
+.driver-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.details {
+  color: #666;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.car, .passengers, .date {
+  font-size: 13px;
+}
+
 
 
 

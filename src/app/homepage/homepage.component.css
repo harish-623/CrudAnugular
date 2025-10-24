@@ -10,11 +10,7 @@ section.text-center {
   animation: gradientBG 15s ease infinite;
 }
 
-/* Input fields hover/focus effect */
-input:focus, select:focus {
-  box-shadow: 0 0 8px rgba(14, 165, 233, 0.5); /* Tailwind sky-400 */
-  border-color: #0ea5e9; /* Tailwind sky-500 */
-}
+
 
 /* Button hover animation */
 button {
@@ -120,50 +116,7 @@ h1 {
 
 .search-form input[type="text"],
 .search-form input[type="date"],
-.search-form select {
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1em;
-    flex-grow: 1; /* Allow fields to grow */
-    min-width: 150px; /* Minimum width for inputs */
-    transition: border-color 0.3s, box-shadow 0.3s;
-    -webkit-appearance: none; /* Remove default styling for better control */
-    -moz-appearance: none;
-    appearance: none;
-    background-color: #f9f9f9;
-}
 
-.search-form input:focus,
-.search-form select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-    outline: none;
-    background-color: #fff;
-}
-
-/* Special styling for the Search button */
-.search-button {
-    padding: 12px 25px;
-    background-color: #28a745; /* Green for action/search */
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    white-space: nowrap; /* Prevent button text from wrapping */
-    flex-shrink: 0; /* Prevent button from shrinking */
-}
-
-.search-button:hover {
-    background-color: #218838; /* Slightly darker green on hover */
-}
-
-.search-button:active {
-    transform: scale(0.98); /* Click effect */
-}
 
 /* --- Utility/Icon Styles (Optional: if you wrap your emoji in a span) --- */
 .icon {
@@ -188,130 +141,21 @@ h1 {
     }
 }
 
-/* Container for all ride cards */
-.ride-card {
-  background-color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  margin: 20px 0;
-  padding: 20px;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
 
-/* Hover effect */
-.ride-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-}
 
-/* Header section with time, from → to, and price */
-.ride-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 500;
-  font-family: 'Roboto', sans-serif;
-}
 
-/* Time & route */
-.ride-time {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1em;
-  color: #333;
-}
 
-.ride-time .time {
-  font-weight: 600;
-  color: #007bff;
-}
 
-.ride-time .from,
-.ride-time .to {
-  font-weight: 500;
-  color: #555;
-}
 
-.ride-time .arrow {
-  margin: 0 5px;
-  color: #888;
-}
 
-/* Price section */
-.ride-price {
-  font-weight: 700;
-  font-size: 1.2em;
-  color: #28a745;
-}
 
-/* Footer section with driver info and ride details */
-.ride-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  font-size: 0.9em;
-  color: #555;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-}
 
-/* Driver info */
-.driver {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
 
-.driver-img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #007bff;
-}
 
-.driver-name {
-  font-weight: 500;
-  color: #333;
-}
 
-/* Ride details */
-.details {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
 
-.details span {
-  background-color: #f0f4f8;
-  padding: 3px 8px;
-  border-radius: 5px;
-}
 
-/* Responsive */
-@media (max-width: 768px) {
-  .ride-card {
-    padding: 15px;
-  }
 
-  .ride-time {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
-
-  .ride-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-}
 
 /* Container */
 .mx-auto {
@@ -695,7 +539,94 @@ h1.text-4xl {
 }
 
 
+input[type="text"] {
+ 
+
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  flex-grow: 1; /* Allow fields to grow */
+  min-width: 150px; /* Minimum width for inputs */
+  transition: border-color 0.3s, box-shadow 0.3s;
+  -webkit-appearance: none; /* Remove default styling for better control */
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #f9f9f9;
+}
+
+input[type="text"]:focus {
+  border-color: #0284c7; /* sky-600 */
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3); /* light blue focus ring */
+}
 
 
 
 
+
+
+
+/* Autocomplete Dropdown (Google/Uber style) */
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 6px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0; /* gray-300 */
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  max-height: 260px;
+  overflow-y: auto;
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* List item */
+.autocomplete-item {
+  padding: 12px 16px;
+  font-size: 15px;
+  color: #374151; /* gray-700 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Location icon bullet (like Google Maps) */
+.autocomplete-item::before {
+  content: "📍";
+  font-size: 1.1rem;
+}
+
+/* Hover state */
+.autocomplete-item:hover {
+  background-color: #e0f2fe; /* sky-100 */
+  color: #0369a1; /* sky-700 */
+}
+
+/* Divider line between results */
+.autocomplete-item:not(:last-child) {
+  border-bottom: 1px solid #f1f5f9; /* gray-100 */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .autocomplete-list {
+    max-height: 200px;
+  }
+}
+
+/* Simple fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+  }
+}

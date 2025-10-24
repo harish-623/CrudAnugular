@@ -32,14 +32,59 @@
     <!-- Search Box -->
     <div class="mx-auto bg-white shadow-lg rounded-full flex flex-wrap md:flex-nowrap items-center justify-between p-4 w-11/12 md:w-3/4">
  
-  <select [(ngModel)]="leavingFrom" class="flex-1 px-4 py-2 outline-none border rounded-md">
+  <!-- <select [(ngModel)]="leavingFrom" class="flex-1 px-4 py-2 outline-none border rounded-md">
   <option value="" disabled selected>Select leaving location</option>
   <option *ngFor="let place of places" [value]="place">{{ place }}</option>
-</select>
-<select [(ngModel)]="goingTo" class="flex-1 px-4 py-2 outline-none border rounded-md">
+</select> --->
+<!-- <select [(ngModel)]="goingTo" class="flex-1 px-4 py-2 outline-none border rounded-md">
   <option value="" disabled selected>Select going location</option>
   <option *ngFor="let place of places" [value]="place">{{ place }}</option>
-</select>
+</select>  -->
+
+<div class="relative flex-1">
+  <input
+    type="text"
+    [(ngModel)]="leavingFrom"
+    (input)="searchPlaces(leavingFrom, 'from')"
+    placeholder="Leaving from..."
+    
+    class="flex-1 px-4 py-2 outline-none border rounded-md"
+  />
+
+  
+  <ul *ngIf="fromSuggestions.length > 0" class="autocomplete-list">
+  <li
+    *ngFor="let place of fromSuggestions"
+    class="autocomplete-item"
+    (click)="selectPlace(place.display_name, 'from')"
+  >
+    {{ place.display_name }}
+  </li>
+</ul>
+</div>
+
+<div class="relative flex-1">
+  <input
+    type="text"
+    [(ngModel)]="goingTo"
+    (input)="searchPlaces(goingTo, 'to')"
+    placeholder="Going to..."
+    class="flex-1 px-4 py-2 outline-none border rounded-md"
+  />
+
+  <ul *ngIf="toSuggestions.length > 0" class="autocomplete-list">
+    <li
+      *ngFor="let place of toSuggestions"
+      class="autocomplete-item"
+      (click)="selectPlace(place.display_name, 'to')"
+    >
+      {{ place.display_name }}
+    </li>
+  </ul>
+</div>
+
+
+
 
   <input type="date" [(ngModel)]="date" class="flex-1 px-4 py-2 outline-none border-t md:border-t-0 md:border-l border-gray-300" />
   <select [(ngModel)]="passengers" class="flex-1 px-4 py-2 outline-none border-t md:border-t-0 md:border-l border-gray-300">

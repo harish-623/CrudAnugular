@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-homepage',
@@ -9,18 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomepageComponent {
 
-  places: string[] = [
-  'Hyderabad',
-  'Gachibowli',
-  'Aram Ghar',
-  'Kukatpally',
-  'Miyapur',
-  'Secunderabad',
-  'LB Nagar',
-  'Kurnool',
-  'Anantapur',
-  'Tirupati'
-];
+  
 
 
   leavingFrom: string = '';
@@ -29,8 +19,17 @@ export class HomepageComponent {
   passengers: number = 1;
 
   searchResults: any[] = []; // To store results from backend
+  fromSuggestions: any[] = [];
+  toSuggestions: any[] = [];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  recentFromSearches: string[] = [];
+  recentToSearches: string[] = [];
+
+  searchSubject = new Subject<{ query: string; type: 'from' | 'to' }>();
+
+  constructor(private http: HttpClient, private router: Router) {
+    
+  }
 
   searchRides() {
     // Build the payload to send to backend
@@ -75,5 +74,51 @@ logout() {
   localStorage.clear();
   this.router.navigate(['/login']);
 }
+
+
+  
+ 
+
+  searchPlaces(query: string, type: 'from' | 'to') {
+    if (query.length < 2) return;
+
+    // const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}
+    &addressdetails=1&limit=5&countrycodes=in&accept-language=en`;
+
+    // this.http.get<any[]>(url).subscribe((data) => {
+    //   if (type === 'from') this.fromSuggestions = data;
+    //   else this.toSuggestions = data;
+    // });
+    this.http.get<any[]>(url).subscribe((data) => {
+    const formattedData = data.map(place => {
+      const { city, town, village, state } = place.address;
+      const formattedName = `${city || town || village || place.display_name}, ${state ?? ''}`;
+      return { ...place, formattedName };
+    });
+
+    if (type === 'from') this.fromSuggestions = formattedData;
+    else this.toSuggestions = formattedData;
+  });
+  }
+
+  selectPlace(place: string, type: 'from' | 'to') {
+    if (type === 'from') {
+      this.leavingFrom = place;
+      this.fromSuggestions = [];
+    } else {
+      this.goingTo = place;
+      this.toSuggestions = [];
+    }
+  }
+
+
+
+
+
+
+
+
+
 
 }

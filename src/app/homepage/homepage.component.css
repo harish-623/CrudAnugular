@@ -1,129 +1,709 @@
-/* General Styles */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #141414; /* Netflix dark background */
-  color: #fff; /* Netflix white text */
+/* Hero Section Background Animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.container-fluid {
-  padding: 0;
+section.text-center {
+  background-size: 200% 200%;
+  animation: gradientBG 15s ease infinite;
 }
 
-a.nav-link {
-  color: #fff;
-  font-weight: bold;
-}
 
-a.nav-link:hover {
-  color: #e50914; /* Netflix red */
-  text-decoration: none;
-}
 
-/* Header Styles */
-.netflix-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background-color: #000;
+/* Button hover animation */
+button {
+  transition: all 0.3s ease;
 }
-
-.navbar {
-  padding: 1rem 2rem;
-}
-
-/* Hero Section */
-.hero-section {
-  height: 80vh;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.hero-overlay h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.hero-overlay p {
-  font-size: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.hero-overlay button {
-  background-color: #e50914;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.hero-overlay button:hover {
-  background-color: #f40612;
-}
-
-/* Popular Section */
-.popular-section {
-  background-color: #141414;
-  padding: 2rem 1rem;
-}
-
-.popular-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.carousel-inner img {
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-}
-
-/* Categories Section */
-.categories-section {
-  padding: 2rem 1rem;
-}
-
-.categories-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.categories-section .row {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.categories-section img {
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s ease;
-}
-
-.categories-section img:hover {
+button:hover {
   transform: scale(1.05);
 }
 
-/* Footer */
-.footer {
-  background-color: #000;
-  padding: 1rem;
-  text-align: center;
+/* Info cards hover effect */
+section.grid .shadow-md {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+section.grid .shadow-md:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
 }
 
-.footer p {
+/* Smooth scrolling for the page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  section.text-center h1 {
+    font-size: 2rem;
+  }
+  .chat-container {
+    width: 90%;
+  }
+}
+
+
+/* --- Global Styles --- */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f9; /* Light, neutral background */
+    color: #333; /* Standard text color */
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px; /* Max width for content area */
+    margin: 40px auto; /* Center the content */
+    padding: 20px;
+}
+
+/* --- Typography and Headings --- */
+h1 {
+    font-size: 2.2em;
+    color: #007bff; /* Primary blue color for brand/headings */
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* Style for the main feature sections */
+.feature-section {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+    margin-bottom: 30px;
+}
+
+.feature-section p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.feature-section h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.feature-section h2::before {
+    content: attr(data-icon); /* Use a custom attribute for icons/emojis */
+    margin-right: 10px;
+    font-size: 1.5em;
+}
+
+
+/* --- Ride Search Form (The most important part) --- */
+.search-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex; /* Use flexbox for layout */
+    gap: 10px; /* Space between form elements */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: stretch; /* Make all items the same height */
+    margin-bottom: 40px;
+    border: 1px solid #ddd;
+}
+
+.search-form input[type="text"],
+.search-form input[type="date"],
+
+
+/* --- Utility/Icon Styles (Optional: if you wrap your emoji in a span) --- */
+.icon {
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+/* --- Media Queries for Responsiveness --- */
+@media (max-width: 768px) {
+    .search-form {
+        flex-direction: column; /* Stack elements vertically on smaller screens */
+        gap: 15px;
+    }
+    .search-form input,
+    .search-form select,
+    .search-button {
+        width: 100%; /* Full width for form controls */
+        box-sizing: border-box;
+    }
+    .container {
+        margin: 20px;
+    }
+
+
+}
+
+
+/* Ride code */
+.ride-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 12px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.ride-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.ride-header, .ride-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ride-time {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3d3d3d;
+}
+
+.time {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+.arrow {
+  font-weight: bold;
+  color: #555;
+}
+
+.ride-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #027a48;
+}
+
+.ride-footer {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  font-size: 13px;
+}
+
+.driver-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.details {
+  color: #666;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.car, .passengers, .date {
+  font-size: 13px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Container */
+.mx-auto {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 50px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.mx-auto:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Input & select fields */
+.mx-auto input[type="date"],
+.mx-auto select {
+  flex: 1;
+  min-width: 150px;
+  padding: 12px 15px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  outline: none;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.mx-auto input[type="date"]:focus,
+.mx-auto select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  background-color: #fff;
+}
+
+/* Dropdown first option styling */
+.mx-auto select option[disabled] {
+  color: #888;
+}
+
+/* Search button */
+.mx-auto button {
+  padding: 12px 30px;
+  background-color: #0284c7; /* Sky blue */
+  color: #fff;
+  font-size: 1.05em;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.mx-auto button:hover {
+  background-color: #0369a1;
+  transform: translateY(-2px);
+}
+
+.mx-auto button:active {
+  transform: translateY(1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mx-auto {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 20px 15px;
+  }
+
+  .mx-auto input[type="date"],
+  .mx-auto select,
+  .mx-auto button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Grid container */
+section.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Card styling */
+section.grid > div {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-align: center;
+  cursor: default;
+}
+
+section.grid > div:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+/* Card emoji/icon */
+section.grid > div > div.text-sky-600 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+/* Card title */
+section.grid h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #111827;
+}
+
+/* Card description */
+section.grid p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  section.grid {
+    padding: 2rem 1rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+
+/* Hero Section Container */
+.pt-24 {
+  padding-top: 6rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #bae6fd, #ffffff); /* Sky gradient */
+}
+
+/* Hero Section Box */
+section.text-center {
+  background-color: #bae6fd; /* Light sky blue */
+  padding: 4rem 2rem;
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  margin-bottom: 3rem;
+  transition: all 0.3s ease;
+}
+
+section.text-center:hover {
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Hero Title */
+h1.text-4xl {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b; /* Dark slate gray */
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+/* Optional: add subtle animation */
+h1.text-4xl {
+  animation: fadeInUp 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  h1.text-4xl {
+    font-size: 2rem;
+  }
+
+  section.text-center {
+    padding: 3rem 1.5rem;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+}
+
+
+/* Main container */
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Profile image and name */
+.profile-display {
+  background-color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.profile-display:hover {
+  background-color: #f0f9ff;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+}
+
+.profile-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #38bdf8; /* Tailwind sky-500 */
+  object-fit: cover;
+}
+
+.profile-name {
+  font-weight: 600;
+  color: #374151; /* gray-700 */
+  font-size: 15px;
+}
+
+/* Dropdown menu */
+.profile-dropdown {
+  background-color: #fff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  width: 190px;
+  animation: fadeIn 0.25s ease-in-out;
+  z-index: 50;
+}
+
+/* Dropdown items */
+.profile-dropdown ul {
+  list-style-type: none;
   margin: 0;
-  font-size: 1rem;
+  padding: 4px 0;
+}
+
+.profile-dropdown li {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: 6px;
+  margin: 2px 6px;
+}
+
+.profile-dropdown li:hover {
+  background-color: #e0f2fe; /* sky-100 */
+  color: #0369a1; /* sky-700 */
+}
+
+.profile-dropdown li.logout {
+  color: #dc2626; /* red-600 */
+  font-weight: 500;
+}
+
+.profile-dropdown li.logout:hover {
+  background-color: #fee2e2;
+  color: #b91c1c; /* darker red */
+}
+
+/* Smooth dropdown fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Profile Dropdown Menu ===== */
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 200px;
+  padding: 6px 0;
+  animation: fadeIn 0.25s ease-in-out;
+  z-index: 100;
+}
+
+/* Dropdown List */
+.profile-dropdown ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Dropdown Items */
+.profile-dropdown li {
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151; /* gray-700 */
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border-radius: 6px;
+  margin: 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Hover Effect */
+.profile-dropdown li:hover {
+  background-color: #e0f2fe; /* sky-100 */
+  color: #0369a1; /* sky-700 */
+  transform: translateX(3px);
+}
+
+/* Logout Button Style */
+.profile-dropdown li.logout {
+  color: #dc2626; /* red-600 */
+  font-weight: 600;
+}
+
+.profile-dropdown li.logout:hover {
+  background-color: #fee2e2;
+  color: #b91c1c; /* red-700 */
+}
+
+/* Add subtle fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optional: Add icons to the menu (if desired later) */
+.profile-dropdown li::before {
+  content: '•';
+  font-size: 18px;
+  color: transparent; /* hidden by default */
+  transition: color 0.3s ease;
+}
+
+.profile-dropdown li:hover::before {
+  color: #0ea5e9; /* sky-500 */
+}
+
+
+input[type="text"] {
+ 
+
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  flex-grow: 1; /* Allow fields to grow */
+  min-width: 150px; /* Minimum width for inputs */
+  transition: border-color 0.3s, box-shadow 0.3s;
+  -webkit-appearance: none; /* Remove default styling for better control */
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #f9f9f9;
+}
+
+input[type="text"]:focus {
+  border-color: #0284c7; /* sky-600 */
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3); /* light blue focus ring */
+}
+
+
+
+
+
+
+
+/* Autocomplete Dropdown (Google/Uber style) */
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 6px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0; /* gray-300 */
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  max-height: 260px;
+  overflow-y: auto;
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* List item */
+.autocomplete-item {
+  padding: 12px 16px;
+  font-size: 15px;
+  color: #374151; /* gray-700 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Location icon bullet (like Google Maps) */
+.autocomplete-item::before {
+  content: "📍";
+  font-size: 1.1rem;
+}
+
+/* Hover state */
+.autocomplete-item:hover {
+  background-color: #e0f2fe; /* sky-100 */
+  color: #0369a1; /* sky-700 */
+}
+
+/* Divider line between results */
+.autocomplete-item:not(:last-child) {
+  border-bottom: 1px solid #f1f5f9; /* gray-100 */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .autocomplete-list {
+    max-height: 200px;
+  }
+}
+
+/* Simple fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+  }
 }

@@ -1,0 +1,38 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <img
+        [src]="user.imageUrl || 'assets/default-user.png'"
+        alt="Profile Picture"
+        class="profile-img"
+      />
+      <h2 class="profile-name">{{ user.name || 'Guest User' }}</h2>
+      <p class="profile-age">Age: {{ user.age || 'N/A' }}</p>
+    </div>
+
+    <!-- Description -->
+    <div class="profile-description">
+      <p>
+        {{ user.description || 'Loves travelling and meeting new people. Exploring the world one ride at a time!' }}
+      </p>
+    </div>
+
+    <!-- Ride Stats -->
+    <div class="ride-stats">
+      <div class="stat-card">
+        <h3>{{ user.ridesBooked || 0 }}</h3>
+        <p>Rides Booked</p>
+      </div>
+      <div class="stat-card">
+        <h3>{{ user.ridesTraveled || 0 }}</h3>
+        <p>Rides Traveled</p>
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <p><strong>📞 Phone:</strong> {{ user.phone || 'Not Available' }}</p>
+    </div>
+  </div>
+</div>

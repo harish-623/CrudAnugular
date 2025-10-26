@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
   onSubmitRegister(): void {
     if (this.registerForm.valid) {
       const registerData = this.registerForm.value;
-      this.http.post<any>('http://localhost:8095/register', registerData).pipe(
+      this.http.post<any>('https://spring-boot-crud-3qhx.onrender.com/login/register', registerData).pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.error instanceof ErrorEvent) {
             console.error('An error occurred:', error.error.message);

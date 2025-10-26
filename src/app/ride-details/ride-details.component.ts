@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ride-details',
@@ -17,7 +18,7 @@ export class RideDetailsComponent {
   rideId!: number;
   ride: any 
 
-  constructor(private route: ActivatedRoute, private http: HttpClient,private authService: AuthService) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient,private authService: AuthService,private router: Router) {}
 
   ngOnInit(): void {
     // Get ride ID from route parameters
@@ -53,6 +54,14 @@ export class RideDetailsComponent {
   }
 
   bookRide(){
+
+  const token = localStorage.getItem('userToken');
+
+  if (!token) {
+    alert("Please login to continue booking!");
+    this.router.navigate(['/login']);
+    return;
+  }
 
     if (!this.ride) {
     console.error('Ride details not loaded yet.');

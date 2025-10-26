@@ -1,0 +1,34 @@
+<div class="publish-ride-container">
+  <h2>Publish Your Ride</h2>
+
+  <form (ngSubmit)="publishRide()" #rideForm="ngForm">
+    
+    <label>Leaving From:</label>
+    <input type="text" [(ngModel)]="leavingFrom" name="leavingFrom" required />
+
+    <label>Going To:</label>
+    <input type="text" [(ngModel)]="goingTo" name="goingTo" required />
+
+    <label>Date:</label>
+    <input type="date" [(ngModel)]="date" name="date" required />
+
+    <label>Time:</label>
+    <input type="time" [(ngModel)]="time" name="time" required />
+
+    <label>Passenger Limit:</label>
+    <select [(ngModel)]="passengerLimit" name="passengerLimit" required>
+      <option [value]="1">1</option>
+      <option [value]="2">2</option>
+      <option [value]="3">3</option>
+      <option [value]="4">4</option>
+    </select>
+
+    <label>Car Type:</label>
+    <input type="text" [(ngModel)]="carType" name="carType" required />
+
+    <label>Fare (₹):</label>
+    <input type="number" [(ngModel)]="amount" name="amount" required />
+
+    <button type="submit">Publish Ride</button>
+  </form>
+</div>

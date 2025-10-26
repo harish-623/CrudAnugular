@@ -32,6 +32,10 @@ export class HomepageComponent {
     
   }
 
+  goToPublishRide() {
+  this.router.navigate(['/publish-ride']); // Replace with your route path
+}
+
   searchRides() {
     // Build the payload to send to backend
     const payload = {

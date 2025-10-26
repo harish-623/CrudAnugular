@@ -6,6 +6,8 @@ import { RegisterComponent } from './register/register.component';
 import { MoviesComponent } from './movies/movies.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RideDetailsComponent } from './ride-details/ride-details.component';
+import { PublishRideComponent } from './publish-ride/publish-ride.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,7 +17,8 @@ const routes: Routes = [
   { path: 'home', component: HomepageComponent },
   {path: 'register',component:RegisterComponent},
   {path: 'movies',component:MoviesComponent},
-  {path:'profile',component:ProfileComponent}
+  {path:'profile',component:ProfileComponent},
+  { path: 'publish-ride', component: PublishRideComponent },
 ];
 
 @NgModule({

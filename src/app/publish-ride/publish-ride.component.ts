@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./publish-ride.component.css']
 })
 export class PublishRideComponent {
-   leavingFrom: string = '';
+  leavingFrom: string = '';
   goingTo: string = '';
   date: string = '';
   time: string = '';
@@ -26,17 +26,19 @@ export class PublishRideComponent {
     }
 
     const payload = {
-      riderName: this.riderName,
-      leavingFrom: this.leavingFrom,
-      goingTo: this.goingTo,
-      date: this.date,
-      time: this.time,
-      passengerLimit: this.passengerLimit,
-      amount: this.amount,
-      carType: this.carType,
-      contactNumber: this.contactNumber
-    };
+  riderName: this.riderName,
+  fromLocation: this.leavingFrom,   // map to backend key
+  toLocation: this.goingTo,         // map to backend key
+  rideDate: this.date,               // map to backend key
+  rideTime: this.time,               // map to backend key
+  passengerLimit: this.passengerLimit,
+  amount: this.amount,
+  carType: this.carType,
+  phoneNumber: this.contactNumber    // map to backend key
+};
 
+
+    console.log(payload)
     this.http.post('https://spring-boot-crud-3qhx.onrender.com/login/publishRide', payload)
       .subscribe({
         next: (res: any) => {

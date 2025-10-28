@@ -10,7 +10,8 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 })
 export class HomepageComponent {
 
-  username="Harish"
+  // username="Harish"
+  username = localStorage.getItem('username') || '';
   
 
 
@@ -65,7 +66,9 @@ export class HomepageComponent {
 
 
 showProfile = false;
-userName = 'Harish'; // Can come from login later
+userName = localStorage.getItem('username') || '';
+
+ // Can come from login later
 
 goToProfile() {
   this.router.navigate(['/profile']);

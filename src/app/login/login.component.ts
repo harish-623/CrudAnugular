@@ -58,9 +58,11 @@ export class LoginComponent implements OnInit {
       console.log(password)
   
       this.authService.login(username, password).subscribe(
-        (response: { success: any; }) => {
+        (response: { success: boolean; username: string; token: string }) => {
           if (response.success) {
             // alert('Login Successful');
+            localStorage.setItem('username', response.username);
+            console.log(username)
             this.router.navigate(['/home']);
             // this.showSuccessMessage();
           } else {

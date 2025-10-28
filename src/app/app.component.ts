@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor(private router: Router) {}
   showProfile = false;
-userName = 'UdayKumar';
+// userName = 'UdayKumar';
 
   goToProfile() {
   this.router.navigate(['/profile']);

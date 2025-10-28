@@ -37,7 +37,7 @@ export class RegisterComponent {
                     
                     (error) => {
                       if (error.error) {
-                        this.responseMessage = error.error; // Backend error message: "User registration failed"
+                        this.responseMessage = "User Registration Failed"; // Backend error message: "User registration failed"
                     } else {
                         this.responseMessage = 'An unexpected error occurred. Please try again.';
                     }

@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
   }
 
   fetchUserProfile(username: string): void {
-      const apiUrl = `http://localhost:8095/login/profileRetrive?username=${username}`;
+      const apiUrl = `https://spring-boot-crud-3qhx.onrender.com/login/profileRetrive?username=${username}`;
 
     this.http.get<any[]>(apiUrl).subscribe(
       (response) => {

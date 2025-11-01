@@ -11,7 +11,7 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 export class HomepageComponent {
 
   // username="Harish"
-  username = localStorage.getItem('username') || '';
+  username   = localStorage.getItem('username') || '';
   
 
 
@@ -19,6 +19,7 @@ export class HomepageComponent {
   goingTo: string = '';
   date: string = '';
   passengers: number = 1;
+  noResultsMessage: string = '';
 
   searchResults: any[] = []; // To store results from backend
   fromSuggestions: any[] = [];
@@ -52,6 +53,15 @@ export class HomepageComponent {
         (results) => {
           this.searchResults = results;
           console.log('Search Results:', results);
+          if (results && results.length > 0) {
+        this.searchResults = results;
+        console.log('Search Results:', results);
+      } else {
+        this.searchResults = [];
+        console.log('No rides found');
+        this.noResultsMessage = 'No rides found';
+        // alert('No rides found'); // or show this message in UI instead of alert
+      }
         },
         (error) => {
           console.error('Error fetching search results:', error);
@@ -71,7 +81,8 @@ userName = localStorage.getItem('username') || '';
  // Can come from login later
 
 goToProfile() {
-  this.router.navigate(['/profile']);
+  // this.router.navigate(['/profile']) ;
+  this.router.navigate(['/profile'], { queryParams: { username: this.userName } });
 }
 
 goToMyRides() {
@@ -87,12 +98,19 @@ logout() {
   
  
 
+
+
+
+
+
+
   searchPlaces(query: string, type: 'from' | 'to') {
     if (query.length < 2) return;
-
+    
     // const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}
     &addressdetails=1&limit=5&countrycodes=in&accept-language=en`;
+
 
     // this.http.get<any[]>(url).subscribe((data) => {
     //   if (type === 'from') this.fromSuggestions = data;

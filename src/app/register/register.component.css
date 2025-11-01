@@ -80,3 +80,116 @@ h2 {
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
+
+/* Background setup */
+body {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Center the form container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Form card styling */
+form {
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+form:hover {
+  transform: translateY(-5px);
+}
+
+/* Title */
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #4a4a4a;
+  font-weight: 600;
+}
+
+/* Input fields */
+.form-control {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  border-radius: 0;
+  padding: 10px 5px;
+  font-size: 15px;
+  width: 100%;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.form-control:focus {
+  border-color: #6e8efb;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Labels */
+label {
+  font-weight: 500;
+  color: #555;
+  margin-top: 15px;
+}
+
+/* Submit button */
+button.btn-primary {
+  width: 100%;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  border: none;
+  padding: 12px;
+  border-radius: 30px;
+  font-size: 16px;
+  color: white;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-top: 25px;
+}
+
+button.btn-primary:hover {
+  background: linear-gradient(135deg, #5a7df5, #916de0);
+  transform: scale(1.03);
+}
+
+/* Response message styles */
+.alert {
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+.alert-success {
+  background-color: #e6ffed;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+}
+
+.alert-danger {
+  background-color: #fdecea;
+  color: #c62828;
+  border: 1px solid #c62828;
+}
+
+/* Responsive design */
+@media (max-width: 500px) {
+  form {
+    width: 90%;
+    padding: 30px;
+  }
+}
+

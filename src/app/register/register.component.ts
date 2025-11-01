@@ -17,13 +17,17 @@ export class RegisterComponent {
 
     constructor(private fb: FormBuilder, private http: HttpClient,private userService:RegisteService,private router: Router) {
         this.userForm = this.fb.group({
-            username: ['', [Validators.required, Validators.minLength(3)]],
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(6)]],
+          username: ['', [Validators.required]],
+          email: ['', [Validators.required, Validators.email]],
+          password: ['', [Validators.required, Validators.minLength(6)]],
+          phonenumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+          age: ['', [Validators.required, Validators.min(18)]],
+          fullname: ['', [Validators.required]]
         });
     }
 
     onSubmit() {
+      console.log(this.userForm)
         if (this.userForm.valid) {
           this.userService.createUser(this.userForm.value).subscribe(
             (response: any) => {

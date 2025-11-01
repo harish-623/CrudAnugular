@@ -103,6 +103,9 @@
   </button>
 </div>
 
+  <div *ngIf="noResultsMessage" class="no-results">
+  🚗 {{ noResultsMessage }}
+</div>
 
 
   <div class="search-results-container" *ngIf="searchResults && searchResults.length > 0">

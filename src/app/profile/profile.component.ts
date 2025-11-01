@@ -1,21 +1,78 @@
-import { Component } from '@angular/core';
+import { Component ,OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
-  user = {
-  name: 'Harish Nallabothula',
-  age: 24,
-  phone: '+91 9876543210',
-  imageUrl: '',
-  description: 'Passionate about exploring new places and connecting with like-minded travelers.',
-  ridesBooked: 12,
-  ridesTraveled: 9
-};
+//   user = {
+//   name: 'Harish Nallabothula',
+//   age: 24,
+//   phone: '+91 9876543210',
+//   imageUrl: '',
+//   description: 'Passionate about exploring new places and connecting with like-minded travelers.',
+//   ridesBooked: 12,
+//   ridesTraveled: 9
+// };
 
+  user: any = {};
+  noResultsMessage: string = '';
+
+  constructor(
+    private route: ActivatedRoute,
+     private http: HttpClient
+    // private profileService: ProfileService
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const username = params['username'];
+      if (username) {
+        console.log('Username received:', username);
+        this.fetchUserProfile(username);
+      } else {
+        this.noResultsMessage = 'No username provided.';
+      }
+    });
+  }
+
+  fetchUserProfile(username: string): void {
+      const apiUrl = `http://localhost:8095/login/profileRetrive?username=${username}`;
+
+    this.http.get<any[]>(apiUrl).subscribe(
+      (response) => {
+        console.log('API Response:', response);
+
+        if (response && response.length > 0) {
+          const data = response[0];
+          this.noResultsMessage = '';
+          console.log('User profile:', this.user);
+          this.user = {
+            name: data.fullname || data.username,
+            age: data.age,
+            phone:data.phonenumber,
+
+            // fullname=data.fullname,
+            imageUrl: 'assets/default-user.png',
+            description: 'Passionate traveler and ride enthusiast!',
+            ridesBooked: 12,
+            ridesTraveled: 9
+          };
+          
+        } else {
+          this.user = null;
+          this.noResultsMessage = 'No profile found for this user.';
+        }
+      },
+      (error) => {
+        console.error('Error fetching user profile:', error);
+        this.noResultsMessage = 'Error fetching user profile.';
+      }
+    );
+  }
 
 }

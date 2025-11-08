@@ -17,6 +17,8 @@ export class RideDetailsComponent {
 
   rideId!: number;
   ride: any 
+  selectedPassengers: number = 1;
+  errorMessage: string = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient,private authService: AuthService,private router: Router) {}
 
@@ -29,7 +31,7 @@ export class RideDetailsComponent {
   }
 
   getRideDetails() {
-    this.http.get<any>(` https://spring-boot-crud-3qhx.onrender.com/login/${this.rideId}`)
+    this.http.get<any>(` http://localhost:8095/login/${this.rideId}`)
       .subscribe(
         (response) => {
           this.ride = response;
@@ -55,53 +57,49 @@ export class RideDetailsComponent {
 
   bookRide(){
 
-  const token = localStorage.getItem('userToken');
-
-  if (!token) {
-    alert("Please login to continue booking!");
-    this.router.navigate(['/login']);
-    return;
-  }
-
     if (!this.ride) {
     console.error('Ride details not loaded yet.');
     return;
 
   }
+
+    if (!this.selectedPassengers || this.selectedPassengers <= 0) {
+    console.error('⚠️ Please select the number of passengers.');
+    return;
+  }
+
+    const token = localStorage.getItem('userToken');
+    const passengerId = localStorage.getItem('driverId');
+    const rideId = this.rideId; // or this.ride.id depending on your object
+    console.log(rideId)
+    
+    const seatsBooked = this.selectedPassengers;
+    console.log(seatsBooked)
+    const url = `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
+
+  this.http.post(url, {}).subscribe({
+    next: (res: any) => {
+      console.log(res)
+      if (res.result === 'Success') {
+          console.log('🎉', res.message);
+          alert("Ride booked Successfully")
+          this.router.navigate(['/home']);
+        } else {
+          this.errorMessage = res.message || 'Booking failed. Please try again.';
+        }
+    },
+    error: (err) => {
+      console.error('Error booking ride:', err);
+      alert('Failed to book the ride. Please try again.');
+    }
+  });
+
+
+    
   
 
-  // Check if user is logged in / registered
-  // const currentUser = this.authService.getCurrentUser(); // Get user from a service
-  // if (!currentUser) {
-  //   alert('Please login or register to book a ride.');
-  //   this.router.navigate(['/login']); // Redirect to login page
-  //   return;
-  // }
-
-  const payload = {
-    rideId: this.ride.id,
-    riderName: this.ride.riderName,
-    from: this.ride.from,
-    to: this.ride.to,
-    date: this.ride.date,
-    time: this.ride.time,
-    carType: this.ride.carType,
-    passengerLimit: this.ride.passengerLimit,
-    amount: this.ride.amount,
-    phoneNumber: this.ride.phoneNumber
-  };
-  console.log(payload)
-  this.http.post('http://localhost:8095/login/bookride', payload)
-    .subscribe(
-      (response) => {
-        console.log('Ride booked successfully', response);
-        alert('Ride booked successfully!');
-      },
-      (error) => {
-        console.error('Error booking ride', error);
-        alert('Failed to book ride.');
-      }
-    );
+  
+ 
   }
 
 }

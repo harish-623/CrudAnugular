@@ -16,6 +16,7 @@ import { MoviesComponent } from './movies/movies.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RideDetailsComponent } from './ride-details/ride-details.component';
 import { PublishRideComponent } from './publish-ride/publish-ride.component';
+import { MyRidesComponent } from './my-rides/my-rides.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PublishRideComponent } from './publish-ride/publish-ride.component';
     MoviesComponent,
     ProfileComponent,
     RideDetailsComponent,
-    PublishRideComponent
+    PublishRideComponent,
+    MyRidesComponent
   ],
   imports: [
     BrowserModule,

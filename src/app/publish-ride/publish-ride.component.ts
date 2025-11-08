@@ -39,7 +39,11 @@ export class PublishRideComponent {
 
 
     console.log(payload)
-    this.http.post('https://spring-boot-crud-3qhx.onrender.com/login/publishRide', payload)
+    const driverId = localStorage.getItem('driverId');
+    
+    console.log(driverId)
+    const url = `http://localhost:8095/login/publish/${driverId}`;
+    this.http.post(url, payload)
       .subscribe({
         next: (res: any) => {
           alert('Ride Published Successfully!');

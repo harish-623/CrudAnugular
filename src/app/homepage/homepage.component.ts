@@ -10,8 +10,9 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 })
 export class HomepageComponent {
 
-  // username="Harish"
+  
   username   = localStorage.getItem('username') || '';
+  driverId=localStorage.getItem('driverId') || '';
   
 
 
@@ -48,11 +49,9 @@ export class HomepageComponent {
     };
     console.log(payload)
 
-    this.http.post<any[]>(' https://spring-boot-crud-3qhx.onrender.com/login/search', payload)
+    this.http.post<any[]>(' http://localhost:8095/login/search', payload)
       .subscribe(
         (results) => {
-          this.searchResults = results;
-          console.log('Search Results:', results);
           if (results && results.length > 0) {
         this.searchResults = results;
         console.log('Search Results:', results);
@@ -86,7 +85,8 @@ goToProfile() {
 }
 
 goToMyRides() {
-  this.router.navigate(['/my-rides']);
+  
+  this.router.navigate(['/my-rides'], { queryParams: { driverId: this.driverId } });
 }
 
 logout() {

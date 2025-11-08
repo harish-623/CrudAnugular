@@ -9,15 +9,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProfileComponent implements OnInit {
 
-//   user = {
-//   name: 'Harish Nallabothula',
-//   age: 24,
-//   phone: '+91 9876543210',
-//   imageUrl: '',
-//   description: 'Passionate about exploring new places and connecting with like-minded travelers.',
-//   ridesBooked: 12,
-//   ridesTraveled: 9
-// };
 
   user: any = {};
   noResultsMessage: string = '';
@@ -41,7 +32,7 @@ export class ProfileComponent implements OnInit {
   }
 
   fetchUserProfile(username: string): void {
-      const apiUrl = `https://spring-boot-crud-3qhx.onrender.com/login/profileRetrive?username=${username}`;
+      const apiUrl = `http://localhost:8095/login/profileRetrive?username=${username}`;
 
     this.http.get<any[]>(apiUrl).subscribe(
       (response) => {

@@ -12,6 +12,8 @@ export class ProfileComponent implements OnInit {
 
   user: any = {};
   noResultsMessage: string = '';
+  selectedFile: File | null = null;
+  userImageUrl: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +33,41 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadImage() {
+    if (!this.selectedFile) {
+      alert('Please select an image!');
+      return;
+    }
+
+  const formData = new FormData();
+  formData.append('image', this.selectedFile);
+
+  const userId = localStorage.getItem('driverId');
+
+  this.http.post(`http://localhost:8095/login/user/${userId}/upload-image`, formData)
+    .subscribe({
+      next: (res) => {
+        alert('Image uploaded successfully!');
+        this.loadUserImage(); // reload image after upload
+      },
+      error: (err) => console.error(err)
+    });
+}
+
+  loadUserImage() {
+  const userId = localStorage.getItem('driverId');
+  this.userImageUrl = `http://localhost:8095/login/user/${userId}/image`;
+}
+
+
+  
+
   fetchUserProfile(username: string): void {
       const apiUrl = `http://localhost:8095/login/profileRetrive?username=${username}`;
 
@@ -48,7 +85,7 @@ export class ProfileComponent implements OnInit {
             phone:data.phonenumber,
 
             // fullname=data.fullname,
-            imageUrl: 'assets/default-user.png',
+            imageUrl: 'assets/default-user.jpg',
             description: 'Passionate traveler and ride enthusiast!',
             ridesBooked: 12,
             ridesTraveled: 9

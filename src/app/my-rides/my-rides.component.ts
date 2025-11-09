@@ -13,6 +13,7 @@ export class MyRidesComponent implements OnInit {
   rides: any[] = [];
   noResultsMessage: string = '';
   loading: boolean = true;
+  driverId!: number; 
 
   rideCount: number = 0;
 
@@ -23,10 +24,11 @@ export class MyRidesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const driverId = params['driverId'];
-      if (driverId) {
-        console.log('driverID received:', driverId);
-        this.fetchDriverRides(driverId);
+      const driverIdParam  = params['driverId'];
+      if (driverIdParam ) {
+        this.driverId = +driverIdParam;
+        console.log('driverID received:', this.driverId );
+        this.fetchDriverRides(this.driverId);
         
       } else {
         this.noResultsMessage = 'No username provided.';
@@ -68,6 +70,23 @@ export class MyRidesComponent implements OnInit {
       }
     });
   }
+
+  cancelRide(bookingId: number): void {
+  if (confirm('Are you sure you want to cancel this ride?')) {
+    const apiUrl = `http://localhost:8095/login/cancelRide/${bookingId}`;
+
+    this.http.put(apiUrl, {}).subscribe({
+      next: (response: any) => {
+        alert(response.message);
+        this.fetchDriverRides(this.driverId); // refresh rides after cancellation
+      },
+      error: (err) => {
+        console.error('Error cancelling ride:', err);
+        alert('Error cancelling ride. Please try again.');
+      }
+    });
+  }
+}
   
   
   

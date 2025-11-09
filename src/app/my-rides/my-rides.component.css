@@ -123,3 +123,19 @@
   color: #00b894;
   margin-right: 6px;
 }
+
+.cancel-btn {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #c62828;
+}
+

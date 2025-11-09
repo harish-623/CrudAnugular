@@ -39,8 +39,15 @@
 
       <div class="ride-footer">
         <p><i class="fa-regular fa-calendar"></i> 
-          {{ ride.createdAt | date: 'medium' }}
+            <strong>Booked on:</strong>
+          {{ ride.bookedOn | date: 'medium' }}
         </p>
+        <button 
+    *ngIf="ride.status === 'BOOKED'" 
+    class="cancel-btn" 
+    (click)="cancelRide(ride.bookingId)">
+    Cancel Ride
+  </button>
       </div>
     </div>
   </div>

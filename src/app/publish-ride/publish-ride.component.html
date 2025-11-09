@@ -1,4 +1,4 @@
-<div class="publish-ride-container">
+<!-- <div class="publish-ride-container">
   <h2>Publish Your Ride</h2>
 
   <form (ngSubmit)="publishRide()" #rideForm="ngForm">
@@ -31,4 +31,104 @@
 
     <button type="submit">Publish Ride</button>
   </form>
+</div> -->
+
+<div class="publish-ride-container">
+  <div class="ride-card">
+    <h2 class="ride-title">🚗 Publish Your Ride</h2>
+    <p class="ride-subtitle">Share your route and help others reach their destination</p>
+
+    <form (ngSubmit)="publishRide()" #rideForm="ngForm" class="ride-form">
+
+      <!-- <div class="form-group">
+        <label>Leaving From</label>
+        <input type="text" [(ngModel)]="leavingFrom" name="leavingFrom" required placeholder="Enter pickup location" />
+      </div> -->
+
+      <div class="form-group autocomplete-group">
+        <label>Leaving From</label>
+        <input 
+          type="text" 
+          [(ngModel)]="leavingFrom" 
+          name="leavingFrom" 
+          required 
+          placeholder="Enter pickup location"
+          (input)="searchPlaces(leavingFrom, 'from')" />
+
+        <ul *ngIf="fromSuggestions.length > 0" class="suggestions-list">
+          <li class="suggestion-item" *ngFor="let place of fromSuggestions" (click)="selectPlace(place.formattedName, 'from')">
+            {{ place.formattedName }}
+            
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-group autocomplete-group">
+        <label>Going To</label>
+        <input 
+          type="text" 
+          [(ngModel)]="goingTo" 
+          name="goingTo" 
+          required 
+          placeholder="Enter destination location"
+          (input)="searchPlaces(goingTo, 'to')" />
+
+        <ul *ngIf="toSuggestions.length > 0" class="suggestions-list">
+          <li class="suggestion-item" *ngFor="let place of toSuggestions" (click)="selectPlace(place.formattedName, 'to')">
+            {{ place.formattedName }}
+            
+          </li>
+        </ul>
+      </div>
+
+      <!-- <div class="form-group">
+        <label>Going To</label>
+        <input type="text" [(ngModel)]="goingTo" name="goingTo" required placeholder="Enter drop location" />
+      </div> -->
+
+      <div class="form-inline">
+        <div class="form-group half">
+          <label>Date</label>
+          <input type="date" [(ngModel)]="date" name="date" required />
+        </div>
+
+        <div class="form-group half">
+          <label>Time</label>
+          <input type="time" [(ngModel)]="time" name="time" required />
+        </div>
+      </div>
+
+      <div class="form-inline">
+        <div class="form-group half">
+          <label>Passenger Limit</label>
+          <select [(ngModel)]="passengerLimit" name="passengerLimit" required>
+            <option [value]="1">1</option>
+            <option [value]="2">2</option>
+            <option [value]="3">3</option>
+            <option [value]="4">4</option>
+          </select>
+        </div>
+
+        <div class="form-group half">
+          <label>Car Type</label>
+          <input type="text" [(ngModel)]="carType" name="carType" required placeholder="E.g., Sedan, SUV" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Fare (₹)</label>
+        <input type="number"  required
+    min="1"[(ngModel)]="amount" name="amount" required placeholder="Enter amount per seat" />
+      </div>
+
+      <button type="submit" class="publish-btn" [disabled]="rideForm.invalid">
+        <span>🚀 Publish Ride</span>
+      </button>
+
+      <div *ngIf="loading" class="loader-container">
+      <div class="spinner"></div>
+      <p>Publishing your ride...</p>
+    </div>
+    </form>
+  </div>
 </div>

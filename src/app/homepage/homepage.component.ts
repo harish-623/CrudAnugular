@@ -49,17 +49,27 @@ export class HomepageComponent {
     };
     console.log(payload)
 
-    this.http.post<any[]>(' http://localhost:8095/login/search', payload)
+    this.http.post<any[]>('http://localhost:8095/login/search', payload)
       .subscribe(
         (results) => {
-          if (results && results.length > 0) {
+          console.log('Raw API response:', results); 
+      //     if (results && results.length > 0) {
+      //   this.searchResults = results;
+      //   console.log('Search Results:', results);
+      // } else {
+      //   this.searchResults = [];
+      //   console.log('No rides found');
+      //   this.noResultsMessage = 'No rides found';
+      //   // alert('No rides found'); // or show this message in UI instead of alert
+      // }
+      if (Array.isArray(results) && results.length > 0) {
         this.searchResults = results;
-        console.log('Search Results:', results);
+        this.noResultsMessage = '';
+        console.log('✅ Search Results:', results);
       } else {
         this.searchResults = [];
-        console.log('No rides found');
         this.noResultsMessage = 'No rides found';
-        // alert('No rides found'); // or show this message in UI instead of alert
+        console.log('⚠️ No rides found');
       }
         },
         (error) => {

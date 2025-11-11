@@ -110,7 +110,32 @@ logout() {
 
 
 
+triggerSOS()
+{
+  const email=localStorage.getItem('email')
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const payload = {
+          email: email,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        console.log(payload)
+        this.http.post('http://localhost:8095/login/alert', payload).subscribe({
+          next: (res) => alert('🚨 SOS alert sent successfully! Help is on the way.'),
+          error: (err) => alert('❌ Failed to send SOS alert. Please try again.'),
+        });
+      },
+      (error) => {
+        alert('⚠️ Unable to get your location. Please enable GPS.');
+      }
+    );
+  } else {
+    alert('Geolocation not supported by your browser.');
+  }
 
+}
 
 
 

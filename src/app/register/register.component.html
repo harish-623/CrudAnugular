@@ -60,6 +60,37 @@
         placeholder="Enter Email"
         required
       />
+      <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="sendOtp()"
+          [disabled]="userForm.get('email')?.invalid || otpSent"
+        >
+          {{ otpSent ? 'OTP Sent' : 'Send OTP' }}
+        </button>
+    </div>
+
+    <div *ngIf="otpSent" class="form-group mt-3">
+      <label for="otp">Enter OTP</label>
+      <div class="input-group">
+        <input
+          type="text"
+          id="otp"
+          formControlName="otp"
+          class="form-control"
+          placeholder="Enter the OTP"
+          required
+        />
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="verifyOtp()"
+          [disabled]="otpVerified"
+        >
+          {{ otpVerified ? 'Verified ✅' : 'Verify OTP' }}
+        </button>
+      </div>
+      <small *ngIf="otpVerified" class="text-success">Email verified successfully!</small>
     </div>
 
     <div class="form-group">
@@ -71,10 +102,11 @@
         class="form-control"
         placeholder="Enter Password"
         required
+        [disabled]="!otpVerified"
       />
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid || !otpVerified">
       Submit
     </button>
   </form>

@@ -6,7 +6,7 @@
       <div class="profile-container relative" (mouseenter)="showProfile = true" (mouseleave)="showProfile = false">
 
        <div class="profile-display flex items-center gap-3 cursor-pointer">
-    <img src="assets/user.png" alt="Profile" class="profile-img" />
+    <img src="assets/default-user.jpg" alt="Profile" class="profile-img" />
     <span class="profile-name">Hello,{{username}}</span>
   </div>
 
@@ -140,7 +140,14 @@
 </ng-template>
 
 
+
+
+
   </section>
+
+  <button class="sos-float-btn" (click)="triggerSOS()">
+  🚨 SOS 
+  </button>
 
   <!-- Info Cards Section -->
   <section class="grid grid-cols-1 md:grid-cols-3 gap-8 px-8 py-16">
@@ -171,7 +178,13 @@
       </p>
     </div>
   </section>
+
+
 </div>
+
+<!-- Floating SOS Button -->
+
+
 
 
 

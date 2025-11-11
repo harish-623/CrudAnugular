@@ -55,7 +55,7 @@ export class PublishRideComponent {
           this.loading = false;
           alert('Ride Published Successfully!');
           // this.router.navigate(['/home'], { queryParams: { driverId } });
-          this.router.navigate(['/home'])
+          this.router.navigate(['/my-publish-rides'])
           this.clearForm();
         },
         error: (err) => console.error(err)

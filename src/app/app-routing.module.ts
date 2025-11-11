@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RideDetailsComponent } from './ride-details/ride-details.component';
 import { PublishRideComponent } from './publish-ride/publish-ride.component';
 import { MyRidesComponent } from './my-rides/my-rides.component';
+import { DriverPublishRidesComponent } from './driver-publish-rides/driver-publish-rides.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'movies',component:MoviesComponent},
   {path:'profile',component:ProfileComponent},
   {path: 'publish-ride', component: PublishRideComponent },
-  {path:'my-rides',component:MyRidesComponent}
+  {path:'my-rides',component:MyRidesComponent},
+  {path:'my-publish-rides',component:DriverPublishRidesComponent}
 ];
 
 @NgModule({

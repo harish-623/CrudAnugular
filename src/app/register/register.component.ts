@@ -71,6 +71,12 @@ export class RegisterComponent {
     });
   }
 
+
+  showPassword = false;
+
+togglePassword() {
+  this.showPassword = !this.showPassword;
+}
   verifyOtp(): void {
   const email = this.userForm.get('email')?.value;
     const otp = this.userForm.get('otp')?.value;

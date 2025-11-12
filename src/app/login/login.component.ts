@@ -42,6 +42,12 @@ export class LoginComponent implements OnInit {
     this.loadLogo();
   }
 
+  showPassword = false;
+
+togglePassword() {
+  this.showPassword = !this.showPassword;
+}
+
   loadLogo() {
     const logoUrl = 'https://avatars.githubusercontent.com/u/124091983';
     this.imageLoader.loadImage(logoUrl).subscribe((blob: Blob) => {

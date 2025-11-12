@@ -311,3 +311,34 @@ h2 {
   color: #721c24;
 }
 
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .form-control {
+  padding-right: 60px; /* leave room for the Show/Hide button */
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.form-check-label {
+  font-size: 14px;
+  color: #333;
+}
+
+
+
+
+
+
+
+

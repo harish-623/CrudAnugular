@@ -483,14 +483,22 @@ h1.text-4xl {
 
 /* Dropdown menu */
 .profile-dropdown {
+  position: absolute;
+  top: 90%;           /* moved UP from 100%+10px */
+  right: -20px;       /* shift slightly left to align */
+  width: 200px;
   background-color: #fff;
-  border: 1px solid #e5e7eb; /* gray-200 */
+  
+  border: 1px solid #e5e7eb; /* gray-200  */
   border-radius: 10px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   width: 190px;
   animation: fadeIn 0.25s ease-in-out;
   z-index: 50;
+  right: -40px;
 }
+
+
 
 /* Dropdown items */
 .profile-dropdown ul {
@@ -536,27 +544,9 @@ h1.text-4xl {
   }
 }
 
-/* ===== Profile Dropdown Menu ===== */
-.profile-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb; /* gray-200 */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  width: 200px;
-  padding: 6px 0;
-  animation: fadeIn 0.25s ease-in-out;
-  z-index: 100;
-}
 
-/* Dropdown List */
-.profile-dropdown ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
+
+
 
 /* Dropdown Items */
 .profile-dropdown li {
@@ -580,16 +570,8 @@ h1.text-4xl {
   transform: translateX(3px);
 }
 
-/* Logout Button Style */
-.profile-dropdown li.logout {
-  color: #dc2626; /* red-600 */
-  font-weight: 600;
-}
 
-.profile-dropdown li.logout:hover {
-  background-color: #fee2e2;
-  color: #b91c1c; /* red-700 */
-}
+
 
 /* Add subtle fade-in animation */
 @keyframes fadeIn {

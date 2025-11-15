@@ -1,24 +1,28 @@
 
+<div class="home-wrapper">
+  <!-- YOUR FULL HOME PAGE HTML HERE -->
+
 <div class="pt-10 flex flex-col min-h-screen bg-gradient-to-b from-sky-100 to-white">
   <header class="flex justify-between items-center px-10 py-4 bg-white shadow-md fixed top-0 left-0 right-0 z-50"> 
-    <h1 class="text-2xl font-bold italic text-sky-700">Vyro</h1>
+    <!-- <h1 class="text-2xl font-bold italic text-sky-700">Vyro</h1> -->
 
-      <div class="profile-container relative" (mouseenter)="showProfile = true" (mouseleave)="showProfile = false">
+      <div class="profile-container" (mouseenter)="showProfile = true" (mouseleave)="showProfile = false">
 
-       <div class="profile-display flex items-center gap-3 cursor-pointer">
-    <img src="assets/default-user.jpg" alt="Profile" class="profile-img" />
-    <span class="profile-name">Hello,{{username}}</span>
-  </div>
+       <div class="profile-display ">
+        <img src="assets/default-user.jpg" alt="Profile" class="profile-img" />
+        <span class="profile-name">Hello,{{username}}</span>
+      </div>
 
       <!-- Dropdown -->
-      <div *ngIf="showProfile" class="profile-dropdown absolute right-0 mt-2">
-    <ul>
-      <li (click)="goToProfile()">My Profile</li>
-      <li (click)="goToMyRides()">My Rides</li>
-      <li (click)="goToMyRides()">My Published Rides</li>
-      <li class="logout" (click)="logout()">Logout</li>
-    </ul>
+      <div *ngIf="showProfile" class="profile-dropdown ">
+          <ul>
+            <li (click)="goToProfile()">My Profile</li>
+            <li (click)="goToMyRides()">My Rides</li>
+            <li (click)="goToMyPublishRides()">My Publish Rides</li>
+            <li class="logout" (click)="logout()">Logout</li>
+          </ul>
     </div>
+    
   </div>
 
    <!-- <div class="header-right"> -->

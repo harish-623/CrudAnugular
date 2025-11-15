@@ -25,7 +25,9 @@ export class DriverPublishRidesComponent {
     ngOnInit(): void {
       this.route.queryParams.subscribe(params => {
         // const driverIdParam  = params['driverId'];
-        const driverIdParam=14
+        const driverIdParam=localStorage.getItem("driverId")
+        console.log(driverIdParam)
+        // const driverIdParam=14
         if (driverIdParam ) {
           this.driverId = +driverIdParam;
           console.log('driverID received:', this.driverId );
@@ -39,7 +41,7 @@ export class DriverPublishRidesComponent {
     }
   
     fetchDriverRides(driverId: number): void {
-      const apiUrl = `http://localhost:8095/login/myrides/${driverId}`;
+      const apiUrl = `http://localhost:8095/login/driver/${driverId}`;
   
       this.http.get<{result: string; rideCount: number; rides: any[]; message: string }>(apiUrl).subscribe({
         next: (response: {result: string; rideCount:number; rides:any[]; message:string}) => {
@@ -58,7 +60,7 @@ export class DriverPublishRidesComponent {
               this.rides = [];
             }
           } else {
-            this.noResultsMessage = 'Failed to retrieve rides.';
+            this.noResultsMessage = 'No rides found';
           }
   
           this.loading = false;
@@ -72,19 +74,19 @@ export class DriverPublishRidesComponent {
       });
     }
   
-    cancelRide(bookingId: number): void {
+    cancelRide(rideId: number): void {
     if (confirm('Are you sure you want to cancel this ride?')) {
-      const apiUrl = `http://localhost:8095/login/cancelRide/${bookingId}`;
-  
-      this.http.put(apiUrl, {}).subscribe({
-        next: (response: any) => {
-          alert(response.message);
-          this.fetchDriverRides(this.driverId); // refresh rides after cancellation
-        },
-        error: (err) => {
-          console.error('Error cancelling ride:', err);
-          alert('Error cancelling ride. Please try again.');
-        }
+      const driverId = this.driverId;
+      const apiUrl = `http://localhost:8095/login/cancel/${rideId}/driver/${driverId}`;
+      this.http.put(apiUrl, { responseType: 'text' }).subscribe({
+        next: (response) => {
+      alert(response); // now "Ride cancelled successfully" works!
+      this.fetchDriverRides(driverId);
+    },
+    error: (err) => {
+      console.error('Error cancelling ride:', err);
+      alert('Error cancelling ride. Please try again.');
+    }
       });
     }
   }

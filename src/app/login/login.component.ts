@@ -64,12 +64,16 @@ togglePassword() {
       console.log(password)
   
       this.authService.login(username, password).subscribe(
-        (response: { success: boolean; username: string; token: string ;id:string ; email:string}) => {
+        (response: { success: boolean; username: string; token: string ;id:string ; email:string ; eemergencyEmail:string}) => {
           if (response.success) {
+            console.log(response)
             // alert('Login Successful');
             localStorage.setItem('username', response.username);
             localStorage.setItem('driverId',response.id)
-            localStorage.setItem('email',response.email)
+            
+            localStorage.setItem('emergencyEmail',response.eemergencyEmail)
+            console.log(localStorage.getItem('emergencyEmail'));
+
             
             console.log(username)
             this.router.navigate(['/home']);

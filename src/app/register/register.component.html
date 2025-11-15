@@ -60,21 +60,115 @@
         placeholder="Enter Email"
         required
       />
+<<<<<<< Updated upstream
     </div>
 
     <div class="form-group">
       <label for="password">Password</label>
       <input
         type="password"
+=======
+      <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="sendOtp()"
+          [disabled]="userForm.get('email')?.invalid || otpSent"
+        >
+          {{ otpSent ? 'OTP Sent' : 'Send OTP' }}
+        </button>
+    </div>
+
+    <div *ngIf="otpSent" class="form-group mt-3">
+      <label for="otp">Enter OTP</label>
+      <div class="input-group">
+        <input
+          type="text"
+          id="otp"
+          formControlName="otp"
+          class="form-control"
+          placeholder="Enter the OTP"
+          required
+        />
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="verifyOtp()"
+          [disabled]="otpVerified"
+        >
+          {{ otpVerified ? 'Verified ✅' : 'Verify OTP' }}
+        </button>
+      </div>
+      <small *ngIf="otpVerified" class="text-success">Email verified successfully!</small>
+    </div>
+
+    <!-- <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+>>>>>>> Stashed changes
         id="password"
         formControlName="password"
         class="form-control"
         placeholder="Enter Password"
         required
+<<<<<<< Updated upstream
       />
     </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+=======
+        [disabled]="!otpVerified"
+      />
+      <button
+    type="button"
+    (click)="togglePassword()"
+    class="btn btn-outline-secondary position-absolute end-0 top-50 translate-middle-y me-2"
+    style="border: none; background: transparent;"
+  >
+    <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+  </button>
+      
+    </div> -->
+
+    <div class="form-group">
+  <label for="password">Password</label>
+  <input
+   [type]="showPassword ? 'text' : 'password'"
+    id="password"
+    formControlName="password"
+    class="form-control"
+    placeholder="Enter Password"
+    required
+    [disabled]="!otpVerified"
+  />
+  <div class="form-check mt-2">
+    <input
+      type="checkbox"
+      id="showPasswordCheckbox"
+      class="form-check-input"
+      (change)="togglePassword()"
+    />
+    <label for="showPasswordCheckbox" class="form-check-label">Show Password</label>
+  </div>
+
+
+  <!-- <input type="checkbox" onclick="togglePassword()">Show Password
+  <button
+  type="button"
+  class="toggle-password-btn"
+  (click)="togglePassword()"
+  aria-label="Toggle password visibility"
+>
+  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+</button> -->
+
+</div>
+
+
+
+
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid || !otpVerified">
+>>>>>>> Stashed changes
       Submit
     </button>
   </form>

@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 .login-container {
+=======
+/* .login-container {
+>>>>>>> Stashed changes
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +49,11 @@
   }
 
   .status-message {
+<<<<<<< Updated upstream
     color: green; /* or any color you prefer for success messages */
+=======
+    color: green; /* or any color you prefer for success messages 
+>>>>>>> Stashed changes
     margin-top: 10px;
   }
 
@@ -75,4 +83,249 @@
   }
   button:hover{
     background: #6d44b8;
+<<<<<<< Updated upstream
   }
+=======
+  } */
+
+  /* ===== Center Container ===== */
+/* .login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f1f5f9;
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #1e3c72, #2a5298);
+  background-size: cover;
+  font-family: Arial, sans-serif;
+}
+
+/* ===== Login Card ===== */
+.login-form {
+  width: 320px;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* ===== Input Groups ===== */
+.form-group {
+  margin-bottom: 18px;
+  position: relative;
+}
+
+/* Labels */
+.form-group label {
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Input fields */
+.form-control {
+  width: 100%;
+  padding: 12px 14px;        /* FIX 1: Add padding */
+  border-radius: 8px;        /* FIX 2: Add border-radius properly */
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+  background-color: #eef3ff; /* Optional: matches your previous design */
+  box-sizing: border-box;    /* FIX 3: Prevent overflow */
+}
+
+.form-control:focus {
+  border-color: #0ea5e9;
+  outline: none;
+  box-shadow: 0 0 6px rgba(14, 165, 233, 0.4);
+}
+
+
+/* ===== Password Eye Icon ===== */
+.password-wrapper {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 40px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 37px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-password i {
+  font-size: 18px;
+  color: #475569;
+}
+
+/* ===== Buttons ===== */
+.btn-primary,
+.btn-secondary {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Login Button */
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Register Button */
+.btn-secondary {
+  background-color: #475569;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #334155;
+}
+
+/* ===== Status Message ===== */
+.status-message {
+  color: red;
+  text-align: center;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+/* ==== Full Page Background ==== */
+.login-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(to bottom right, #009ffd, #2a2a72);
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ==== Card ==== */
+.login-card {
+    background: #ffffffee;
+    width: 360px;
+    padding: 35px 25px;
+    border-radius: 16px;
+    box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    text-align: center;
+}
+
+/* ==== Logo or Car Icon ==== */
+.login-card .logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+/* ==== Title ==== */
+.login-card h2 {
+    margin-bottom: 20px;
+    color: #2a2a72;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+/* ==== Form group ==== */
+.form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+/* ==== Inputs ==== */
+.form-control {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #b8b8b8;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-control:focus {
+    border-color: #009ffd;
+    box-shadow: 0 0 5px rgba(0, 159, 253, 0.5);
+}
+
+/* ==== Login button ==== */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to right, #009ffd, #2a2a72);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.25s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ==== Signup Link ==== */
+.signup-text {
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .form-control {
+  padding-right: 60px; /* leave room for the Show/Hide button */
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.form-check-label {
+  font-size: 14px;
+  color: #333;
+}
+
+
+>>>>>>> Stashed changes

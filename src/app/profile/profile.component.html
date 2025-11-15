@@ -1,9 +1,20 @@
+<<<<<<< Updated upstream
 <div class="profile-container">
   <div class="profile-card">
     <!-- Profile Header -->
     <div class="profile-header">
       <img
         [src]="user.imageUrl || 'assets/default-user.png'"
+=======
+<!-- <div class="profile-container">
+  <div class="profile-card">
+    Profile Header
+    <div class="profile-header">
+      <input type="file" (change)="onFileSelected($event)" />
+      <button (click)="uploadImage()">Upload</button> 
+      <img
+        [src]="user.imageUrl || 'assets/default-user.jpg'"
+>>>>>>> Stashed changes
         alt="Profile Picture"
         class="profile-img"
       />
@@ -11,14 +22,22 @@
       <p class="profile-age">Age: {{ user.age || 'N/A' }}</p>
     </div>
 
+<<<<<<< Updated upstream
     <!-- Description -->
+=======
+   
+>>>>>>> Stashed changes
     <div class="profile-description">
       <p>
         {{ user.description || 'Loves travelling and meeting new people. Exploring the world one ride at a time!' }}
       </p>
     </div>
 
+<<<<<<< Updated upstream
     <!-- Ride Stats -->
+=======
+   
+>>>>>>> Stashed changes
     <div class="ride-stats">
       <div class="stat-card">
         <h3>{{ user.ridesBooked || 0 }}</h3>
@@ -30,9 +49,76 @@
       </div>
     </div>
 
+<<<<<<< Updated upstream
     <!-- Contact Info -->
+=======
+    
+>>>>>>> Stashed changes
     <div class="contact-info">
       <p><strong>📞 Phone:</strong> {{ user.phone || 'Not Available' }}</p>
     </div>
   </div>
+<<<<<<< Updated upstream
 </div>
+=======
+</div> -->
+
+<div class="profile-container">
+  <div class="profile-card">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <img
+        [src]="user.profileImage || 'assets/default-user.jpg'"
+        alt="Profile Picture"
+        class="profile-img"
+      />
+
+      <h2 class="profile-name">{{ user.fullname }}</h2>
+      <p class="profile-age">Age: {{ user.age || 'N/A' }}</p>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <p><strong>📛 Username:</strong> {{ user.name }}</p>
+      <p><strong>📛 Full Name:</strong> {{ user.fullname }}</p>
+      <p><strong>📧 Email:</strong> {{ user.email }}</p>
+      <p><strong>📞 Phone:</strong> {{ user.phone }}</p>
+      <p><strong>📟 Emergency Email:</strong> {{ user.emergencyContact }}</p>
+    </div>
+
+    <!-- Edit Button -->
+    <div class="edit-section">
+      <button class="edit-btn" (click)="enableEdit()">Edit Profile</button>
+    </div>
+
+    <!-- Editable User Form -->
+    <form *ngIf="isEditable" (ngSubmit)="updateUser()" class="edit-form">
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" [(ngModel)]="user.fullname" name="fullname" />
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="text" [(ngModel)]="user.phonenumber" name="phonenumber" />
+      </div>
+
+      <div class="form-group">
+        <label>Age</label>
+        <input type="number" [(ngModel)]="user.age" name="age" />
+      </div>
+
+      <div class="form-group">
+        <label>Emergency Contact</label>
+        <input type="text" [(ngModel)]="user.emergencyContact" name="emergencyContact" />
+      </div>
+
+      <button class="save-btn" type="submit">Save Changes</button>
+    </form>
+
+  </div>
+</div>
+
+>>>>>>> Stashed changes

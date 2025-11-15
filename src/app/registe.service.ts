@@ -7,7 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class RegisteService {
 
+<<<<<<< Updated upstream
   private registerUrl = 'https://spring-boot-crud-3qhx.onrender.com/login/register'; // Replace with your API endpoint
+=======
+  private registerUrl = 'http://localhost:8095/login/register'; // Replace with your API endpoint
+>>>>>>> Stashed changes
 
   //  private registerUrl = 'http://localhost:8095/login/register';
   constructor(private http: HttpClient) {}

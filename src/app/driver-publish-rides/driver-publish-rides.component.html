@@ -1,0 +1,47 @@
+<div class="rides-container">
+  <h2 class="page-title">🚗 My Published Rides</h2>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loader-container">
+    <div class="spinner"></div>
+    <p>Loading your rides...</p>
+  </div>
+
+  <!-- No Rides Message -->
+  <div *ngIf="!loading && noResultsMessage" class="no-results">
+    <p>{{ noResultsMessage }}</p>
+  </div>
+
+  <!-- Ride Cards -->
+  <div *ngIf="!loading && rides && rides.length > 0" class="ride-grid">
+    <div *ngFor="let ride of rides" class="ride-card">
+      <div class="ride-header">
+        <h3>{{ ride.fromLocation }}-{{ride.toLocation}}</h3>
+        <span class="status-badge" 
+              [ngClass]="{
+                'status-booked': ride.status === 'BOOKED',
+                'status-cancelled': ride.status === 'CANCELLED'
+              }">
+          {{ ride.status }}
+        </span>
+      </div>
+
+      <div class="ride-details">
+        <p><strong>Rider Name:</strong> {{ ride.driverDetails.driverName }}</p>
+        <p><strong>From :</strong> {{ ride.fromLocation }}</p>
+        <p><strong>To :</strong> {{ ride.toLocation}}</p>
+        <p><strong>Car:</strong> {{ ride.carType }}</p>
+        <p><strong>Date:</strong> {{ ride.rideDate }}</p>
+        <p><strong>Time:</strong> {{ ride.rideTime }}</p>
+      </div>
+
+      <button 
+        class="cancel-btn" 
+        *ngIf="ride.status !== 'CANCELLED'"
+        (click)="cancelRide(ride.rideId)">
+        ❌ Cancel Ride
+      </button>
+    </div>
+  </div>
+</div>
+

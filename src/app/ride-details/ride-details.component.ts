@@ -17,6 +17,11 @@ export class RideDetailsComponent {
 
   rideId!: number;
   ride: any 
+<<<<<<< Updated upstream
+=======
+  selectedPassengers: number = 1;
+  errorMessage: string = '';
+>>>>>>> Stashed changes
 
   constructor(private route: ActivatedRoute, private http: HttpClient,private authService: AuthService,private router: Router) {}
 
@@ -29,7 +34,11 @@ export class RideDetailsComponent {
   }
 
   getRideDetails() {
+<<<<<<< Updated upstream
     this.http.get<any>(` https://spring-boot-crud-3qhx.onrender.com/login/${this.rideId}`)
+=======
+    this.http.get<any>(` http://localhost:8095/login/${this.rideId}`)
+>>>>>>> Stashed changes
       .subscribe(
         (response) => {
           this.ride = response;
@@ -55,6 +64,7 @@ export class RideDetailsComponent {
 
   bookRide(){
 
+<<<<<<< Updated upstream
   const token = localStorage.getItem('userToken');
 
   if (!token) {
@@ -63,11 +73,14 @@ export class RideDetailsComponent {
     return;
   }
 
+=======
+>>>>>>> Stashed changes
     if (!this.ride) {
     console.error('Ride details not loaded yet.');
     return;
 
   }
+<<<<<<< Updated upstream
   
 
   // Check if user is logged in / registered
@@ -102,6 +115,54 @@ export class RideDetailsComponent {
         alert('Failed to book ride.');
       }
     );
+=======
+
+  const passengerId = Number(localStorage.getItem('driverId')); // logged in user id
+  const rideDriverId = this.ride.riderName.id  // driver who published ride
+
+  if (passengerId === rideDriverId) {
+    alert("🚫 Driver can't book their own ride!");
+    return; // stop booking
+  }
+
+    if (!this.selectedPassengers || this.selectedPassengers <= 0) {
+    console.error('⚠️ Please select the number of passengers.');
+    return;
+  }
+
+    const token = localStorage.getItem('userToken');
+    
+    const rideId = this.rideId; // or this.ride.id depending on your object
+    console.log(rideId)
+    
+    const seatsBooked = this.selectedPassengers;
+    console.log(seatsBooked)
+    const url = `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
+
+  this.http.post(url, {}).subscribe({
+    next: (res: any) => {
+      console.log(res)
+      if (res.result === 'Success') {
+          console.log('🎉', res.message);
+          alert("Ride booked Successfully")
+          this.router.navigate(['/home']);
+        } else {
+          this.errorMessage = res.message || 'Booking failed. Please try again.';
+        }
+    },
+    error: (err) => {
+      console.error('Error booking ride:', err);
+      alert('Failed to book the ride. Please try again.');
+    }
+  });
+
+
+    
+  
+
+  
+ 
+>>>>>>> Stashed changes
   }
 
 }

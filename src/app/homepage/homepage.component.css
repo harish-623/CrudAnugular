@@ -483,15 +483,33 @@ h1.text-4xl {
 
 /* Dropdown menu */
 .profile-dropdown {
+<<<<<<< Updated upstream
   background-color: #fff;
   border: 1px solid #e5e7eb; /* gray-200 */
+=======
+  position: absolute;
+  top: 90%;           /* moved UP from 100%+10px */
+  right: -20px;       /* shift slightly left to align */
+  width: 200px;
+  background-color: #fff;
+  
+  border: 1px solid #e5e7eb; /* gray-200  */
+>>>>>>> Stashed changes
   border-radius: 10px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   width: 190px;
   animation: fadeIn 0.25s ease-in-out;
   z-index: 50;
+<<<<<<< Updated upstream
 }
 
+=======
+  right: -40px;
+}
+
+
+
+>>>>>>> Stashed changes
 /* Dropdown items */
 .profile-dropdown ul {
   list-style-type: none;
@@ -536,6 +554,7 @@ h1.text-4xl {
   }
 }
 
+<<<<<<< Updated upstream
 /* ===== Profile Dropdown Menu ===== */
 .profile-dropdown {
   position: absolute;
@@ -557,6 +576,11 @@ h1.text-4xl {
   margin: 0;
   padding: 0;
 }
+=======
+
+
+
+>>>>>>> Stashed changes
 
 /* Dropdown Items */
 .profile-dropdown li {
@@ -580,6 +604,7 @@ h1.text-4xl {
   transform: translateX(3px);
 }
 
+<<<<<<< Updated upstream
 /* Logout Button Style */
 .profile-dropdown li.logout {
   color: #dc2626; /* red-600 */
@@ -590,6 +615,10 @@ h1.text-4xl {
   background-color: #fee2e2;
   color: #b91c1c; /* red-700 */
 }
+=======
+
+
+>>>>>>> Stashed changes
 
 /* Add subtle fade-in animation */
 @keyframes fadeIn {
@@ -643,6 +672,10 @@ input[type="text"]:focus {
 
 
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 /* Autocomplete Dropdown (Google/Uber style) */
 .autocomplete-list {
   position: absolute;
@@ -758,3 +791,34 @@ input[type="text"]:focus {
 .no-results:hover {
   background-color: #ffe8a1;
 }
+<<<<<<< Updated upstream
+=======
+
+
+/* Floating SOS Button */
+.sos-float-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #e63946, #d90429);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 26px;
+  box-shadow: 0 6px 12px rgba(233, 30, 99, 0.3);
+  cursor: pointer;
+  z-index: 9999;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.sos-float-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #d90429, #a4133c);
+}
+
+.sos-float-btn:active {
+  transform: scale(0.95);
+}
+>>>>>>> Stashed changes

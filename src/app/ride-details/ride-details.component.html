@@ -7,7 +7,11 @@
   <!-- Ride Info Card -->
   <div class="ride-card">
     <div class="ride-info">
+<<<<<<< Updated upstream
       <h2>{{ ride.riderName }}</h2>
+=======
+      <h2>{{ ride.riderName.fullname }}</h2>
+>>>>>>> Stashed changes
       <p><strong>From:</strong> {{ ride.from }}</p>
       <p><strong>To:</strong> {{ ride.to }}</p>
       <p><strong>Date:</strong> {{ ride.date }}</p>
@@ -17,9 +21,33 @@
       <p><strong>Price:</strong> ₹{{ ride.amount }}</p>
     </div>
 
+<<<<<<< Updated upstream
     <button (click)="bookRide()" class="book-ride-btn">
   Book Ride
 </button>
+=======
+    <div class="passenger-select">
+      <label for="passengerCount"><strong>Select Passengers:</strong></label>
+      <input
+        id="passengerCount"
+        type="number"
+        min="1"
+        [max]="ride.passengerLimit"
+        [(ngModel)]="selectedPassengers"
+        [disabled]="ride.passengerLimit === 0"
+        placeholder="Enter number of passengers"
+      />
+    </div>
+
+
+    <button (click)="bookRide()" class="book-ride-btn" [disabled]="ride.passengerLimit === 0">
+  Book Ride
+</button>
+
+<p *ngIf="ride.passengerLimit === 0" class="no-seats-msg">
+  ❌ No seats available for this ride
+</p>
+>>>>>>> Stashed changes
     <div class="contact-info">
       <h3>Contact Rider</h3>
       <p><strong>Phone:</strong> {{ ride.phoneNumber }}</p>

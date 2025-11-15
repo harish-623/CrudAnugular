@@ -9,8 +9,25 @@
       
       <div class="form-group">
         <label for="password">Password</label>
+<<<<<<< Updated upstream
         <input type="password" id="password" formControlName="password" class="form-control">
       </div>
+=======
+        <input type="password" [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" class="form-control">
+      <div class="form-check mt-2">
+    <input
+      type="checkbox"
+      id="showPasswordCheckbox"
+      class="form-check-input"
+      (change)="togglePassword()"
+    />
+    <label for="showPasswordCheckbox" class="form-check-label">Show Password</label>
+  </div>
+      
+</div>
+
+      
+>>>>>>> Stashed changes
       
       <button type="submit" class="btn btn-primary">Login</button>
 

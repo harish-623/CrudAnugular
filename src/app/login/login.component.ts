@@ -42,6 +42,15 @@ export class LoginComponent implements OnInit {
     this.loadLogo();
   }
 
+<<<<<<< Updated upstream
+=======
+  showPassword = false;
+
+togglePassword() {
+  this.showPassword = !this.showPassword;
+}
+
+>>>>>>> Stashed changes
   loadLogo() {
     const logoUrl = 'https://avatars.githubusercontent.com/u/124091983';
     this.imageLoader.loadImage(logoUrl).subscribe((blob: Blob) => {
@@ -58,10 +67,24 @@ export class LoginComponent implements OnInit {
       console.log(password)
   
       this.authService.login(username, password).subscribe(
+<<<<<<< Updated upstream
         (response: { success: boolean; username: string; token: string }) => {
           if (response.success) {
             // alert('Login Successful');
             localStorage.setItem('username', response.username);
+=======
+        (response: { success: boolean; username: string; token: string ;id:string ; email:string ; eemergencyEmail:string}) => {
+          if (response.success) {
+            console.log(response)
+            // alert('Login Successful');
+            localStorage.setItem('username', response.username);
+            localStorage.setItem('driverId',response.id)
+            
+            localStorage.setItem('emergencyEmail',response.eemergencyEmail)
+            console.log(localStorage.getItem('emergencyEmail'));
+
+            
+>>>>>>> Stashed changes
             console.log(username)
             this.router.navigate(['/home']);
             // this.showSuccessMessage();
@@ -72,7 +95,11 @@ export class LoginComponent implements OnInit {
         },
         (error: any) => {
           console.error('Error occurred during login:', error);
+<<<<<<< Updated upstream
           this.loginError = error; // Display error message to the user
+=======
+          this.loginError = "Login failed. Please check your credentials."; // Display error message to the user
+>>>>>>> Stashed changes
           alert('Invalid username or password.');
         }
       );

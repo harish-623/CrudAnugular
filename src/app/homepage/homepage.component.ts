@@ -10,8 +10,15 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 })
 export class HomepageComponent {
 
+<<<<<<< Updated upstream
   // username="Harish"
   username   = localStorage.getItem('username') || '';
+=======
+  
+  username   = localStorage.getItem('username') || '';
+  driverId=localStorage.getItem('driverId') || '';
+  email=localStorage.getItem('emergencyEmail');
+>>>>>>> Stashed changes
   
 
 
@@ -20,7 +27,11 @@ export class HomepageComponent {
   date: string = '';
   passengers: number = 1;
   noResultsMessage: string = '';
+<<<<<<< Updated upstream
 
+=======
+  
+>>>>>>> Stashed changes
   searchResults: any[] = []; // To store results from backend
   fromSuggestions: any[] = [];
   toSuggestions: any[] = [];
@@ -34,6 +45,10 @@ export class HomepageComponent {
     
   }
 
+<<<<<<< Updated upstream
+=======
+ 
+>>>>>>> Stashed changes
   goToPublishRide() {
   this.router.navigate(['/publish-ride']); // Replace with your route path
 }
@@ -48,6 +63,7 @@ export class HomepageComponent {
     };
     console.log(payload)
 
+<<<<<<< Updated upstream
     this.http.post<any[]>(' https://spring-boot-crud-3qhx.onrender.com/login/search', payload)
       .subscribe(
         (results) => {
@@ -61,6 +77,29 @@ export class HomepageComponent {
         console.log('No rides found');
         this.noResultsMessage = 'No rides found';
         // alert('No rides found'); // or show this message in UI instead of alert
+=======
+    this.http.post<any[]>('http://localhost:8095/login/search', payload)
+      .subscribe(
+        (results) => {
+          console.log('Raw API response:', results); 
+      //     if (results && results.length > 0) {
+      //   this.searchResults = results;
+      //   console.log('Search Results:', results);
+      // } else {
+      //   this.searchResults = [];
+      //   console.log('No rides found');
+      //   this.noResultsMessage = 'No rides found';
+      //   // alert('No rides found'); // or show this message in UI instead of alert
+      // }
+      if (Array.isArray(results) && results.length > 0) {
+        this.searchResults = results;
+        this.noResultsMessage = '';
+        console.log('✅ Search Results:', results);
+      } else {
+        this.searchResults = [];
+        this.noResultsMessage = 'No rides found';
+        console.log('⚠️ No rides found');
+>>>>>>> Stashed changes
       }
         },
         (error) => {
@@ -86,7 +125,17 @@ goToProfile() {
 }
 
 goToMyRides() {
+<<<<<<< Updated upstream
   this.router.navigate(['/my-rides']);
+=======
+  
+  this.router.navigate(['/my-rides'], { queryParams: { driverId: this.driverId } });
+}
+
+goToMyPublishRides()
+{
+  this.router.navigate(['/my-publish-rides'], { queryParams: { driverId: this.driverId } })
+>>>>>>> Stashed changes
 }
 
 logout() {
@@ -95,12 +144,54 @@ logout() {
 }
 
 
+<<<<<<< Updated upstream
   
  
 
 
 
 
+=======
+triggerSOS()
+{
+  
+  console.log(this.email);
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const payload = {
+          email: this.email,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        console.log(payload)
+        // this.http.post('http://localhost:8095/login/alert', payload).subscribe({
+        //   next: (res) => alert('🚨 SOS alert sent successfully! Help is on the way.'),
+        //   error: (err) => alert('❌ Failed to send SOS alert. Please try again.'),
+        // });
+        this.http.post('http://localhost:8095/login/alert', payload, { responseType: 'text' })
+  .subscribe({
+    next: (res) => {
+      console.log("Backend:", res);
+      alert(res); // shows exactly what backend sends
+    },
+    error: (err) => {
+      console.error(err);
+      alert('❌ Failed to send SOS alert. Please try again.');
+    }
+  });
+
+      },
+      (error) => {
+        alert('⚠️ Unable to get your location. Please enable GPS.');
+      }
+    );
+  } else {
+    alert('Geolocation not supported by your browser.');
+  }
+
+}
+>>>>>>> Stashed changes
 
 
 

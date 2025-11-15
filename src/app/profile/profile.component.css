@@ -92,5 +92,105 @@
   color: #334155;
   background-color: #f9fafb;
   padding: 1rem;
+<<<<<<< Updated upstream
   border-radius: 12px;
+=======
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.contact-info strong {
+  display: inline-block;
+  margin-bottom: 4px;
+  color: #0f172a;
+}
+
+
+/* Edit Button Section */
+.edit-section {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.edit-btn {
+  background: #0ea5e9;
+  border: none;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.edit-btn:hover {
+  background: #0284c7;
+}
+
+/* Editable Form Container */
+.edit-form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Form Group Styling */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* Inputs */
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  
+  border-radius: 6px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #0ea5e9;
+  box-shadow: 0 0 6px rgba(14, 165, 233, 0.4);
+}
+
+/* Save Button */
+.save-btn {
+  width: 100%;
+  background: #10b981;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s ease;
+}
+
+.save-btn:hover {
+  background: #059669;
+}
+
+/* Smooth Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+>>>>>>> Stashed changes
 }

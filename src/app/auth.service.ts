@@ -7,7 +7,12 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class AuthService {
 
+<<<<<<< Updated upstream
   private userUrl = 'https://spring-boot-crud-3qhx.onrender.com/login/login';
+=======
+  // private userUrl = 'https://spring-boot-crud-3qhx.onrender.com/login/login';
+  private userUrl = 'http://localhost:8095/login/login';
+>>>>>>> Stashed changes
 
 
 

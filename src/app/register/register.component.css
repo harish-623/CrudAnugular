@@ -193,3 +193,155 @@ button.btn-primary:hover {
   }
 }
 
+<<<<<<< Updated upstream
+=======
+/* General form styling */
+.container {
+  max-width: 500px;
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+/* Input fields */
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 10px 12px;
+  transition: 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+/* Button group (Send OTP / Verify OTP) */
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-group button {
+  flex-shrink: 0;
+}
+
+/* Send OTP button */
+.btn-secondary {
+  background-color: #6c63ff;
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 10px 16px;
+  transition: 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #574bff;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:disabled {
+  background-color: #b9b9b9;
+  cursor: not-allowed;
+}
+
+/* Verify OTP button */
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 10px 16px;
+  transition: 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
+/* Primary submit button */
+.btn-primary {
+  width: 100%;
+  background-color: #007bff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  background-color: #b9b9b9;
+  cursor: not-allowed;
+}
+
+/* Alert styling */
+.alert {
+  text-align: center;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .form-control {
+  padding-right: 60px; /* leave room for the Show/Hide button */
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.form-check-label {
+  font-size: 14px;
+  color: #333;
+}
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes

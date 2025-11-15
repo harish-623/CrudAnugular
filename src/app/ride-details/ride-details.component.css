@@ -231,4 +231,38 @@
   box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3);
 }
 
+<<<<<<< Updated upstream
+=======
+.book-ride-btn[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.no-seats-msg {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.passenger-select {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #0369a1;
+  margin: 6px 0;
+  line-height: 1.6;
+}
+
+.passenger-select input {
+  width: 60px;
+  padding: 4px;
+  text-align: center;
+  
+  font-weight: 500; 
+  border: 2px solid #007bff;       /* blue border */
+  border-radius: 8px;              /* rounded corners */
+  outline: none;                   /* remove default browser outline */
+  transition: all 0.3s ease; 
+}
+
+>>>>>>> Stashed changes
 

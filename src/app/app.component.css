@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 * Main container */
 .profile-container {
   position: relative;
@@ -172,3 +173,40 @@
 
 
 
+=======
+/* Header Styling */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+/* Vyro Brand */
+header a {
+  font-size: 28px;
+  font-weight: 700;
+  font-style: BOLD;
+  color: #0ea5e9; /* sky-600 */
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+header a:hover {
+  color: #0284c7; /* darker sky blue */
+  transform: scale(1.05);
+}
+
+/* Body background fix */
+.pt-10 {
+  padding-top: 80px; /* space for fixed header */
+}
+>>>>>>> Stashed changes

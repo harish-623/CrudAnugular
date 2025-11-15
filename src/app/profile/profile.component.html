@@ -2,8 +2,10 @@
   <div class="profile-card">
     <!-- Profile Header -->
     <div class="profile-header">
+      <!-- <input type="file" (change)="onFileSelected($event)" />
+      <button (click)="uploadImage()">Upload</button> -->
       <img
-        [src]="user.imageUrl || 'assets/default-user.png'"
+        [src]="user.imageUrl || 'assets/default-user.jpg'"
         alt="Profile Picture"
         class="profile-img"
       />

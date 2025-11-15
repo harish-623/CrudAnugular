@@ -42,6 +42,12 @@ export class LoginComponent implements OnInit {
     this.loadLogo();
   }
 
+  showPassword = false;
+
+togglePassword() {
+  this.showPassword = !this.showPassword;
+}
+
   loadLogo() {
     const logoUrl = 'https://avatars.githubusercontent.com/u/124091983';
     this.imageLoader.loadImage(logoUrl).subscribe((blob: Blob) => {
@@ -58,10 +64,13 @@ export class LoginComponent implements OnInit {
       console.log(password)
   
       this.authService.login(username, password).subscribe(
-        (response: { success: boolean; username: string; token: string }) => {
+        (response: { success: boolean; username: string; token: string ;id:string ; email:string}) => {
           if (response.success) {
             // alert('Login Successful');
             localStorage.setItem('username', response.username);
+            localStorage.setItem('driverId',response.id)
+            localStorage.setItem('email',response.email)
+            
             console.log(username)
             this.router.navigate(['/home']);
             // this.showSuccessMessage();
@@ -72,7 +81,7 @@ export class LoginComponent implements OnInit {
         },
         (error: any) => {
           console.error('Error occurred during login:', error);
-          this.loginError = error; // Display error message to the user
+          this.loginError = "Login failed. Please check your credentials."; // Display error message to the user
           alert('Invalid username or password.');
         }
       );

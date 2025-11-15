@@ -1,0 +1,141 @@
+/* --- Layout --- */
+.rides-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* --- Loader --- */
+.loader-container {
+  text-align: center;
+  color: #555;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top-color: #00b894;
+  border-radius: 50%;
+  margin: 20px auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- No results --- */
+.no-results {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 30px;
+}
+
+/* --- Ride Cards --- */
+.ride-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.ride-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s ease;
+  border-left: 6px solid #00b894;
+}
+
+.ride-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Header --- */
+.ride-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ride-header h3 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-booked {
+  background-color: #d1f7c4;
+  color: #2d8659;
+}
+
+.status-cancelled {
+  background-color: #ffd5d5;
+  color: #d32f2f;
+}
+
+/* --- Ride Details --- */
+.ride-details p {
+  margin: 4px 0;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.ride-details strong {
+  color: #222;
+}
+
+/* --- Footer --- */
+.ride-footer {
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+  padding-top: 10px;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.ride-footer i {
+  color: #00b894;
+  margin-right: 6px;
+}
+
+.cancel-btn {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #c62828;
+}
+

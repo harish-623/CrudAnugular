@@ -1,5 +1,5 @@
 <div class="rides-container">
-  <h2 class="page-title">🚗 My Booked Rides</h2>
+  <h2 class="page-title">🚗 My Published Rides</h2>
 
   <!-- Loading -->
   <div *ngIf="loading" class="loader-container">
@@ -16,7 +16,7 @@
   <div *ngIf="!loading && rides && rides.length > 0" class="ride-grid">
     <div *ngFor="let ride of rides" class="ride-card">
       <div class="ride-header">
-        <h3>Booking #{{ ride.bookingId }}</h3>
+        <h3>{{ ride.fromLocation }}-{{ride.toLocation}}</h3>
         <span class="status-badge" 
               [ngClass]="{
                 'status-booked': ride.status === 'BOOKED',
@@ -28,27 +28,19 @@
 
       <div class="ride-details">
         <p><strong>Rider Name:</strong> {{ ride.driverDetails.driverName }}</p>
-        <p><strong>From :</strong> {{ ride.rideDetails.fromLocation }}</p>
-        <p><strong>To :</strong> {{ ride.rideDetails.toLocation}}</p>
-        <p><strong>Car:</strong> {{ ride.rideDetails.carType }}</p>
-        <p><strong>Date:</strong> {{ ride.rideDetails.rideDate }}</p>
-        <p><strong>Time:</strong> {{ ride.rideDetails.rideTime }}</p>
-        <p><strong>Seats Booked:</strong> {{ ride.seatsBooked }}</p>
-
+        <p><strong>From :</strong> {{ ride.fromLocation }}</p>
+        <p><strong>To :</strong> {{ ride.toLocation}}</p>
+        <p><strong>Car:</strong> {{ ride.carType }}</p>
+        <p><strong>Date:</strong> {{ ride.rideDate }}</p>
+        <p><strong>Time:</strong> {{ ride.rideTime }}</p>
       </div>
 
-      <div class="ride-footer">
-        <p><i class="fa-regular fa-calendar"></i> 
-            <strong>Booked on:</strong>
-          {{ ride.bookedOn | date: 'medium' }}
-        </p>
-        <button 
-    *ngIf="ride.status === 'BOOKED'" 
-    class="cancel-btn" 
-    (click)="cancelRide(ride.bookingId)">
-    Cancel Ride
-  </button>
-      </div>
+      <button 
+        class="cancel-btn" 
+        *ngIf="ride.status !== 'CANCELLED'"
+        (click)="cancelRide(ride.rideId)">
+        ❌ Cancel Ride
+      </button>
     </div>
   </div>
 </div>

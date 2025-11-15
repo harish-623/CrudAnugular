@@ -10,16 +10,17 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" class="form-control">
-      <button
-    type="button"
-    (click)="togglePassword()"
-    class="btn btn-outline-secondary position-absolute end-0 top-50 translate-middle-y me-2"
-    style="border: none; background: transparent;"
-  >
-    <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-  </button>
+      <div class="form-check mt-2">
+    <input
+      type="checkbox"
+      id="showPasswordCheckbox"
+      class="form-check-input"
+      (change)="togglePassword()"
+    />
+    <label for="showPasswordCheckbox" class="form-check-label">Show Password</label>
+  </div>
       
-      </div>
+</div>
 
       
       

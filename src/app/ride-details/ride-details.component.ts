@@ -63,13 +63,21 @@ export class RideDetailsComponent {
 
   }
 
+  const passengerId = Number(localStorage.getItem('driverId')); // logged in user id
+  const rideDriverId = this.ride.riderName.id  // driver who published ride
+
+  if (passengerId === rideDriverId) {
+    alert("🚫 Driver can't book their own ride!");
+    return; // stop booking
+  }
+
     if (!this.selectedPassengers || this.selectedPassengers <= 0) {
     console.error('⚠️ Please select the number of passengers.');
     return;
   }
 
     const token = localStorage.getItem('userToken');
-    const passengerId = localStorage.getItem('driverId');
+    
     const rideId = this.rideId; // or this.ride.id depending on your object
     console.log(rideId)
     

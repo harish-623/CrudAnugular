@@ -13,6 +13,7 @@ export class HomepageComponent {
   
   username   = localStorage.getItem('username') || '';
   driverId=localStorage.getItem('driverId') || '';
+  email=localStorage.getItem('emergencyEmail');
   
 
 
@@ -21,7 +22,7 @@ export class HomepageComponent {
   date: string = '';
   passengers: number = 1;
   noResultsMessage: string = '';
-
+  
   searchResults: any[] = []; // To store results from backend
   fromSuggestions: any[] = [];
   toSuggestions: any[] = [];
@@ -35,6 +36,7 @@ export class HomepageComponent {
     
   }
 
+ 
   goToPublishRide() {
   this.router.navigate(['/publish-ride']); // Replace with your route path
 }
@@ -99,33 +101,46 @@ goToMyRides() {
   this.router.navigate(['/my-rides'], { queryParams: { driverId: this.driverId } });
 }
 
+goToMyPublishRides()
+{
+  this.router.navigate(['/my-publish-rides'], { queryParams: { driverId: this.driverId } })
+}
+
 logout() {
   localStorage.clear();
   this.router.navigate(['/login']);
 }
 
 
-  
- 
-
-
-
 triggerSOS()
 {
-  const email=localStorage.getItem('email')
+  
+  console.log(this.email);
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const payload = {
-          email: email,
+          email: this.email,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
         console.log(payload)
-        this.http.post('http://localhost:8095/login/alert', payload).subscribe({
-          next: (res) => alert('🚨 SOS alert sent successfully! Help is on the way.'),
-          error: (err) => alert('❌ Failed to send SOS alert. Please try again.'),
-        });
+        // this.http.post('http://localhost:8095/login/alert', payload).subscribe({
+        //   next: (res) => alert('🚨 SOS alert sent successfully! Help is on the way.'),
+        //   error: (err) => alert('❌ Failed to send SOS alert. Please try again.'),
+        // });
+        this.http.post('http://localhost:8095/login/alert', payload, { responseType: 'text' })
+  .subscribe({
+    next: (res) => {
+      console.log("Backend:", res);
+      alert(res); // shows exactly what backend sends
+    },
+    error: (err) => {
+      console.error(err);
+      alert('❌ Failed to send SOS alert. Please try again.');
+    }
+  });
+
       },
       (error) => {
         alert('⚠️ Unable to get your location. Please enable GPS.');

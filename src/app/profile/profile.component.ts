@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
   noResultsMessage: string = '';
   selectedFile: File | null = null;
   userImageUrl: string = '';
+  isEditable: boolean= false;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,6 +67,41 @@ export class ProfileComponent implements OnInit {
 }
 
 
+
+enableEdit()
+{
+  this.isEditable = true;
+}
+
+updateUser()
+{
+  const userId = localStorage.getItem('driverId');
+  const payload = {
+      fullname: this.user.fullname,
+      phonenumber: this.user.phonenumber,
+      age: this.user.age,
+      emergencyContact: this.user.emergencyContact,
+      profileImage: this.user.profileImage
+    };
+    this.http.put(`http://localhost:8095/login/update/${userId}`, payload)
+      .subscribe({
+        next: (res) => {
+          alert("Profile updated successfully!");
+          this.isEditable = false;
+          const username="";
+          this.fetchUserProfile(username);
+        },
+        error: (err) => {
+          console.error("Update failed:", err);
+          alert("Failed to update profile.");
+        }
+      });
+
+  
+
+}
+
+
   
 
   fetchUserProfile(username: string): void {
@@ -80,9 +116,12 @@ export class ProfileComponent implements OnInit {
           this.noResultsMessage = '';
           console.log('User profile:', this.user);
           this.user = {
-            name: data.fullname || data.username,
+            name: data.username,
             age: data.age,
             phone:data.phonenumber,
+            fullname:data.fullname,
+            email:data.email,
+            emergencyContact:data.emergencyContact,
 
             // fullname=data.fullname,
             imageUrl: 'assets/default-user.jpg',

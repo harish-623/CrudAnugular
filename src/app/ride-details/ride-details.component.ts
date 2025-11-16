@@ -19,6 +19,7 @@ export class RideDetailsComponent {
   ride: any 
   selectedPassengers: number = 1;
   errorMessage: string = '';
+  loading: boolean = true;
 
   constructor(private route: ActivatedRoute, private http: HttpClient,private authService: AuthService,private router: Router) {}
 
@@ -40,11 +41,13 @@ export class RideDetailsComponent {
     this.http.get<any>(url)
       .subscribe(
         (response) => {
+          this.loading = false;
           this.ride = response;
           console.log('Ride Details:', this.ride);
         },
         (error) => {
           console.error('Error fetching ride details:', error);
+          this.loading = false;
         }
       );
   }
@@ -100,16 +103,20 @@ export class RideDetailsComponent {
     next: (res: any) => {
       console.log(res)
       if (res.result === 'Success') {
+      
           console.log('🎉', res.message);
           alert("Ride booked Successfully")
           this.router.navigate(['/home']);
         } else {
           this.errorMessage = res.message || 'Booking failed. Please try again.';
+          
         }
+        this.loading = false;
     },
     error: (err) => {
       console.error('Error booking ride:', err);
       alert('Failed to book the ride. Please try again.');
+      this.loading = false;
     }
   });
 

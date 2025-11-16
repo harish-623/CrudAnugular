@@ -29,6 +29,7 @@ export class HomepageComponent {
 
   recentFromSearches: string[] = [];
   recentToSearches: string[] = [];
+  loading: boolean = true;
 
   searchSubject = new Subject<{ query: string; type: 'from' | 'to' }>();
 
@@ -59,16 +60,9 @@ export class HomepageComponent {
     this.http.post<any[]>(apiUrl, payload)
       .subscribe(
         (results) => {
+          
           console.log('Raw API response:', results); 
-      //     if (results && results.length > 0) {
-      //   this.searchResults = results;
-      //   console.log('Search Results:', results);
-      // } else {
-      //   this.searchResults = [];
-      //   console.log('No rides found');
-      //   this.noResultsMessage = 'No rides found';
-      //   // alert('No rides found'); // or show this message in UI instead of alert
-      // }
+      
       if (Array.isArray(results) && results.length > 0) {
         this.searchResults = results;
         this.noResultsMessage = '';
@@ -78,9 +72,11 @@ export class HomepageComponent {
         this.noResultsMessage = 'No rides found';
         console.log('⚠️ No rides found');
       }
+      this.loading = false;
         },
         (error) => {
           console.error('Error fetching search results:', error);
+          this.loading = false;
         }
       );
   }
@@ -88,6 +84,7 @@ export class HomepageComponent {
    viewRideDetails(rideId: number) {
   // Pass the ride ID in the route
   this.router.navigate(['/ride', rideId]);
+  
 }
 
 
@@ -141,9 +138,11 @@ triggerSOS()
     next: (res) => {
       console.log("Backend:", res);
       alert(res); // shows exactly what backend sends
+      this.loading = false;
     },
     error: (err) => {
       console.error(err);
+      this.loading = false;
       alert('❌ Failed to send SOS alert. Please try again.');
     }
   });
@@ -151,6 +150,7 @@ triggerSOS()
       },
       (error) => {
         alert('⚠️ Unable to get your location. Please enable GPS.');
+        this.loading = false;
       }
     );
   } else {

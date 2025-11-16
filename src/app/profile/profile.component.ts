@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   selectedFile: File | null = null;
   userImageUrl: string = '';
   isEditable: boolean= false;
+  loading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,6 +55,7 @@ export class ProfileComponent implements OnInit {
   this.http.post(`http://localhost:8095/login/user/${userId}/upload-image`, formData)
     .subscribe({
       next: (res) => {
+        this.loading = false;
         alert('Image uploaded successfully!');
         this.loadUserImage(); // reload image after upload
       },
@@ -91,6 +93,7 @@ updateUser()
     this.http.put(apiUrl, payload)
       .subscribe({
         next: (res) => {
+          this.loading = false;
           alert("Profile updated successfully!");
           this.isEditable = false;
           const username="";
@@ -99,6 +102,7 @@ updateUser()
         error: (err) => {
           console.error("Update failed:", err);
           alert("Failed to update profile.");
+          this.loading = false;
         }
       });
 

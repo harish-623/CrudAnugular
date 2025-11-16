@@ -59,6 +59,7 @@ export class DriverPublishRidesComponent {
   
             if (response.rideCount > 0 && response.rides && response.rides.length > 0) {
               this.rides = response.rides;
+              
               this.noResultsMessage = '';
             } else {
               this.noResultsMessage = response.message || 'No rides found.';
@@ -90,12 +91,14 @@ export class DriverPublishRidesComponent {
     : `https://spring-boot-crud-3qhx.onrender.com/login/cancel/${rideId}/driver/${driverId}`;
       this.http.put(apiUrl, { responseType: 'text' }).subscribe({
         next: (response) => {
+          this.loading = false;
       alert(response); // now "Ride cancelled successfully" works!
       this.fetchDriverRides(driverId);
     },
     error: (err) => {
       console.error('Error cancelling ride:', err);
       alert('Error cancelling ride. Please try again.');
+      this.loading = false;
     }
       });
     }

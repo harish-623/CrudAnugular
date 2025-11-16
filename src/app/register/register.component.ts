@@ -16,6 +16,7 @@ export class RegisterComponent {
     responseClass: string = '';
     otpSent: boolean = false;
     otpVerified: boolean = false;
+    loading: boolean = true;
     // private baseUrl = 'http://localhost:8095/login';
     private baseUrl =
   window.location.hostname === 'localhost'
@@ -49,27 +50,17 @@ export class RegisterComponent {
       this.showMessage('❌ Please enter a valid email address', 'alert-danger');
       return;
     }
-
-    // this.http.post(`${this.baseUrl}/send`, null, { params: { email } }).subscribe({
-    //   next: (response: any) => {
-    //     this.otpSent = true;
-    //     this.showMessage(`✅ OTP sent successfully to ${email}`, 'alert-success');
-    //     console.log('OTP sent:', response);
-    //   },
-    //   error: (error) => {
-    //     console.error('Error sending OTP:', error);
-    //     this.showMessage('❌ Failed to send OTP. Please try again.', 'alert-danger');
-    //   }
-    // });
     this.http.post(`${this.baseUrl}/send?email=${email}`, {}, { responseType: 'text' })
     .subscribe({
       next: (response: string) => {
+        this.loading = false;
         this.otpSent = true;
         this.showMessage(response, 'alert-success');
         // this.showMessage(`✅ OTP sent successfully to ${email}`, 'alert-success');
       },
       error: (error) => {
         console.error('Error sending OTP:', error);
+        this.loading = false;
         this.showMessage('❌ Failed to send OTP.', 'alert-danger');
       }
     });
@@ -98,6 +89,7 @@ togglePassword() {
     })
     .subscribe({
       next: (response: string) => {
+
         console.log('Verify response:', response);
 
         if (response.includes('✅ OTP verified successfully')) {
@@ -106,10 +98,12 @@ togglePassword() {
         } else {
           this.showMessage(response, 'alert-danger');
         }
+        this.loading = false;
       },
       error: (error) => {
         console.error('Error verifying OTP:', error);
         this.showMessage('❌ OTP verification failed. Please try again.', 'alert-danger');
+        this.loading = false;
       }
     });
   }
@@ -123,6 +117,7 @@ togglePassword() {
             (response: any) => {
                         this.responseMessage = response;
                         this.responseClass = 'alert-success';
+                        this.loading = false;
                         setTimeout(() => {
                           this.router.navigate(['/login']);
                       }, 2000);
@@ -131,11 +126,15 @@ togglePassword() {
                     
                     (error) => {
                       if (error.error) {
+                        this.loading = false;
                         this.responseMessage = "User Registration Failed" +error.error; // Backend error message: "User registration failed"
                     } else {
                         this.responseMessage = 'An unexpected error occurred. Please try again.';
+                        this.loading = false;
                     }
+
                     this.responseClass = 'alert-danger';
+                    this.loading = false;
                   }
                 );
         }

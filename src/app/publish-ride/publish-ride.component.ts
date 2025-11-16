@@ -64,6 +64,7 @@ export class PublishRideComponent {
         },
         error: (err) => console.error(err)
         
+        
       });
   }
 

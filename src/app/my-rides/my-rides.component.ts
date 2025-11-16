@@ -14,6 +14,7 @@ export class MyRidesComponent implements OnInit {
   noResultsMessage: string = '';
   loading: boolean = true;
   driverId!: number; 
+  
 
   rideCount: number = 0;
 
@@ -88,12 +89,14 @@ export class MyRidesComponent implements OnInit {
 
     this.http.put(apiUrl, {}).subscribe({
       next: (response: any) => {
+        this.loading = false;
         alert(response.message);
         this.fetchDriverRides(this.driverId); // refresh rides after cancellation
       },
       error: (err) => {
         console.error('Error cancelling ride:', err);
         alert('Error cancelling ride. Please try again.');
+        this.loading = false;
       }
     });
   }

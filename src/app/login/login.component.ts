@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   logoUrl: string = '';
   loginError: any;
   registerError: any;
-  
+  loading: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,

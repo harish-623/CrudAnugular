@@ -1,10 +1,7 @@
 <div class="container mt-5">
   <h2>User Registration</h2>
 
-  <div *ngIf="loading" class="loader-container">
-    <div class="spinner"></div>
-    <p>Loading your rides...</p>
-  </div>
+  
 
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="form-group">

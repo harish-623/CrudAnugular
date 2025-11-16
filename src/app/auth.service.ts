@@ -1,6 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,8 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class AuthService {
 
   // private userUrl = 'https://spring-boot-crud-3qhx.onrender.com/login/login';
-  private userUrl = 'http://localhost:8095/login/login';
+  // private userUrl = 'http://localhost:8095/login/login';
+  private userUrl = environment.apiUrl + '/login/login';
 
 
 

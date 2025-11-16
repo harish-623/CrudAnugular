@@ -116,6 +116,7 @@ triggerSOS()
 {
   
   console.log(this.email);
+  const username=localStorage.getItem('username')
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -123,6 +124,7 @@ triggerSOS()
           email: this.email,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
+          username:username
         };
         console.log(payload)
         // this.http.post('http://localhost:8095/login/alert', payload).subscribe({

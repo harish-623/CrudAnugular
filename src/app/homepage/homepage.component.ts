@@ -51,7 +51,12 @@ export class HomepageComponent {
     };
     console.log(payload)
 
-    this.http.post<any[]>('http://localhost:8095/login/search', payload)
+    const apiUrl =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:8095/login/search'
+    : 'https://spring-boot-crud-3qhx.onrender.com/login/search';
+
+    this.http.post<any[]>(apiUrl, payload)
       .subscribe(
         (results) => {
           console.log('Raw API response:', results); 
@@ -127,11 +132,11 @@ triggerSOS()
           username:username
         };
         console.log(payload)
-        // this.http.post('http://localhost:8095/login/alert', payload).subscribe({
-        //   next: (res) => alert('🚨 SOS alert sent successfully! Help is on the way.'),
-        //   error: (err) => alert('❌ Failed to send SOS alert. Please try again.'),
-        // });
-        this.http.post('http://localhost:8095/login/alert', payload, { responseType: 'text' })
+        const apiUrl =
+  window.location.hostname === 'localhost'
+    ? `http://localhost:8095/login/alert`
+    : `https://spring-boot-crud-3qhx.onrender.com/login/alert`;
+        this.http.post(apiUrl, payload, { responseType: 'text' })
   .subscribe({
     next: (res) => {
       console.log("Backend:", res);

@@ -16,7 +16,11 @@ export class RegisterComponent {
     responseClass: string = '';
     otpSent: boolean = false;
     otpVerified: boolean = false;
-    private baseUrl = 'http://localhost:8095/login';
+    // private baseUrl = 'http://localhost:8095/login';
+    private baseUrl =
+  window.location.hostname === 'localhost'
+    ? `http://localhost:8095/login`
+    : `https://spring-boot-crud-3qhx.onrender.com/login`;
   
     constructor(private fb: FormBuilder, private http: HttpClient,private userService:RegisteService,private router: Router) {
         this.userForm = this.fb.group({

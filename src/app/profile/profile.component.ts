@@ -83,7 +83,12 @@ updateUser()
       emergencyContact: this.user.emergencyContact,
       profileImage: this.user.profileImage
     };
-    this.http.put(`http://localhost:8095/login/update/${userId}`, payload)
+
+    const apiUrl =
+  window.location.hostname === 'localhost'
+    ? `http://localhost:8095/login/update/${userId}`
+    : `https://spring-boot-crud-3qhx.onrender.com/login/update/${userId}`;
+    this.http.put(apiUrl, payload)
       .subscribe({
         next: (res) => {
           alert("Profile updated successfully!");
@@ -105,7 +110,11 @@ updateUser()
   
 
   fetchUserProfile(username: string): void {
-      const apiUrl = `http://localhost:8095/login/profileRetrive?username=${username}`;
+      // const apiUrl = `http://localhost:8095/login/profileRetrive?username=${username}`;
+      const apiUrl =
+  window.location.hostname === 'localhost'
+    ? `http://localhost:8095/login/profileRetrive?username=${username}`
+    : `https://spring-boot-crud-3qhx.onrender.com/login/profileRetrive?username=${username}`;
 
     this.http.get<any[]>(apiUrl).subscribe(
       (response) => {

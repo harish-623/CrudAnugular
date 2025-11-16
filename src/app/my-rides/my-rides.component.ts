@@ -38,7 +38,13 @@ export class MyRidesComponent implements OnInit {
   }
 
   fetchDriverRides(driverId: number): void {
-    const apiUrl = `http://localhost:8095/login/myrides/${driverId}`;
+    // const apiUrl = `http://localhost:8095/login/myrides/${driverId}`;
+
+    const apiUrl =
+  window.location.hostname === 'localhost'
+    ? `http://localhost:8095/login/myrides/${driverId}`
+    : `https://spring-boot-crud-3qhx.onrender.com/login/myrides/${driverId}`;
+    
 
     this.http.get<{result: string; rideCount: number; rides: any[]; message: string }>(apiUrl).subscribe({
       next: (response: {result: string; rideCount:number; rides:any[]; message:string}) => {
@@ -73,7 +79,12 @@ export class MyRidesComponent implements OnInit {
 
   cancelRide(bookingId: number): void {
   if (confirm('Are you sure you want to cancel this ride?')) {
-    const apiUrl = `http://localhost:8095/login/cancelRide/${bookingId}`;
+    // const apiUrl = `http://localhost:8095/login/cancelRide/${bookingId}`;
+
+    const apiUrl =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:8095/login/cancelRide/${bookingId}'
+    : 'https://spring-boot-crud-3qhx.onrender.com/login/cancelRide/${bookingId}';
 
     this.http.put(apiUrl, {}).subscribe({
       next: (response: any) => {

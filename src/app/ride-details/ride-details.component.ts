@@ -31,7 +31,13 @@ export class RideDetailsComponent {
   }
 
   getRideDetails() {
-    this.http.get<any>(` http://localhost:8095/login/${this.rideId}`)
+
+    const url  =
+  window.location.hostname === 'localhost'
+    ?` http://localhost:8095/login/${this.rideId}` 
+    : ` https://spring-boot-crud-3qhx.onrender.com/login/${this.rideId}` 
+
+    this.http.get<any>(url)
       .subscribe(
         (response) => {
           this.ride = response;
@@ -83,7 +89,12 @@ export class RideDetailsComponent {
     
     const seatsBooked = this.selectedPassengers;
     console.log(seatsBooked)
-    const url = `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
+    const url  =
+  window.location.hostname === 'localhost'
+    ? `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
+    : `https://spring-boot-crud-3qhx.onrender.com/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
+    
+    // const url = `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
 
   this.http.post(url, {}).subscribe({
     next: (res: any) => {

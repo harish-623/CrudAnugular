@@ -47,7 +47,11 @@ export class PublishRideComponent {
     const driverId = localStorage.getItem('driverId');
     
     console.log(driverId)
-    const url = `http://localhost:8095/login/publish/${driverId}`;
+    // const url = `http://localhost:8095/login/publish/${driverId}`;
+    const url =
+  window.location.hostname === 'localhost'
+    ? `http://localhost:8095/login/publish/${driverId}`
+    : `https://spring-boot-crud-3qhx.onrender.com/login/publish/${driverId}`;
     this.loading = true;
     this.http.post(url, payload)
       .subscribe({

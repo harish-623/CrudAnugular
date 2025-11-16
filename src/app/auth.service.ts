@@ -11,7 +11,12 @@ export class AuthService {
 
   // private userUrl = 'https://spring-boot-crud-3qhx.onrender.com/login/login';
   // private userUrl = 'http://localhost:8095/login/login';
-  private userUrl = environment.apiUrl + '/login/login';
+  private userUrl =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:8095/login/login'
+    : 'https://spring-boot-crud-3qhx.onrender.com/login/login';
+  
+ 
 
 
 
@@ -20,6 +25,7 @@ export class AuthService {
   login(username: string , password:string):Observable<any>{
     const payload = { username, password };
     console.log(payload)
+   console.log(this.userUrl);
     return this.http.post<any>(this.userUrl, { username, password }).pipe(
     
       

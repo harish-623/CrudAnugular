@@ -18,6 +18,7 @@ import { RideDetailsComponent } from './ride-details/ride-details.component';
 import { PublishRideComponent } from './publish-ride/publish-ride.component';
 import { MyRidesComponent } from './my-rides/my-rides.component';
 import { DriverPublishRidesComponent } from './driver-publish-rides/driver-publish-rides.component';
+import { ViewRideDetailsComponent } from './view-ride-details/view-ride-details.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DriverPublishRidesComponent } from './driver-publish-rides/driver-publi
     RideDetailsComponent,
     PublishRideComponent,
     MyRidesComponent,
-    DriverPublishRidesComponent
+    DriverPublishRidesComponent,
+    ViewRideDetailsComponent
   ],
   imports: [
     BrowserModule,

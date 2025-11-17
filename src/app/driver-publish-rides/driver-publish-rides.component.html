@@ -41,6 +41,13 @@
         (click)="cancelRide(ride.rideId)">
         ❌ Cancel Ride
       </button>
+
+      <button 
+        class="view-btn"
+        *ngIf="ride.status !== 'CANCELLED'"
+        (click)="viewDetails(ride.rideId)">
+        👁️ View Details
+      </button>
     </div>
   </div>
 </div>

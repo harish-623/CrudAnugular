@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-driver-publish-rides',
@@ -19,7 +20,8 @@ export class DriverPublishRidesComponent {
   
     constructor(
       private route: ActivatedRoute,
-      private http: HttpClient
+      private http: HttpClient,
+      private router: Router,
     ) {}
   
     ngOnInit(): void {
@@ -78,6 +80,14 @@ export class DriverPublishRidesComponent {
           this.loading = false;
         }
       });
+    }
+
+
+    viewDetails(rideId: number) {
+        // this.router.navigate(['/view-details',]);
+        this.router.navigate(['/view-details', rideId]);
+        console.log(rideId)
+        console.log(this.driverId)
     }
   
     cancelRide(rideId: number): void {

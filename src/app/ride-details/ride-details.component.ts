@@ -47,7 +47,7 @@ export class RideDetailsComponent {
         },
         (error) => {
           console.error('Error fetching ride details:', error);
-          this.loading = false;
+         
         }
       );
   }
@@ -108,6 +108,8 @@ export class RideDetailsComponent {
           alert("Ride booked Successfully")
           this.router.navigate(['/home']);
         } else {
+          console.log(res.result)
+           alert(res.message)
           this.errorMessage = res.message || 'Booking failed. Please try again.';
           
         }
@@ -116,7 +118,7 @@ export class RideDetailsComponent {
     error: (err) => {
       console.error('Error booking ride:', err);
       alert('Failed to book the ride. Please try again.');
-      this.loading = false;
+      
     }
   });
 

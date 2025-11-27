@@ -19,6 +19,9 @@ import { PublishRideComponent } from './publish-ride/publish-ride.component';
 import { MyRidesComponent } from './my-rides/my-rides.component';
 import { DriverPublishRidesComponent } from './driver-publish-rides/driver-publish-rides.component';
 import { ViewRideDetailsComponent } from './view-ride-details/view-ride-details.component';
+import { LoaderComponent } from './loader/loader.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { StartRideComponent } from './start-ride/start-ride.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { ViewRideDetailsComponent } from './view-ride-details/view-ride-details.
     PublishRideComponent,
     MyRidesComponent,
     DriverPublishRidesComponent,
-    ViewRideDetailsComponent
+    ViewRideDetailsComponent,
+    LoaderComponent,
+    ForgetPasswordComponent,
+    StartRideComponent
   ],
   imports: [
     BrowserModule,

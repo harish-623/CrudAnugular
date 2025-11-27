@@ -16,7 +16,7 @@ export class RegisterComponent {
     responseClass: string = '';
     otpSent: boolean = false;
     otpVerified: boolean = false;
-    loading: boolean = true;
+     loading: boolean = false; 
     // private baseUrl = 'http://localhost:8095/login';
     private baseUrl =
   window.location.hostname === 'localhost'
@@ -49,7 +49,9 @@ export class RegisterComponent {
     if (!email) {
       this.showMessage('❌ Please enter a valid email address', 'alert-danger');
       return;
+
     }
+    this.loading=true
     this.http.post(`${this.baseUrl}/send?email=${email}`, {}, { responseType: 'text' })
     .subscribe({
       next: (response: string) => {
@@ -82,7 +84,7 @@ togglePassword() {
       this.showMessage('❌ Please enter the OTP.', 'alert-danger');
       return;
     }
-
+    this.loading=true
     this.http.post(`${this.baseUrl}/verify`, null, { 
       params: { email, otp },
       responseType: 'text'   // 👈 This line fixes the issue
@@ -112,6 +114,7 @@ togglePassword() {
 
     onSubmit() {
       console.log(this.userForm)
+      this.loading=true
         if (this.userForm.valid) {
           this.userService.createUser(this.userForm.value).subscribe(
             (response: any) => {

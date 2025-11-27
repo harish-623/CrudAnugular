@@ -52,6 +52,7 @@ togglePassword() {
     const logoUrl = 'https://avatars.githubusercontent.com/u/124091983';
     this.imageLoader.loadImage(logoUrl).subscribe((blob: Blob) => {
       this.logoUrl = URL.createObjectURL(blob);
+      this.loading=false
     });
   }
 
@@ -59,7 +60,7 @@ togglePassword() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
   
-    
+      this.loading=true;
       console.log(username)
       console.log(password)
   
@@ -67,6 +68,7 @@ togglePassword() {
         (response: { success: boolean; username: string; token: string ;id:string ; email:string ; eemergencyEmail:string}) => {
           if (response.success) {
             console.log(response)
+            
             // alert('Login Successful');
             localStorage.setItem('username', response.username);
             localStorage.setItem('driverId',response.id)
@@ -82,12 +84,15 @@ togglePassword() {
             this.loginError = 'Login failed. Please check your credentials.';
             console.log(this.loginError);
           }
+          this.loading=false;
         },
         (error: any) => {
+          this.loading=false;
           console.error('Error occurred during login:', error);
           this.loginError = "Login failed. Please check your credentials."; // Display error message to the user
           alert('Invalid username or password.');
         }
+        
       );
     } else {
       console.log('Form is invalid');
@@ -131,6 +136,9 @@ togglePassword() {
       console.log('Registration form is invalid');
     }
   }
+  navigateToForgotPassword() {
+  this.router.navigate(['/forgot-password']);
+}
 
   navigateToRegister() {
     this.router.navigate(['/register']);

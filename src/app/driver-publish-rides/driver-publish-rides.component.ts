@@ -114,4 +114,11 @@ export class DriverPublishRidesComponent {
     }
   }
 
+  startRide(rideId: number)
+  {
+     this.router.navigate(['/start-ride', rideId]);
+        console.log(rideId)
+        console.log(this.driverId)
+  }
+
 }

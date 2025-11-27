@@ -14,6 +14,8 @@ export class MyRidesComponent implements OnInit {
   noResultsMessage: string = '';
   loading: boolean = true;
   driverId!: number; 
+  selectedOtp: string | null = null;
+
   
 
   rideCount: number = 0;
@@ -30,6 +32,9 @@ export class MyRidesComponent implements OnInit {
         this.driverId = +driverIdParam;
         console.log('driverID received:', this.driverId );
         this.fetchDriverRides(this.driverId);
+        this.rides.forEach((ride: any) => {
+          this.getOtp(ride);
+        });
         
       } else {
         this.noResultsMessage = 'No username provided.';
@@ -57,8 +62,13 @@ export class MyRidesComponent implements OnInit {
           this.rideCount = response.rideCount || 0;
 
           if (response.rideCount > 0 && response.rides && response.rides.length > 0) {
+            
             this.rides = response.rides;
             this.noResultsMessage = '';
+             this.rides.forEach((ride: any) => {
+          this.getOtp(ride);
+        });
+
           } else {
             this.noResultsMessage = response.message || 'No rides found.';
             this.rides = [];
@@ -84,8 +94,10 @@ export class MyRidesComponent implements OnInit {
 
     const apiUrl =
   window.location.hostname === 'localhost'
-    ? 'http://localhost:8095/login/cancelRide/${bookingId}'
-    : 'https://spring-boot-crud-3qhx.onrender.com/login/cancelRide/${bookingId}';
+    ? `http://localhost:8095/login/cancelRide/${bookingId}`
+    : `https://spring-boot-crud-3qhx.onrender.com/login/cancelRide/${bookingId}`;
+
+    this.loading=true;
 
     this.http.put(apiUrl, {}).subscribe({
       next: (response: any) => {
@@ -101,6 +113,30 @@ export class MyRidesComponent implements OnInit {
     });
   }
 }
+
+getOtp(ride: any) {
+  const url = `http://localhost:8095/login/ride/get-otp?bookingId=${ride.bookingId}`;
+  console.log(url)
+  this.http.get(url).subscribe({
+    next: (res: any) => {
+      if (res && res.otp) {
+        ride.otpStatus = res.result;
+        ride.otp = res.otp || null; // store OTP
+        // console.log("OTP:", ride.otp);
+      } else {
+        // this.selectedOtp = "OTP not available";
+        ride.otpStatus = 'OTP not available';
+      ride.otp = null;
+      }
+    },
+    error: (err) => {
+      console.error("Error fetching OTP", err);
+      ride.otpStatus = 'Error';
+      ride.otp = null;
+    }
+  });
+}
+
   
   
   

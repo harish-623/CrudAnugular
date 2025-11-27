@@ -1,3 +1,7 @@
+<div *ngIf="loading" class="loader-overlay">
+  <div class="loader"></div>
+</div>
+
 <div class="ride-detail-page">
   <!-- Header -->
   <header class="ride-header">
@@ -47,10 +51,10 @@
   </div>
 
 
-  <div *ngIf="loading" class="loader-container">
+  <!-- <div *ngIf="loading" class="loader-container">
     <div class="spinner"></div>
     <p>Loading your rides...</p>
-  </div>
+  </div> -->
 
 
   <!-- Back Button -->

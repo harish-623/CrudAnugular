@@ -1,90 +1,4 @@
-/* .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .login-form {
-    width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .login-form h2 {
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .btn-primary {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
 
-  .status-message {
-    color: green; /* or any color you prefer for success messages 
-    margin-top: 10px;
-  }
-
-  .signup{
-    position: relative;
-    width:100%;
-    height: 100%;
-  }
-
-  button{
-    width: 60%;
-    height: 40px;
-    margin: 10px auto;
-    justify-content: center;
-    display: block;
-    color: #fff;
-    background: #573b8a;
-    background-color: #007bff;
-    font-size: 1em;
-    font-weight: bold;
-    margin-top: 30px;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    transition: .2s ease-in;
-    cursor: pointer;
-  }
-  button:hover{
-    background: #6d44b8;
-  } */
-
-  /* ===== Center Container ===== */
-/* .login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f1f5f9;
-} */
 
 body {
   margin: 0;
@@ -94,7 +8,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* ===== Login Card ===== */
+
 .login-form {
   width: 320px;
   padding: 25px;
@@ -110,7 +24,7 @@ body {
   font-weight: 600;
 }
 
-/* ===== Input Groups ===== */
+
 .form-group {
   margin-bottom: 18px;
   position: relative;
@@ -124,15 +38,15 @@ body {
   display: block;
 }
 
-/* Input fields */
+
 .form-control {
   width: 100%;
-  padding: 12px 14px;        /* FIX 1: Add padding */
-  border-radius: 8px;        /* FIX 2: Add border-radius properly */
+  padding: 12px 14px;        
+  border-radius: 8px;       
   border: 1px solid #cbd5e1;
   font-size: 15px;
-  background-color: #eef3ff; /* Optional: matches your previous design */
-  box-sizing: border-box;    /* FIX 3: Prevent overflow */
+  background-color: #eef3ff; 
+  box-sizing: border-box;    
 }
 
 .form-control:focus {
@@ -142,7 +56,7 @@ body {
 }
 
 
-/* ===== Password Eye Icon ===== */
+
 .password-wrapper {
   position: relative;
 }
@@ -166,7 +80,7 @@ body {
   color: #475569;
 }
 
-/* ===== Buttons ===== */
+
 .btn-primary,
 .btn-secondary {
   width: 100%;
@@ -179,7 +93,7 @@ body {
   border: none;
 }
 
-/* Login Button */
+
 .btn-primary {
   background-color: #007bff;
   color: white;
@@ -189,7 +103,7 @@ body {
   background-color: #0056b3;
 }
 
-/* Register Button */
+
 .btn-secondary {
   background-color: #475569;
   color: white;
@@ -199,7 +113,7 @@ body {
   background-color: #334155;
 }
 
-/* ===== Status Message ===== */
+
 .status-message {
   color: red;
   text-align: center;
@@ -207,7 +121,7 @@ body {
   font-weight: 600;
 }
 
-/* ==== Full Page Background ==== */
+
 .login-container {
     height: 100vh;
     width: 100%;
@@ -220,7 +134,7 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* ==== Card ==== */
+
 .login-card {
     background: #ffffffee;
     width: 360px;
@@ -231,13 +145,13 @@ body {
     text-align: center;
 }
 
-/* ==== Logo or Car Icon ==== */
+
 .login-card .logo {
     width: 80px;
     margin-bottom: 10px;
 }
 
-/* ==== Title ==== */
+
 .login-card h2 {
     margin-bottom: 20px;
     color: #2a2a72;
@@ -245,13 +159,13 @@ body {
     font-weight: 600;
 }
 
-/* ==== Form group ==== */
+
 .form-group {
     margin-bottom: 18px;
     text-align: left;
 }
 
-/* ==== Inputs ==== */
+
 .form-control {
     width: 100%;
     padding: 12px 14px;
@@ -267,7 +181,7 @@ body {
     box-shadow: 0 0 5px rgba(0, 159, 253, 0.5);
 }
 
-/* ==== Login button ==== */
+
 .btn-primary {
     width: 100%;
     padding: 12px;
@@ -286,7 +200,7 @@ body {
     box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.25);
 }
 
-/* ==== Signup Link ==== */
+
 .signup-text {
     margin-top: 18px;
     font-size: 14px;
@@ -297,7 +211,7 @@ body {
 }
 
 .password-wrapper .form-control {
-  padding-right: 60px; /* leave room for the Show/Hide button */
+  padding-right: 60px;
 }
 
 .password-wrapper {
@@ -316,7 +230,6 @@ body {
   color: #333;
 }
 
-/* --- Loader --- */
 .loader-container {
   text-align: center;
   color: #555;
@@ -331,4 +244,66 @@ body {
   margin: 20px auto;
   animation: spin 1s linear infinite;
 }
+
+.forgot-password {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+
+.forgot-password:focus {
+  outline: none;
+}
+
+
+.forgot-link {
+  font-size: 14px;
+  color: #4f8df9;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.25s ease;
+}
+
+
+.forgot-link:hover {
+  text-decoration: underline;
+  color: #3c75d9;
+}
+
+
+.forgot-password {
+  display: block;
+  text-align: left; 
+}
+
+.loader-container {
+  text-align: center;
+  color: #d10000; 
+}
+
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ffb3b3; 
+  border-top-color: #e60000;  
+  border-radius: 50%;
+  margin: 20px auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
 

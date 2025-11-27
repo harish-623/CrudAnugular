@@ -35,6 +35,13 @@
         <p><strong>Time:</strong> {{ ride.rideTime }}</p>
       </div>
 
+       <button 
+    class="start-ride-btn" 
+    (click)="startRide(ride.rideId)">
+    Start Ride
+</button>
+
+
       <button 
         class="cancel-btn" 
         *ngIf="ride.status !== 'CANCELLED'"

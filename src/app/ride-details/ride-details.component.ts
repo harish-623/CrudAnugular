@@ -66,10 +66,9 @@ export class RideDetailsComponent {
 
   bookRide(){
 
-    if (!this.ride) {
+  if (!this.ride) {
     console.error('Ride details not loaded yet.');
     return;
-
   }
 
   const passengerId = Number(localStorage.getItem('driverId')); // logged in user id
@@ -80,7 +79,7 @@ export class RideDetailsComponent {
     return; // stop booking
   }
 
-    if (!this.selectedPassengers || this.selectedPassengers <= 0) {
+  if (!this.selectedPassengers || this.selectedPassengers <= 0) {
     console.error('⚠️ Please select the number of passengers.');
     return;
   }
@@ -92,18 +91,18 @@ export class RideDetailsComponent {
     
     const seatsBooked = this.selectedPassengers;
     console.log(seatsBooked)
+    
     const url  =
-  window.location.hostname === 'localhost'
+    window.location.hostname === 'localhost'
     ? `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
     : `https://spring-boot-crud-3qhx.onrender.com/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
     
     // const url = `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
-
+  this.loading = true;
   this.http.post(url, {}).subscribe({
     next: (res: any) => {
       console.log(res)
       if (res.result === 'Success') {
-      
           console.log('🎉', res.message);
           alert("Ride booked Successfully")
           this.router.navigate(['/home']);
@@ -118,16 +117,9 @@ export class RideDetailsComponent {
     error: (err) => {
       console.error('Error booking ride:', err);
       alert('Failed to book the ride. Please try again.');
-      
+      this.loading = false; 
     }
   });
-
-
-    
-  
-
-  
- 
   }
 
 }

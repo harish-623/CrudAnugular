@@ -1,0 +1,129 @@
+/* Page Container */
+.passenger-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Ride Summary Card */
+.ride-summary {
+  background: #ffffff;
+  padding: 20px;
+  border-left: 6px solid #3498db;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.ride-summary h3 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+/* No Passengers */
+.no-passengers {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+  margin-top: 30px;
+}
+
+/* Passenger Cards */
+.passenger-list h3 {
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: #333;
+}
+
+.passenger-card {
+  background: #f9f9f9;
+  padding: 18px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border-left: 5px solid #2ecc71;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  transition: 0.2s ease;
+}
+
+.passenger-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.passenger-info p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #444;
+}
+
+/* Back Button */
+.back-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  background: #3498db;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #217dbb;
+  transform: translateY(-2px);
+}
+
+.otp-input {
+  padding: 8px;
+  width: 150px;
+  margin-top: 10px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+.verify-btn {
+  margin-left: 10px;
+  padding: 8px 12px;
+  background: #007bff;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.verify-btn:hover {
+  background: #0056b3;
+}
+
+.verified {
+  color: green;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.failed {
+  color: red;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.otp-success {
+    color: #28a745; /* Green color */
+    font-weight: 500; /* Optional: makes text slightly bold */
+    font-size: 14px; /* Optional: adjust size */
+    margin-top: 5px; /* Optional spacing from other elements */
+}
+

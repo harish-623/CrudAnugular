@@ -1,7 +1,7 @@
 import { Component ,OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -19,7 +19,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-     private http: HttpClient
+     private http: HttpClient,
+     private router: Router
     // private profileService: ProfileService
   ) {}
 
@@ -34,6 +35,10 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+
+  goHome() {
+  this.router.navigate(['/home']);
+}
 
   
 

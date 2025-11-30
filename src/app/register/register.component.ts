@@ -11,15 +11,15 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
 
-  userForm: FormGroup;
+    userForm: FormGroup;
     responseMessage: string | null = null;
     responseClass: string = '';
     otpSent: boolean = false;
     otpVerified: boolean = false;
-     loading: boolean = false; 
-    // private baseUrl = 'http://localhost:8095/login';
+    loading: boolean = false; 
+
     private baseUrl =
-  window.location.hostname === 'localhost'
+    window.location.hostname === 'localhost'
     ? `http://localhost:8095/login`
     : `https://spring-boot-crud-3qhx.onrender.com/login`;
   
@@ -32,28 +32,45 @@ export class RegisterComponent {
         age: ['', [Validators.required, Validators.min(18)]],
         fullname: ['', [Validators.required]],
         role: ['USER', [Validators.required]],
-        otp: ['']
+        otp: ['']   // <-- FIX
+        
         
         });
     }
 
-    private showMessage(message: string, cssClass: string): void {
-  this.responseMessage = message;   // sets the text (e.g. “OTP sent successfully”)
-  this.responseClass = cssClass;    // sets the alert color (Bootstrap class)
-  setTimeout(() => (this.responseMessage = ''), 5000); // clears message after 5 sec
+ngOnInit() {
+    this.userForm.statusChanges.subscribe(() => {
+      console.log(this.userForm);
+      console.log("✔ Form Valid:", this.userForm.valid);
+      console.log("✖ Form Invalid:", this.userForm.invalid);
+
+      console.log("Field Validation Errors:");
+      Object.keys(this.userForm.controls).forEach(key => {
+        console.log(key, this.userForm.get(key)?.errors);
+      });
+
+      console.log("OTP Verified:", this.otpVerified);
+    });
+  }
+
+
+private showMessage(message: string, cssClass: string): void {
+      this.responseMessage = message;   // sets the text (e.g. “OTP sent successfully”)
+      this.responseClass = cssClass;    // sets the alert color (Bootstrap class)
+      setTimeout(() => (this.responseMessage = ''), 5000); // clears message after 5 sec
 }
 
-    sendOtp(): void {
-    const email = this.userForm.get('email')?.value;
+sendOtp(): void {
+      const email = this.userForm.get('email')?.value;
 
-    if (!email) {
+      if (!email) {
       this.showMessage('❌ Please enter a valid email address', 'alert-danger');
       return;
 
-    }
-    this.loading=true
-    this.http.post(`${this.baseUrl}/send?email=${email}`, {}, { responseType: 'text' })
-    .subscribe({
+      }
+      this.loading=true
+      this.http.post(`${this.baseUrl}/send?email=${email}`, {}, { responseType: 'text' })
+      .subscribe({
       next: (response: string) => {
         this.loading = false;
         this.otpSent = true;
@@ -65,16 +82,18 @@ export class RegisterComponent {
         this.loading = false;
         this.showMessage('❌ Failed to send OTP.', 'alert-danger');
       }
-    });
-  }
+      });
+}
 
 
-  showPassword = false;
+showPassword = false;
 
 togglePassword() {
   this.showPassword = !this.showPassword;
 }
-  verifyOtp(): void {
+
+
+verifyOtp(): void {
   const email = this.userForm.get('email')?.value;
     const otp = this.userForm.get('otp')?.value;
     console.log(otp)
@@ -110,10 +129,12 @@ togglePassword() {
     });
   }
 
-  
-
-    onSubmit() {
+onSubmit() {
       console.log(this.userForm)
+      
+
+  // Mark all fields as touched → shows validation errors in UI
+  
       this.loading=true
         if (this.userForm.valid) {
           this.userService.createUser(this.userForm.value).subscribe(

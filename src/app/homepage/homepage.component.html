@@ -9,7 +9,7 @@
       <div class="profile-container" (mouseenter)="showProfile = true" (mouseleave)="showProfile = false">
 
        <div class="profile-display ">
-        <img src="assets/default-user.jpg" alt="Profile" class="profile-img" />
+        <img [src]="imageUrl"  alt="Profile" class="profile-img" />
         <span class="profile-name">Hello,{{username}}</span>
       </div>
 

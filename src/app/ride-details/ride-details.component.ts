@@ -122,4 +122,8 @@ export class RideDetailsComponent {
   });
   }
 
+   goHome() {
+  this.router.navigate(['/home']);
+}
+
 }

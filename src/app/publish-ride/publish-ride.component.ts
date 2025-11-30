@@ -23,6 +23,9 @@ export class PublishRideComponent {
   toSuggestions: any[] = [];
 
   constructor(private http: HttpClient, private router: Router) {}
+  goHome() {
+  this.router.navigate(['/home']);
+}
 
   publishRide() {
     if (!this.leavingFrom || !this.goingTo || !this.date || !this.time) {

@@ -121,4 +121,8 @@ export class DriverPublishRidesComponent {
         console.log(this.driverId)
   }
 
+   goHome() {
+  this.router.navigate(['/home']);
+}
+
 }

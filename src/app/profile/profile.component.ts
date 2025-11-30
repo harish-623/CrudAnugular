@@ -27,9 +27,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const username = params['username'];
+      const driverIdParam=localStorage.getItem("driverId")
       if (username) {
         console.log('Username received:', username);
         this.fetchUserProfile(username);
+        this.loadUserImage();
+          
+        
       } else {
         this.noResultsMessage = 'No username provided.';
       }
@@ -42,36 +46,79 @@ export class ProfileComponent implements OnInit {
 
   
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+ onFileSelected(event: any) {
+  this.selectedFile = event.target.files[0];
+  if (this.selectedFile) {
+    this.uploadImage();
   }
+}
 
   uploadImage() {
-    if (!this.selectedFile) {
-      alert('Please select an image!');
-      return;
-    }
+  // Check file
+  if (!this.selectedFile) {
+    alert('Please select an image first!');
+    return;
+  }
+
+  // Get logged-in userId
+  const userId = localStorage.getItem('driverId');
+  if (!userId) {
+    alert("User ID missing — please login again.");
+    return;
+  }
+
+  this.loading = true;
 
   const formData = new FormData();
   formData.append('image', this.selectedFile);
 
-  const userId = localStorage.getItem('driverId');
-
   this.http.post(`http://localhost:8095/login/user/${userId}/upload-image`, formData)
     .subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.loading = false;
-        alert('Image uploaded successfully!');
-        this.loadUserImage(); // reload image after upload
+
+        alert('✅ Image uploaded successfully!');
+
+        this.loadUserImage();  // refresh image from backend
       },
-      error: (err) => console.error(err)
+      error: (err) => {
+        this.loading = false;
+        console.error("❌ Error uploading image:", err);
+
+        if (err.status === 413) {
+          alert("Image size too large. Please upload a smaller image.");
+        } else {
+          alert("Failed to upload image. Try again.");
+        }
+      }
     });
 }
 
+
   loadUserImage() {
-  const userId = localStorage.getItem('driverId');
-  this.userImageUrl = `http://localhost:8095/login/user/${userId}/image`;
+     const userId=localStorage.getItem("driverId")
+          
+  const imgApi =
+    window.location.hostname === 'localhost'
+      ? `http://localhost:8095/login/user/${userId}/profile-image-base64`
+      : `https://spring-boot-crud-3qhx.onrender.com/login/user/${userId}/profile-image-base64`;
+
+  this.http.get(imgApi, { responseType: 'text' }).subscribe({
+    next: (dataUri) => {
+      if (dataUri && dataUri.startsWith("data")) {
+        this.user.imageUrl = dataUri; 
+        localStorage.setItem('imageUrl',this.user.imageUrl)  // set base64 image
+      } else {
+        this.user.imageUrl = 'assets/default-user.jpg'; // fallback
+      }
+    },
+    error: (err) => {
+      console.error("Image fetch error:", err);
+      this.user.imageUrl = 'assets/default-user.jpg';
+    }
+  });
 }
+
 
 
 
@@ -140,7 +187,8 @@ updateUser()
             fullname:data.fullname,
             email:data.email,
             emergencyContact:data.emergencyContact,
-
+            
+            
             // fullname=data.fullname,
             imageUrl: 'assets/default-user.jpg',
             description: 'Passionate traveler and ride enthusiast!',

@@ -110,27 +110,7 @@
   </div>
     
 
-    <!-- <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        [type]="showPassword ? 'text' : 'password'"
-        id="password"
-        formControlName="password"
-        class="form-control"
-        placeholder="Enter Password"
-        required
-        [disabled]="!otpVerified"
-      />
-      <button
-    type="button"
-    (click)="togglePassword()"
-    class="btn btn-outline-secondary position-absolute end-0 top-50 translate-middle-y me-2"
-    style="border: none; background: transparent;"
-  >
-    <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-  </button>
-      
-    </div> -->
+    
 
     <div class="form-group">
   <label for="password">Password</label>
@@ -142,7 +122,12 @@
     placeholder="Enter Password"
     required
     [disabled]="!otpVerified"
+    
   />
+   <p class="password-guide">
+    Use a strong password that includes uppercase & lowercase letters,
+    numbers, and special characters.
+  </p>
   <div class="form-check mt-2">
     <input
       type="checkbox"
@@ -152,18 +137,6 @@
     />
     <label for="showPasswordCheckbox" class="form-check-label">Show Password</label>
   </div>
-
-
-  <!-- <input type="checkbox" onclick="togglePassword()">Show Password
-  <button
-  type="button"
-  class="toggle-password-btn"
-  (click)="togglePassword()"
-  aria-label="Toggle password visibility"
->
-  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-</button> -->
-
 </div>
 
 

@@ -13,15 +13,29 @@
 
     <!-- Profile Header -->
     <div class="profile-header">
-      <img
-        [src]="user.profileImage || 'assets/default-user.jpg'"
-        alt="Profile Picture"
-        class="profile-img"
-      />
-
+      <img [src]="user.imageUrl" class="profile-img">
       <h2 class="profile-name">{{ user.fullname }}</h2>
       <p class="profile-age">Age: {{ user.age || 'N/A' }}</p>
     </div>
+
+
+<div class="upload-section">
+  <input
+    type="file"
+    accept="image/*"
+    #fileInput
+    style="display: none;"
+    (change)="onFileSelected($event)"
+  />
+
+  <!-- Upload / Change Button -->
+  <button class="upload-btn" (click)="fileInput.click()">
+    {{ user.imageUrl ? 'Change Photo' : 'Upload Photo' }}
+  </button>
+
+</div>
+
+
 
     <!-- Contact Info -->
     <div class="contact-info">

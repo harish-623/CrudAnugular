@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
@@ -30,13 +30,40 @@ export class HomepageComponent {
   recentFromSearches: string[] = [];
   recentToSearches: string[] = [];
   loading: boolean = true;
+  imageUrl:string = '';
 
   searchSubject = new Subject<{ query: string; type: 'from' | 'to' }>();
 
   constructor(private http: HttpClient, private router: Router) {
     
   }
+  ngOnInit() {
+  this.loadUserImage();   // Load image automatically
+}
 
+  loadUserImage() {
+     const userId=localStorage.getItem("driverId")
+          
+  const imgApi =
+    window.location.hostname === 'localhost'
+      ? `http://localhost:8095/login/user/${userId}/profile-image-base64`
+      : `https://spring-boot-crud-3qhx.onrender.com/login/user/${userId}/profile-image-base64`;
+
+  this.http.get(imgApi, { responseType: 'text' }).subscribe({
+    next: (dataUri) => {
+      if (dataUri && dataUri.startsWith("data")) {
+        this.imageUrl = dataUri; 
+       
+      } else {
+        this.imageUrl = 'assets/default-user.jpg'; // fallback
+      }
+    },
+    error: (err) => {
+      console.error("Image fetch error:", err);
+      this.imageUrl = 'assets/default-user.jpg';
+    }
+  });
+}
  
   goToPublishRide() {
   this.router.navigate(['/publish-ride']); // Replace with your route path

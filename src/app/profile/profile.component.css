@@ -251,3 +251,29 @@
 }
 
 
+.upload-btn {
+  background-color: #4A90E2;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s ease;
+  display: inline-block;
+}
+
+.upload-btn:hover {
+  background-color: #357ABD;
+}
+
+.upload-btn:active {
+  transform: scale(0.96);
+}
+
+.upload-section {
+  margin-top: 10px;
+  text-align: center;
+}
+

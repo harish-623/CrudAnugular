@@ -704,7 +704,8 @@ input[type="text"]:focus {
   transition: background-color 0.3s ease, transform 0.2s ease;
   /* display: flex; */
   align-items: center; 
-  /* gap: 16px; */
+  /* float: right; 
+  gap: 16px;  */
   margin-left: auto;
 }
 

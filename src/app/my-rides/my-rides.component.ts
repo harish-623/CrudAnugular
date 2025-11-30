@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-rides',
@@ -22,7 +23,8 @@ export class MyRidesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private router :Router
   ) {}
 
   ngOnInit(): void {
@@ -137,6 +139,10 @@ getOtp(ride: any) {
   });
 }
 
+
+goHome() {
+  this.router.navigate(['/home']);
+}
   
   
   

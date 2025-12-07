@@ -22,6 +22,20 @@ export class PublishRideComponent {
   fromSuggestions: any[] = [];
   toSuggestions: any[] = [];
 
+  placesList: string[] = [
+  'Gachibowli,Hyderabad',
+  'Secunderabad,Hyderabad',
+  'KukataPally,Hyderabad',
+  'HitechCity,Hyderabad',
+  'Shamshabad,Hyderabad',
+  'Aramghar,Hyderabad',
+  'Bellary Chowrastha,Kurnool',
+  'Kurnool Bus stand, Kurnool',
+  'MGBS,Hyderabad',
+  'C-Camp ,Kurnool',
+  'Manikonda, Hyderabad'
+];
+
   constructor(private http: HttpClient, private router: Router) {}
   goHome() {
   this.router.navigate(['/home']);
@@ -86,23 +100,26 @@ export class PublishRideComponent {
   searchPlaces(query: string, type: 'from' | 'to') {
     if (query.length < 2) return;
     
-    // const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}
-    &addressdetails=1&limit=5&countrycodes=in&accept-language=en`;
+    // // const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+    // const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}
+    // &addressdetails=1&limit=5&countrycodes=in&accept-language=en`;
 
 
     
-    this.http.get<any[]>(url).subscribe((data) => {
-    const formattedData = data.map(place => {
-      const { city, town, village, state } = place.address;
-      const formattedName = `${city || town || village || place.display_name}, ${state ?? ''}`;
-      return { ...place, formattedName };
-    });
+    // this.http.get<any[]>(url).subscribe((data) => {
+    // const formattedData = data.map(place => {
+    //   const { city, town, village, state } = place.address;
+    //   const formattedName = `${city || town || village || place.display_name}, ${state ?? ''}`;
+    //   return { ...place, formattedName };
+    // });
+    const formattedData = this.placesList.filter(place =>
+    place.toLowerCase().includes(query.toLowerCase())
+  );
 
     if (type === 'from') this.fromSuggestions = formattedData;
     else this.toSuggestions = formattedData;
-  });
   }
+  
 
   selectPlace(place: string, type: 'from' | 'to') {
     if (type === 'from') {

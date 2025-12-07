@@ -49,7 +49,7 @@
 
       
 
-      <div class="form-group autocomplete-group">
+      <!-- <div class="form-group autocomplete-group">
         <label>Leaving From</label>
         <input 
           type="text" 
@@ -83,8 +83,58 @@
             
           </li>
         </ul>
-      </div>
+      </div> -->
 
+      <div class="form-group half">
+  <label >
+    Leaving From
+  </label>
+
+  <div class="relative">
+    <select
+      [(ngModel)]="leavingFrom"
+      required
+      class="w-full px-4 py-2 border border-gray-300 rounded-md outline-none
+             text-gray-700 bg-white appearance-none"
+    >
+      <option value="" disabled selected class="text-gray-400">
+        Select your starting location
+      </option>
+
+      <option *ngFor="let place of placesList" [value]="place">
+        {{ place }}
+      </option>
+    </select>
+  </div>
+</div>
+
+
+<!-- TO Dropdown -->
+<div class="form-group half">
+  <!-- <div class="form-group half"> -->
+  <label >
+    Going To
+  </label>
+  
+  <div class="relative">
+    <select
+      [(ngModel)]="goingTo"
+      required
+      class="w-full px-4 py-2 border border-gray-300 rounded-md outline-none
+             text-gray-700 bg-white appearance-none"
+    >
+      <option value="" disabled selected class="text-gray-400">
+        Select your destination location
+      </option>
+      <option *ngFor="let place of placesList" [value]="place">
+        {{ place }}
+      </option>
+    </select>
+  </div>
+</div>
+
+  
+  
       <!-- <div class="form-group">
         <label>Going To</label>
         <input type="text" [(ngModel)]="goingTo" name="goingTo" required placeholder="Enter drop location" />

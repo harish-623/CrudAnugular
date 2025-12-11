@@ -1,2 +1,2 @@
 export const environment = 
-{ production: true, apiUrl: 'https://spring-boot-crud-3qhx.onrender.com' };
+{ production: true, apiUrl: 'https://40.192.99.168/login' };

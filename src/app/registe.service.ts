@@ -11,8 +11,8 @@ export class RegisteService {
 
    private registerUrl =
   window.location.hostname === 'localhost'
-    ? 'http://localhost:8095/login/register'
-    : 'https://spring-boot-crud-3qhx.onrender.com/login/register';
+    ? 'https://uptight-freda-equinely.ngrok-free.dev/login/register'
+    : 'https://uptight-freda-equinely.ngrok-free.dev/login/register';
 
   
   constructor(private http: HttpClient) {}

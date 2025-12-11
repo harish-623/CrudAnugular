@@ -13,8 +13,8 @@ export class AuthService {
   // private userUrl = 'http://localhost:8095/login/login';
   private userUrl =
   window.location.hostname === 'localhost'
-    ? 'http://localhost:8095/login/login'
-    : 'https://spring-boot-crud-3qhx.onrender.com/login/login';
+    ? 'https://uptight-freda-equinely.ngrok-free.dev/login/login'
+    : 'https://uptight-freda-equinely.ngrok-free.dev/login/login';
   
  
 

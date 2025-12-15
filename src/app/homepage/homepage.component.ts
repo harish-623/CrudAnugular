@@ -31,7 +31,8 @@ export class HomepageComponent {
   recentToSearches: string[] = [];
   loading: boolean = true;
   imageUrl:string = '';
-
+  isLoggedIn = false;
+  today!: string;
   placesList: string[] = [
   'Gachibowli,Hyderabad',
   'Secunderabad,Hyderabad',
@@ -51,7 +52,14 @@ export class HomepageComponent {
   constructor(private http: HttpClient, private router: Router) {
     
   }
+  
+
+
+
   ngOnInit() {
+    const now = new Date();
+  this.today = now.toISOString().split('T')[0];
+   this.isLoggedIn = !!localStorage.getItem('username');
   this.loadUserImage();   // Load image automatically
 }
 
@@ -151,6 +159,14 @@ goToMyPublishRides()
 
 logout() {
   localStorage.clear();
+  this.isLoggedIn = false;
+  this.router.navigate(['/login']);
+  
+  
+}
+
+goToLogin()
+{
   this.router.navigate(['/login']);
 }
 

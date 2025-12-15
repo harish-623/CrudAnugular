@@ -22,6 +22,10 @@ import { ViewRideDetailsComponent } from './view-ride-details/view-ride-details.
 import { LoaderComponent } from './loader/loader.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { StartRideComponent } from './start-ride/start-ride.component';
+import { MatSelectModule } from '@angular/material/select';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -47,10 +51,13 @@ import { StartRideComponent } from './start-ride/start-ride.component';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatCardModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

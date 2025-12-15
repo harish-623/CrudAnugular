@@ -27,6 +27,9 @@
 
    <!-- <div class="header-right"> -->
     <button class="publish-btn" (click)="goToPublishRide()">Publish Ride</button>
+    <button *ngIf="!isLoggedIn" (click)="goToLogin()" class="publish-btn">
+  Login
+</button>
     <!-- </div> -->
 
 
@@ -113,7 +116,13 @@
 
 
 
-  <input type="date" [(ngModel)]="date" class="flex-1 px-4 py-2 outline-none border-t md:border-t-0 md:border-l border-gray-300" />
+  <!-- <input type="date" [(ngModel)]="date" class="flex-1 px-4 py-2 outline-none border-t md:border-t-0 md:border-l border-gray-300" /> -->
+  <input
+  type="date"
+  [(ngModel)]="date"
+  [min]="today"
+  class="flex-1 px-4 py-2 outline-none border-t md:border-t-0 md:border-l border-gray-300"
+/>
   <select [(ngModel)]="passengers" class="flex-1 px-4 py-2 outline-none border-t md:border-t-0 md:border-l border-gray-300">
     <option [value]="1">1 passenger</option>
     <option [value]="2">2 passengers</option>

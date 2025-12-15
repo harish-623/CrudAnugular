@@ -59,10 +59,19 @@
 
 
       <div class="form-inline">
-        <div class="form-group half">
-          <label>Date</label>
-          <input type="date" [(ngModel)]="date" name="date" required />
-        </div>
+       <div class="form-group half">
+  <label>Date</label>
+  <input
+    type="date"
+    [(ngModel)]="date"
+    [min]="today"
+    name="date"
+    [ngModelOptions]="{ standalone: true }"
+
+    required
+  />
+</div>
+        
 
         <div class="form-group half">
           <label>Time</label>

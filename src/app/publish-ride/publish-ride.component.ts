@@ -37,6 +37,19 @@ export class PublishRideComponent {
 ];
 
   constructor(private http: HttpClient, private router: Router) {}
+
+  today!: string;
+
+
+
+  
+ 
+
+  ngOnInit() {
+    const now = new Date();
+    this.today = now.toISOString().split('T')[0];
+    console.log('Today:', this.today); // 👈 MUST log
+  }
   goHome() {
   this.router.navigate(['/home']);
 }

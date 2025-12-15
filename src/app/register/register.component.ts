@@ -20,8 +20,8 @@ export class RegisterComponent {
 
     private baseUrl =
     window.location.hostname === 'localhost'
-    ? `https://uptight-freda-equinely.ngrok-free.dev/login`
-    : `https://uptight-freda-equinely.ngrok-free.dev/login`;
+    ? `https://api.vyropool.info/login`
+    : `https://api.vyropool.info/login`;
   
     constructor(private fb: FormBuilder, private http: HttpClient,private userService:RegisteService,private router: Router) {
         this.userForm = this.fb.group({
@@ -92,6 +92,9 @@ togglePassword() {
   this.showPassword = !this.showPassword;
 }
 
+goHome() {
+  this.router.navigate(['/login']);
+}
 
 verifyOtp(): void {
   const email = this.userForm.get('email')?.value;

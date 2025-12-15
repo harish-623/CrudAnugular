@@ -35,7 +35,7 @@ loading = true;
 loadPassengerData() {
     this.loading = true;
 
-    const url = `http://localhost:8095/login/ride/${this.rideId}/driver/${this.driverId}/passengers`;
+    const url = `https://api.vyropool.info/login/ride/${this.rideId}/driver/${this.driverId}/passengers`;
 
     this.http.get(url).subscribe({
       next: (res: any) => {

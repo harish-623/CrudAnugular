@@ -67,8 +67,8 @@ export class PublishRideComponent {
     // const url = `http://localhost:8095/login/publish/${driverId}`;
     const url =
   window.location.hostname === 'localhost'
-    ? `http://localhost:8095/login/publish/${driverId}`
-    : `https://spring-boot-crud-3qhx.onrender.com/login/publish/${driverId}`;
+    ? `https://api.vyropool.info/login/publish/${driverId}`
+    : `https://api.vyropool.info/login/publish/${driverId}`;
     this.loading = true;
     this.http.post(url, payload)
       .subscribe({

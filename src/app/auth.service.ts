@@ -13,8 +13,8 @@ export class AuthService {
   // private userUrl = 'http://localhost:8095/login/login';
   private userUrl =
   window.location.hostname === 'localhost'
-    ? 'https://uptight-freda-equinely.ngrok-free.dev/login/login'
-    : 'https://uptight-freda-equinely.ngrok-free.dev/login/login';
+    ? 'https://api.vyropool.info/login/login'
+    : 'https://api.vyropool.info/login/login';
   
  
 

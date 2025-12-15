@@ -11,8 +11,8 @@ export class RegisteService {
 
    private registerUrl =
   window.location.hostname === 'localhost'
-    ? 'https://uptight-freda-equinely.ngrok-free.dev/login/register'
-    : 'https://uptight-freda-equinely.ngrok-free.dev/login/register';
+    ? 'https://api.vyropool.info/login/register'
+    : 'https://api.vyropool.info/login/register';
 
   
   constructor(private http: HttpClient) {}

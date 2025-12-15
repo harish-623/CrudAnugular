@@ -41,7 +41,7 @@ export class StartRideComponent {
   loadPassengerData() {
       this.loading = true;
   
-      const url = `http://localhost:8095/login/ride/${this.rideId}/driver/${this.driverId}/passengers`;
+      const url = `https://api.vyropool.info/login/ride/${this.rideId}/driver/${this.driverId}/passengers`;
   
       this.http.get(url).subscribe({
         next: (res: any) => {
@@ -61,7 +61,7 @@ export class StartRideComponent {
     }
 
   checkOtpStatus(p: any) {
-  const url = `http://localhost:8095/login/ride/check-otp-status?bookingId=${p.bookingId}`;
+  const url = `https://api.vyropool.info/login/ride/check-otp-status?bookingId=${p.bookingId}`;
 
   this.http.get<any>(url).subscribe(
     (response) => {
@@ -90,7 +90,7 @@ export class StartRideComponent {
     return;
   }
   
-  const url = `http://localhost:8095/login/ride/verify-otp?bookingId=${bookingId}&otp=${enterOtp}`;
+  const url = `https://api.vyropool.info/login/ride/verify-otp?bookingId=${bookingId}&otp=${enterOtp}`;
   console.log(url)
   this.http.post<any>(url, {}).subscribe(
     (response) => {

@@ -50,8 +50,8 @@ export class MyRidesComponent implements OnInit {
 
     const apiUrl =
   window.location.hostname === 'localhost'
-    ? `http://localhost:8095/login/myrides/${driverId}`
-    : `https://spring-boot-crud-3qhx.onrender.com/login/myrides/${driverId}`;
+    ? `https://api.vyropool.info/login/myrides/${driverId}`
+    : `https://api.vyropool.info/login/myrides/${driverId}`;
     
 
     this.http.get<{result: string; rideCount: number; rides: any[]; message: string }>(apiUrl).subscribe({
@@ -96,8 +96,8 @@ export class MyRidesComponent implements OnInit {
 
     const apiUrl =
   window.location.hostname === 'localhost'
-    ? `http://localhost:8095/login/cancelRide/${bookingId}`
-    : `https://spring-boot-crud-3qhx.onrender.com/login/cancelRide/${bookingId}`;
+    ? `https://api.vyropool.info/login/cancelRide/${bookingId}`
+    : `https://api.vyropool.info/login/cancelRide/${bookingId}`;
 
     this.loading=true;
 
@@ -117,7 +117,7 @@ export class MyRidesComponent implements OnInit {
 }
 
 getOtp(ride: any) {
-  const url = `http://localhost:8095/login/ride/get-otp?bookingId=${ride.bookingId}`;
+  const url = `https://api.vyropool.info/login/ride/get-otp?bookingId=${ride.bookingId}`;
   console.log(url)
   this.http.get(url).subscribe({
     next: (res: any) => {

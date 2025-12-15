@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
   const formData = new FormData();
   formData.append('image', this.selectedFile);
 
-  this.http.post(`http://localhost:8095/login/user/${userId}/upload-image`, formData)
+  this.http.post(`https://api.vyropool.info/login/user/${userId}/upload-image`, formData)
     .subscribe({
       next: (res: any) => {
         this.loading = false;
@@ -100,8 +100,8 @@ export class ProfileComponent implements OnInit {
           
   const imgApi =
     window.location.hostname === 'localhost'
-      ? `http://localhost:8095/login/user/${userId}/profile-image-base64`
-      : `https://spring-boot-crud-3qhx.onrender.com/login/user/${userId}/profile-image-base64`;
+      ? `https://api.vyropool.info/login/user/${userId}/profile-image-base64`
+      : `https://api.vyropool.info/login/user/${userId}/profile-image-base64`;
 
   this.http.get(imgApi, { responseType: 'text' }).subscribe({
     next: (dataUri) => {
@@ -140,8 +140,8 @@ updateUser()
 
     const apiUrl =
   window.location.hostname === 'localhost'
-    ? `http://localhost:8095/login/update/${userId}`
-    : `https://spring-boot-crud-3qhx.onrender.com/login/update/${userId}`;
+    ? `https://api.vyropool.info/login/update/${userId}`
+    : `https://api.vyropool.info/login/update/${userId}`;
     this.http.put(apiUrl, payload)
       .subscribe({
         next: (res) => {
@@ -169,8 +169,8 @@ updateUser()
       // const apiUrl = `http://localhost:8095/login/profileRetrive?username=${username}`;
       const apiUrl =
   window.location.hostname === 'localhost'
-    ? `http://localhost:8095/login/profileRetrive?username=${username}`
-    : `https://spring-boot-crud-3qhx.onrender.com/login/profileRetrive?username=${username}`;
+    ? `https://api.vyropool.info/login/profileRetrive?username=${username}`
+    : `https://api.vyropool.info/login/profileRetrive?username=${username}`;
 
     this.http.get<any[]>(apiUrl).subscribe(
       (response) => {

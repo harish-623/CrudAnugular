@@ -60,8 +60,8 @@ export class HomepageComponent {
           
   const imgApi =
     window.location.hostname === 'localhost'
-      ? `https://uptight-freda-equinely.ngrok-free.dev/login/user/${userId}/profile-image-base64`
-      : `https://uptight-freda-equinely.ngrok-free.dev/login/user/${userId}/profile-image-base64`;
+      ? `https://api.vyropool.info/login/user/${userId}/profile-image-base64`
+      : `https://api.vyropool.info/login/user/${userId}/profile-image-base64`;
 
   this.http.get(imgApi, { responseType: 'text' }).subscribe({
     next: (dataUri) => {
@@ -95,8 +95,8 @@ export class HomepageComponent {
 
     const apiUrl =
   window.location.hostname === 'localhost'
-    ? 'https://uptight-freda-equinely.ngrok-free.dev/login/search'
-    : 'https://uptight-freda-equinely.ngrok-free.dev/login/search';
+    ? 'https://api.vyropool.info/login/search'
+    : 'https://api.vyropool.info/login/search';
 
     this.http.post<any[]>(apiUrl, payload)
       .subscribe(
@@ -172,8 +172,8 @@ triggerSOS()
         console.log(payload)
         const apiUrl =
   window.location.hostname === 'localhost'
-    ? `https://uptight-freda-equinely.ngrok-free.dev/login/alert`
-    : `https://uptight-freda-equinely.ngrok-free.dev/login/alert`;
+    ? `https://api.vyropool.info/login/alert`
+    : `https://api.vyropool.info/login/alert`;
         this.http.post(apiUrl, payload, { responseType: 'text' })
   .subscribe({
     next: (res) => {

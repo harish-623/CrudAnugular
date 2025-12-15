@@ -48,7 +48,7 @@ export class DriverPublishRidesComponent {
        const apiUrl =
   window.location.hostname === 'localhost'
     ? `http://localhost:8095/login/driver/${driverId}`
-    : `https://spring-boot-crud-3qhx.onrender.com/login/driver/${driverId}`;
+    : `https://api.vyropool.info/login/driver/${driverId}`;
   
       this.http.get<{result: string; rideCount: number; rides: any[]; message: string }>(apiUrl).subscribe({
         next: (response: {result: string; rideCount:number; rides:any[]; message:string}) => {
@@ -97,8 +97,8 @@ export class DriverPublishRidesComponent {
 
       const apiUrl =
   window.location.hostname === 'localhost'
-    ? `http://localhost:8095/login/cancel/${rideId}/driver/${driverId}`
-    : `https://spring-boot-crud-3qhx.onrender.com/login/cancel/${rideId}/driver/${driverId}`;
+    ? `https://api.vyropool.info/login/cancel/${rideId}/driver/${driverId}`
+    : `https://api.vyropool.info/login/cancel/${rideId}/driver/${driverId}`;
       this.http.put(apiUrl, { responseType: 'text' }).subscribe({
         next: (response) => {
           this.loading = false;

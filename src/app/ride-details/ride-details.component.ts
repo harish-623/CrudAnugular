@@ -35,8 +35,8 @@ export class RideDetailsComponent {
 
     const url  =
   window.location.hostname === 'localhost'
-    ?` http://localhost:8095/login/${this.rideId}` 
-    : ` https://spring-boot-crud-3qhx.onrender.com/login/${this.rideId}` 
+    ?` https://api.vyropool.info/login/${this.rideId}` 
+    : ` https://api.vyropool.info/login/${this.rideId}` 
 
     this.http.get<any>(url)
       .subscribe(
@@ -94,8 +94,8 @@ export class RideDetailsComponent {
     
     const url  =
     window.location.hostname === 'localhost'
-    ? `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
-    : `https://spring-boot-crud-3qhx.onrender.com/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
+    ? `https://api.vyropool.info/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
+    : `https://api.vyropool.info/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
     
     // const url = `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
   this.loading = true;

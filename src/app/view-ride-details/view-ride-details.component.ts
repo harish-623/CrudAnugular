@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-view-ride-details',
@@ -35,7 +36,8 @@ loading = true;
 loadPassengerData() {
     this.loading = true;
 
-    const url = `https://api.vyropool.info/login/ride/${this.rideId}/driver/${this.driverId}/passengers`;
+    // const url = `https://api.vyropool.info/vyro/ride/${this.rideId}/driver/${this.driverId}/passengers`;
+    const url = `${environment.apiUrl}/ride/${this.rideId}/driver/${this.driverId}/passengers`;
 
     this.http.get(url).subscribe({
       next: (res: any) => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-forget-password',
@@ -51,7 +52,7 @@ export class ForgetPasswordComponent implements OnInit{
     }
     this.loading = true;
     console.log(this.email)
-    this.http.post(`https://api.vyropool.info/login/send?email=${this.email}`, {}, { responseType: 'text' })
+    this.http.post(`${environment.apiUrl}/send?email=${this.email}`, {}, { responseType: 'text' })
     .subscribe({
       next: (response: string) => {
         console.log(response)
@@ -81,7 +82,7 @@ export class ForgetPasswordComponent implements OnInit{
       return;
     }
 
-    this.http.post(`https://api.vyropool.info/login/verify`, null, { 
+    this.http.post(`${environment.apiUrl}/verify`, null, { 
       params: {email: this.email,
       otp: this.otp },
       responseType: 'text'   // 👈 This line fixes the issue
@@ -110,7 +111,7 @@ export class ForgetPasswordComponent implements OnInit{
   }
 
   resetPassword() {
-    this.http.post("https://api.vyropool.info/login/reset-password", {
+    this.http.post(`${environment.apiUrl}/reset-password`, {
       email: this.email,
       otp: this.otp,
       newPassword: this.newPassword

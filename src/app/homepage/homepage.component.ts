@@ -2,6 +2,7 @@ import { Component,OnInit  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-homepage',
@@ -65,11 +66,13 @@ export class HomepageComponent {
 
   loadUserImage() {
      const userId=localStorage.getItem("driverId")
+
+     const imgApi=`${environment.apiUrl}/user/${userId}/profile-image-base64`
           
-  const imgApi =
-    window.location.hostname === 'localhost'
-      ? `https://api.vyropool.info/login/user/${userId}/profile-image-base64`
-      : `https://api.vyropool.info/login/user/${userId}/profile-image-base64`;
+  // const imgApi =
+  //   window.location.hostname === 'localhost'
+  //     ? `https://api.vyropool.info/login/user/${userId}/profile-image-base64`
+  //     : `https://api.vyropool.info/login/user/${userId}/profile-image-base64`;
 
   this.http.get(imgApi, { responseType: 'text' }).subscribe({
     next: (dataUri) => {
@@ -101,10 +104,11 @@ export class HomepageComponent {
     };
     console.log(payload)
 
-    const apiUrl =
-  window.location.hostname === 'localhost'
-    ? 'https://api.vyropool.info/login/search'
-    : 'https://api.vyropool.info/login/search';
+  //   const apiUrl =
+  // window.location.hostname === 'localhost'
+  //   ? 'https://api.vyropool.info/login/search'
+  //   : 'https://api.vyropool.info/login/search';
+  const apiUrl=`${environment.apiUrl}/search`
 
     this.http.post<any[]>(apiUrl, payload)
       .subscribe(
@@ -186,10 +190,13 @@ triggerSOS()
           username:username
         };
         console.log(payload)
-        const apiUrl =
-  window.location.hostname === 'localhost'
-    ? `https://api.vyropool.info/login/alert`
-    : `https://api.vyropool.info/login/alert`;
+  //       const apiUrl =
+  // window.location.hostname === 'localhost'
+  //   ? `https://api.vyropool.info/login/alert`
+  //   : `https://api.vyropool.info/login/alert`;
+    const apiUrl=`${environment.apiUrl}/alert`
+
+
         this.http.post(apiUrl, payload, { responseType: 'text' })
   .subscribe({
     next: (res) => {

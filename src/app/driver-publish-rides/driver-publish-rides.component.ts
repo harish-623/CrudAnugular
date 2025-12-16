@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-driver-publish-rides',
@@ -43,12 +44,12 @@ export class DriverPublishRidesComponent {
     }
   
     fetchDriverRides(driverId: number): void {
-      // const apiUrl = `http://localhost:8095/login/driver/${driverId}`;
+      const apiUrl = `${environment.apiUrl}/driver/${driverId}`;
 
-       const apiUrl =
-  window.location.hostname === 'localhost'
-    ? `http://localhost:8095/login/driver/${driverId}`
-    : `https://api.vyropool.info/login/driver/${driverId}`;
+  //      const apiUrl =
+  // window.location.hostname === 'localhost'
+  //   ? `http://localhost:8095/login/driver/${driverId}`
+  //   : `https://api.vyropool.info/login/driver/${driverId}`;
   
       this.http.get<{result: string; rideCount: number; rides: any[]; message: string }>(apiUrl).subscribe({
         next: (response: {result: string; rideCount:number; rides:any[]; message:string}) => {
@@ -93,12 +94,7 @@ export class DriverPublishRidesComponent {
     cancelRide(rideId: number): void {
     if (confirm('Are you sure you want to cancel this ride?')) {
       const driverId = this.driverId;
-      // const apiUrl = `http://localhost:8095/login/cancel/${rideId}/driver/${driverId}`;
-
-      const apiUrl =
-  window.location.hostname === 'localhost'
-    ? `https://api.vyropool.info/login/cancel/${rideId}/driver/${driverId}`
-    : `https://api.vyropool.info/login/cancel/${rideId}/driver/${driverId}`;
+      const apiUrl = `${environment.apiUrl}/cancel/${rideId}/driver/${driverId}`;
       this.http.put(apiUrl, { responseType: 'text' }).subscribe({
         next: (response) => {
           this.loading = false;

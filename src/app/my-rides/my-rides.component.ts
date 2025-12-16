@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-my-rides',
@@ -46,12 +48,12 @@ export class MyRidesComponent implements OnInit {
   }
 
   fetchDriverRides(driverId: number): void {
-    // const apiUrl = `http://localhost:8095/login/myrides/${driverId}`;
+    const apiUrl = `${environment.apiUrl}/myrides/${driverId}`;
 
-    const apiUrl =
-  window.location.hostname === 'localhost'
-    ? `https://api.vyropool.info/login/myrides/${driverId}`
-    : `https://api.vyropool.info/login/myrides/${driverId}`;
+  //   const apiUrl =
+  // window.location.hostname === 'localhost'
+  //   ? `https://api.vyropool.info/login/myrides/${driverId}`
+  //   : `https://api.vyropool.info/login/myrides/${driverId}`;
     
 
     this.http.get<{result: string; rideCount: number; rides: any[]; message: string }>(apiUrl).subscribe({
@@ -92,12 +94,12 @@ export class MyRidesComponent implements OnInit {
 
   cancelRide(bookingId: number): void {
   if (confirm('Are you sure you want to cancel this ride?')) {
-    // const apiUrl = `http://localhost:8095/login/cancelRide/${bookingId}`;
+    const apiUrl = `${environment.apiUrl}/cancelRide/${bookingId}`;
 
-    const apiUrl =
-  window.location.hostname === 'localhost'
-    ? `https://api.vyropool.info/login/cancelRide/${bookingId}`
-    : `https://api.vyropool.info/login/cancelRide/${bookingId}`;
+  //   const apiUrl =
+  // window.location.hostname === 'localhost'
+  //   ? `https://api.vyropool.info/login/cancelRide/${bookingId}`
+  //   : `https://api.vyropool.info/login/cancelRide/${bookingId}`;
 
     this.loading=true;
 
@@ -117,7 +119,7 @@ export class MyRidesComponent implements OnInit {
 }
 
 getOtp(ride: any) {
-  const url = `https://api.vyropool.info/login/ride/get-otp?bookingId=${ride.bookingId}`;
+  const url = `${environment.apiUrl}/ride/get-otp?bookingId=${ride.bookingId}`;
   console.log(url)
   this.http.get(url).subscribe({
     next: (res: any) => {

@@ -12,7 +12,6 @@ import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RegisterComponent } from './register/register.component';
-import { MoviesComponent } from './movies/movies.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RideDetailsComponent } from './ride-details/ride-details.component';
 import { PublishRideComponent } from './publish-ride/publish-ride.component';
@@ -33,7 +32,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     LoginComponent,
     HomepageComponent,
     RegisterComponent,
-    MoviesComponent,
     ProfileComponent,
     RideDetailsComponent,
     PublishRideComponent,

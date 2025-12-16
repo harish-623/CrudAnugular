@@ -11,11 +11,12 @@ export class AuthService {
 
   // private userUrl = 'https://spring-boot-crud-3qhx.onrender.com/login/login';
   // private userUrl = 'http://localhost:8095/login/login';
-  private userUrl =
-  window.location.hostname === 'localhost'
-    ? 'https://api.vyropool.info/login/login'
-    : 'https://api.vyropool.info/login/login';
+  // private userUrl =
+  // window.location.hostname === 'localhost'
+  //   ? 'http://localhost:8095/vyro/login'
+  //   : 'https://api.vyropool.info/vyro/login';
   
+  private userUrl = `${environment.apiUrl}/login`;
  
 
 

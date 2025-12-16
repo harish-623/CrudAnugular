@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ride-details',
@@ -24,8 +25,7 @@ export class RideDetailsComponent {
   constructor(private route: ActivatedRoute, private http: HttpClient,private authService: AuthService,private router: Router) {}
 
   ngOnInit(): void {
-    // Get ride ID from route parameters
-    // this.rideId = this.route.snapshot.paramMap.get('rideId') || '';
+
     this.rideId = +this.route.snapshot.paramMap.get('id')!;
     console.log(this.rideId)
     this.getRideDetails();
@@ -33,10 +33,11 @@ export class RideDetailsComponent {
 
   getRideDetails() {
 
-    const url  =
-  window.location.hostname === 'localhost'
-    ?` https://api.vyropool.info/login/${this.rideId}` 
-    : ` https://api.vyropool.info/login/${this.rideId}` 
+  //   const url  =
+  // window.location.hostname === 'localhost'
+  //   ?` https://api.vyropool.info/login/${this.rideId}` 
+  //   : ` https://api.vyropool.info/login/${this.rideId}` 
+  const url=`${environment.apiUrl}/${this.rideId}`
 
     this.http.get<any>(url)
       .subscribe(
@@ -92,11 +93,13 @@ export class RideDetailsComponent {
     const seatsBooked = this.selectedPassengers;
     console.log(seatsBooked)
     
-    const url  =
-    window.location.hostname === 'localhost'
-    ? `https://api.vyropool.info/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
-    : `https://api.vyropool.info/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
+    // const url  =
+    // window.location.hostname === 'localhost'
+    // ? `https://api.vyropool.info/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
+    // : `https://api.vyropool.info/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
     
+
+    const url=`${environment.apiUrl}/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
     // const url = `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
   this.loading = true;
   this.http.post(url, {}).subscribe({

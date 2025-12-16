@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-publish-ride',
@@ -78,10 +79,11 @@ export class PublishRideComponent {
     
     console.log(driverId)
     // const url = `http://localhost:8095/login/publish/${driverId}`;
-    const url =
-  window.location.hostname === 'localhost'
-    ? `https://api.vyropool.info/login/publish/${driverId}`
-    : `https://api.vyropool.info/login/publish/${driverId}`;
+    const url = `${environment.apiUrl}/publish/${driverId}`;
+    
+  // window.location.hostname === 'localhost'
+  //   ? `https://api.vyropool.info/login/publish/${driverId}`
+  //   : `https://api.vyropool.info/login/publish/${driverId}`;
     this.loading = true;
     this.http.post(url, payload)
       .subscribe({

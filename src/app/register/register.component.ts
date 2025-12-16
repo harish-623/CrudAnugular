@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisteService } from '../registe.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -18,11 +19,12 @@ export class RegisterComponent {
     otpVerified: boolean = false;
     loading: boolean = false; 
 
-    private baseUrl =
-    window.location.hostname === 'localhost'
-    ? `https://api.vyropool.info/login`
-    : `https://api.vyropool.info/login`;
+    // private baseUrl =
+    // window.location.hostname === 'localhost'
+    // ? `https://api.vyropool.info/login`
+    // : `https://api.vyropool.info/login`;
   
+    private baseUrl=`${environment.apiUrl}`;
     constructor(private fb: FormBuilder, private http: HttpClient,private userService:RegisteService,private router: Router) {
         this.userForm = this.fb.group({
         username: ['', [Validators.required]],

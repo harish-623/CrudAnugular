@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -41,8 +42,8 @@ export class StartRideComponent {
   loadPassengerData() {
       this.loading = true;
   
-      const url = `https://api.vyropool.info/login/ride/${this.rideId}/driver/${this.driverId}/passengers`;
-  
+      // const url = `https://api.vyropool.info/login/ride/${this.rideId}/driver/${this.driverId}/passengers`;
+  const url = `${environment.apiUrl}/ride/${this.rideId}/driver/${this.driverId}/passengers`;
       this.http.get(url).subscribe({
         next: (res: any) => {
           
@@ -61,7 +62,8 @@ export class StartRideComponent {
     }
 
   checkOtpStatus(p: any) {
-  const url = `https://api.vyropool.info/login/ride/check-otp-status?bookingId=${p.bookingId}`;
+  // const url = `https://api.vyropool.info/login/ride/check-otp-status?bookingId=${p.bookingId}`;
+  const url = `${environment.apiUrl}/ride/check-otp-status?bookingId=${p.bookingId}`;
 
   this.http.get<any>(url).subscribe(
     (response) => {
@@ -90,7 +92,8 @@ export class StartRideComponent {
     return;
   }
   
-  const url = `https://api.vyropool.info/login/ride/verify-otp?bookingId=${bookingId}&otp=${enterOtp}`;
+  // const url = `https://api.vyropool.info/login/ride/verify-otp?bookingId=${bookingId}&otp=${enterOtp}`;
+  const url = `${environment.apiUrl}/ride/verify-otp?bookingId=${bookingId}&otp=${enterOtp}`;
   console.log(url)
   this.http.post<any>(url, {}).subscribe(
     (response) => {

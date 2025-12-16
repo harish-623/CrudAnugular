@@ -2,6 +2,8 @@ import { Component ,OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -72,7 +74,7 @@ export class ProfileComponent implements OnInit {
   const formData = new FormData();
   formData.append('image', this.selectedFile);
 
-  this.http.post(`https://api.vyropool.info/login/user/${userId}/upload-image`, formData)
+  this.http.post(`${environment.apiUrl}/user/${userId}/upload-image`, formData)
     .subscribe({
       next: (res: any) => {
         this.loading = false;
@@ -98,10 +100,12 @@ export class ProfileComponent implements OnInit {
   loadUserImage() {
      const userId=localStorage.getItem("driverId")
           
-  const imgApi =
-    window.location.hostname === 'localhost'
-      ? `https://api.vyropool.info/login/user/${userId}/profile-image-base64`
-      : `https://api.vyropool.info/login/user/${userId}/profile-image-base64`;
+  // const imgApi =
+  //   window.location.hostname === 'localhost'
+  //     ? `https://api.vyropool.info/login/user/${userId}/profile-image-base64`
+  //     : `https://api.vyropool.info/login/user/${userId}/profile-image-base64`;
+
+  const imgApi=`${environment.apiUrl}/user/${userId}/profile-image-base64`;
 
   this.http.get(imgApi, { responseType: 'text' }).subscribe({
     next: (dataUri) => {
@@ -138,10 +142,11 @@ updateUser()
       profileImage: this.user.profileImage
     };
 
-    const apiUrl =
-  window.location.hostname === 'localhost'
-    ? `https://api.vyropool.info/login/update/${userId}`
-    : `https://api.vyropool.info/login/update/${userId}`;
+  //   const apiUrl =
+  // window.location.hostname === 'localhost'
+  //   ? `https://api.vyropool.info/login/update/${userId}`
+  //   : `https://api.vyropool.info/login/update/${userId}`;
+  const apiUrl=`${environment.apiUrl}/update/${userId}`;
     this.http.put(apiUrl, payload)
       .subscribe({
         next: (res) => {
@@ -166,11 +171,10 @@ updateUser()
   
 
   fetchUserProfile(username: string): void {
-      // const apiUrl = `http://localhost:8095/login/profileRetrive?username=${username}`;
-      const apiUrl =
-  window.location.hostname === 'localhost'
-    ? `https://api.vyropool.info/login/profileRetrive?username=${username}`
-    : `https://api.vyropool.info/login/profileRetrive?username=${username}`;
+      const apiUrl = `${environment.apiUrl}/profileRetrive?username=${username}`;
+      console.log(apiUrl)
+
+
 
     this.http.get<any[]>(apiUrl).subscribe(
       (response) => {

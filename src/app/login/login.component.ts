@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -110,7 +111,7 @@ togglePassword() {
   onSubmitRegister(): void {
     if (this.registerForm.valid) {
       const registerData = this.registerForm.value;
-      this.http.post<any>('https://api.vyropool.info/login/register', registerData).pipe(
+      this.http.post<any>(`${environment.apiUrl}/register`, registerData).pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.error instanceof ErrorEvent) {
             console.error('An error occurred:', error.error.message);

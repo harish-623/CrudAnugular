@@ -434,6 +434,24 @@ h2 {
 }
 
 
+.alert {
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+.alert-success {
+  background: #e6fffa;
+  color: #065f46;
+}
+
+.alert-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+
 
 
 

@@ -197,7 +197,7 @@ triggerSOS()
     const apiUrl=`${environment.apiUrl}/alert`
 
 
-        this.http.post(apiUrl, payload, { responseType: 'text' })
+        this.http.post(apiUrl, payload, { responseType: 'text' },)
   .subscribe({
     next: (res) => {
       console.log("Backend:", res);

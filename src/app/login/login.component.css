@@ -295,6 +295,52 @@ body {
   animation: spin 1s linear infinite;
 }
 
+.custom-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: slideDown 0.4s ease;
+}
+
+.custom-alert .icon {
+  font-size: 18px;
+}
+
+.alert-success {
+  background: #e6f4ea;
+  color: #1e7e34;
+  border-left: 6px solid #28a745;
+}
+
+.alert-danger {
+  background: #fdecea;
+  color: #b02a37;
+  border-left: 6px solid #dc3545;
+}
+
+.alert-warning {
+  background: #fff4e5;
+  color: #856404;
+  border-left: 6px solid #ffc107;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

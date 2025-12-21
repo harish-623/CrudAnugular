@@ -10,6 +10,22 @@ section.text-center {
   animation: gradientBG 15s ease infinite;
 }
 
+.select-with-placeholder {
+  color: #999;          /* Placeholder color by default */
+  font-size: 16px;
+}
+
+/* All normal options */
+.select-with-placeholder option {
+  color: #000;          /* Normal option color */
+  font-style: normal;
+}
+
+/* Placeholder option only */
+.select-with-placeholder option[value=""] {
+  color: #999;          /* Placeholder color */
+  font-style: italic;   /* Optional styling for placeholder */
+}
 
 
 /* Button hover animation */

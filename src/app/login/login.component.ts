@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   loginError: any;
   registerError: any;
   loading: boolean = true;
+  responseClass: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,69 +46,84 @@ export class LoginComponent implements OnInit {
 
   showPassword = false;
 
-togglePassword() {
-  this.showPassword = !this.showPassword;
-}
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   loadLogo() {
     const logoUrl = 'https://avatars.githubusercontent.com/u/124091983';
     this.imageLoader.loadImage(logoUrl).subscribe((blob: Blob) => {
       this.logoUrl = URL.createObjectURL(blob);
-      this.loading=false
+      this.loading = false
     });
   }
 
   onSubmitLogin(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-  
-      this.loading=true;
+
+      this.loading = true;
       console.log(username)
       console.log(password)
-  
+
       this.authService.login(username, password).subscribe(
-        (response: { success: boolean; username: string; token: string ;id:string ; email:string ; eemergencyEmail:string}) => {
+        (response: { success: boolean; username: string; token: string; id: string; email: string; eemergencyEmail: string }) => {
           if (response.success) {
             console.log(response)
-            
+
             // alert('Login Successful');
             localStorage.setItem('username', response.username);
-            localStorage.setItem('driverId',response.id)
-            
-            localStorage.setItem('emergencyEmail',response.eemergencyEmail)
+            localStorage.setItem('driverId', response.id)
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('emergencyEmail', response.eemergencyEmail)
             console.log(localStorage.getItem('emergencyEmail'));
 
-            
+
             console.log(username)
             this.router.navigate(['/home']);
             // this.showSuccessMessage();
           } else {
             this.loginError = 'Login failed. Please check your credentials.';
             console.log(this.loginError);
+            this.showMessage(this.loginError, 'alert-danger');
           }
-          this.loading=false;
+          this.loading = false;
         },
         (error: any) => {
-          this.loading=false;
+          this.loading = false;
+          if (error.status === 401) {
+            this.loginError = '❌ Invalid username or password';
+            this.loginError = "Login failed. Please check your credentials."; // Display error message to the user
+            console.log(this.loginError);
+            this.showMessage(this.loginError, 'alert-danger');
+          } else if (error.error) {
+            this.loginError = error.error;
+            this.showMessage(this.loginError, 'alert-danger');
+          }
           console.error('Error occurred during login:', error);
-          this.loginError = "Login failed. Please check your credentials."; // Display error message to the user
-          alert('Invalid username or password.');
+
         }
-        
+
       );
     } else {
       console.log('Form is invalid');
       this.loginError = 'Please fill out the form correctly.';
     }
   }
+
+
   
 
-  showSuccessMessage() {
-    this.loginError = 'Login successful!';
+  private showMessage(message: string, cssClass: string): void {
+    this.loginError = message;
+    this.responseClass = cssClass;
+
+    setTimeout(() => {
+      this.loginError = '';
+    }, 40000);
   }
 
 
-  
   onSubmitRegister(): void {
     if (this.registerForm.valid) {
       const registerData = this.registerForm.value;
@@ -122,27 +138,27 @@ togglePassword() {
           return throwError('Something went wrong during registration; please try again later.');
         })
       )
-      .subscribe(response => {
-        if (response.success) {
-          alert("Registration Successful");
-          this.router.navigate(['/login']);
-        } else {
-          console.log('Registration failed');
-        }
-      }, error => {
-        console.error('Error occurred during registration:', error);
-        alert("Registration failed, please check your input.");
-      });
+        .subscribe(response => {
+          if (response.success) {
+            alert("Registration Successful");
+            this.router.navigate(['/login']);
+          } else {
+            console.log('Registration failed');
+          }
+        }, error => {
+          console.error('Error occurred during registration:', error);
+          alert("Registration failed, please check your input.");
+        });
     } else {
       console.log('Registration form is invalid');
     }
   }
   navigateToForgotPassword() {
-  this.router.navigate(['/forgot-password']);
-}
+    this.router.navigate(['/forgot-password']);
+  }
 
   navigateToRegister() {
     this.router.navigate(['/register']);
-}
+  }
 
 }

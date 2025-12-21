@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisteService } from '../registe.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,7 @@ export class RegisterComponent {
     otpSent: boolean = false;
     otpVerified: boolean = false;
     loading: boolean = false; 
+    message: string = '';
 
     // private baseUrl =
     // window.location.hostname === 'localhost'
@@ -63,29 +65,41 @@ private showMessage(message: string, cssClass: string): void {
 }
 
 sendOtp(): void {
-      const email = this.userForm.get('email')?.value;
+  const email = this.userForm.get('email')?.value;
 
-      if (!email) {
-      this.showMessage('❌ Please enter a valid email address', 'alert-danger');
-      return;
+  if (!email) {
+    this.showMessage('❌ Please enter a valid email address', 'alert-danger');
+    return;
+  }
 
-      }
-      this.loading=true
-      this.http.post(`${this.baseUrl}/send?email=${email}`, {}, { responseType: 'text' })
-      .subscribe({
+  this.loading = true;
+
+  this.http
+    .post(`${this.baseUrl}/send?email=${email}`, {}, { responseType: 'text' })
+    .subscribe({
       next: (response: string) => {
         this.loading = false;
         this.otpSent = true;
-        this.showMessage(response, 'alert-success');
-        // this.showMessage(`✅ OTP sent successfully to ${email}`, 'alert-success');
+        this.showMessage(`✅ ${response}`, 'alert-success');
       },
       error: (error) => {
-        console.error('Error sending OTP:', error);
         this.loading = false;
-        this.showMessage('❌ Failed to send OTP.', 'alert-danger');
+
+        let errorMessage = 'Something went wrong';
+
+        // 🔥 ADVANCED & SAFE
+        if (error?.status === 400 && typeof error.error === 'string') {
+          errorMessage = error.error; // "Email already registered"
+        } else if (error?.status === 0) {
+          errorMessage = '❌ Server is unreachable';
+        }
+
+        this.showMessage(`❌ ${errorMessage}`, 'alert-danger');
       }
-      });
+    });
 }
+
+
 
 
 showPassword = false;
@@ -98,41 +112,81 @@ goHome() {
   this.router.navigate(['/login']);
 }
 
+// verifyOtp(): void {
+//   const email = this.userForm.get('email')?.value;
+//     const otp = this.userForm.get('otp')?.value;
+//     console.log(otp)
+//     console.log(email)
+
+//     if (!otp) {
+//       this.showMessage('❌ Please enter the OTP.', 'alert-danger');
+//       return;
+//     }
+//     this.loading=true
+//     this.http.post(`${this.baseUrl}/verify`, null, { 
+//       params: { email, otp },
+//       responseType: 'text'   // 👈 This line fixes the issue
+//     })
+//     .subscribe({
+//       next: (response: string) => {
+
+//         console.log('Verify response:', response);
+
+//         if (response.includes('✅ OTP verified successfully')) {
+//           this.otpVerified = true;
+//           this.showMessage(response, 'alert-success');
+//         } else {
+//           this.showMessage(response, 'alert-danger');
+//         }
+//         this.loading = false;
+//       },
+//       error: (error) => {
+//         console.error('Error verifying OTP:', error);
+//         this.showMessage('❌ OTP verification failed. Please try again.', 'alert-danger');
+//         this.loading = false;
+//       }
+//     });
+//   }
+
 verifyOtp(): void {
   const email = this.userForm.get('email')?.value;
-    const otp = this.userForm.get('otp')?.value;
-    console.log(otp)
-    console.log(email)
+  const otp = this.userForm.get('otp')?.value;
 
-    if (!otp) {
-      this.showMessage('❌ Please enter the OTP.', 'alert-danger');
-      return;
-    }
-    this.loading=true
-    this.http.post(`${this.baseUrl}/verify`, null, { 
-      params: { email, otp },
-      responseType: 'text'   // 👈 This line fixes the issue
-    })
-    .subscribe({
-      next: (response: string) => {
-
-        console.log('Verify response:', response);
-
-        if (response.includes('✅ OTP verified successfully')) {
-          this.otpVerified = true;
-          this.showMessage(response, 'alert-success');
-        } else {
-          this.showMessage(response, 'alert-danger');
-        }
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error verifying OTP:', error);
-        this.showMessage('❌ OTP verification failed. Please try again.', 'alert-danger');
-        this.loading = false;
-      }
-    });
+  if (!otp) {
+    this.showMessage('❌ Please enter the OTP.', 'alert-danger');
+    return;
   }
+
+  this.loading = true;
+
+  this.http.post(`${this.baseUrl}/verify`, null, {
+    params: { email, otp },
+    responseType: 'text'
+  })
+  .subscribe({
+    next: (response: string) => {
+      this.loading = false;
+
+      if (response.toLowerCase().includes('verified')) {
+        this.otpVerified = true;
+        this.showMessage(response, 'alert-success');
+      } else {
+        this.showMessage(response, 'alert-danger');
+      }
+    },
+    error: (error: HttpErrorResponse) => {
+      this.loading = false;
+
+      const errorMessage =
+        typeof error.error === 'string'
+          ? error.error
+          : '❌ Invalid OTP or OTP expired';
+
+      this.showMessage(errorMessage, 'alert-danger');
+    }
+  });
+}
+
 
 onSubmit() {
       console.log(this.userForm)

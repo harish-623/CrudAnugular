@@ -26,7 +26,7 @@ export class AuthService {
   login(username: string , password:string):Observable<any>{
     const payload = { username, password };
     console.log(payload)
-   console.log(this.userUrl);
+    console.log(this.userUrl);
     return this.http.post<any>(this.userUrl, { username, password }).pipe(
     
       

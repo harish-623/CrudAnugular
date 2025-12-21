@@ -131,6 +131,14 @@
     <div class="spinner"></div>
     <p>Loading...</p>
   </div>
+
+  <div *ngIf="responseMessage"
+     class="alert"
+     [ngClass]="responseClass"
+     role="alert">
+  {{ responseMessage }}
+</div>
+
     
 
     

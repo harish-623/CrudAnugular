@@ -21,16 +21,27 @@
             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
               <!-- USERNAME -->
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label class="form-label fw-semibold">Username</label>
                 <input class="form-control" formControlName="username" placeholder="Choose a username" />
-              </div>
+              </div> -->
 
               <!-- FULL NAME -->
               <div class="mb-3">
                 <label class="form-label fw-semibold">Full Name</label>
                 <input class="form-control" formControlName="fullname" placeholder="Enter full name" />
               </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Gender</label>
+                <select class="form-select" formControlName="gender">
+                  <option value="" disabled selected>Select gender</option>
+                  <option value="MALE">Male</option>
+                  <option value="FEMALE">Female</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+
 
               <!-- PHONE -->
               <div class="mb-3">
@@ -65,10 +76,7 @@
                 <label class="form-label fw-semibold">Email</label>
                 <div class="input-group">
                   <input type="email" class="form-control" formControlName="email" placeholder="Enter email" />
-                  <button
-                    class="btn btn-outline-primary"
-                    type="button"
-                    (click)="sendOtp()"
+                  <button class="btn btn-outline-primary" type="button" (click)="sendOtp()"
                     [disabled]="userForm.get('email')?.invalid || otpSent">
                     {{ otpSent ? 'OTP Sent' : 'Send OTP' }}
                   </button>
@@ -80,11 +88,7 @@
                 <label class="form-label fw-semibold">Enter OTP</label>
                 <div class="input-group">
                   <input class="form-control" formControlName="otp" placeholder="OTP" />
-                  <button
-                    class="btn btn-success"
-                    type="button"
-                    (click)="verifyOtp()"
-                    [disabled]="otpVerified">
+                  <button class="btn btn-success" type="button" (click)="verifyOtp()" [disabled]="otpVerified">
                     {{ otpVerified ? 'Verified ✅' : 'Verify OTP' }}
                   </button>
                 </div>
@@ -96,10 +100,7 @@
               <!-- PASSWORD -->
               <div class="mb-3">
                 <label class="form-label fw-semibold">Password</label>
-                <input
-                  [type]="showPassword ? 'text' : 'password'"
-                  class="form-control"
-                  formControlName="password"
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
                   placeholder="Create password" />
 
                 <small class="text-muted">
@@ -129,18 +130,13 @@
               </div>
 
               <!-- RESPONSE -->
-              <div *ngIf="responseMessage"
-                   class="alert mt-3"
-                   [ngClass]="responseClass">
+              <div *ngIf="responseMessage" class="alert mt-3" [ngClass]="responseClass">
                 {{ responseMessage }}
               </div>
 
               <!-- SUBMIT -->
               <div class="d-grid mt-4">
-                <button
-                  class="btn btn-primary btn-lg"
-                  type="submit"
-                  [disabled]="userForm.invalid || !otpVerified">
+                <button class="btn btn-primary btn-lg" type="submit" [disabled]="userForm.invalid || !otpVerified">
                   Create account
                 </button>
               </div>

@@ -1,5 +1,3 @@
-
-
 <div class="container my-4">
 
   <!-- Page Title -->
@@ -33,14 +31,11 @@
               {{ ride.fromLocation }} → {{ ride.toLocation }}
             </h6>
 
-            <span
-              class="badge"
-              [ngClass]="{
+            <span class="badge" [ngClass]="{
                 'bg-success': ride.status === 'BOOKED',
                 'bg-secondary': ride.status === 'ONGOING',
                 'bg-danger': ride.status === 'CANCELLED'
-              }"
-            >
+              }">
               {{ ride.status }}
             </span>
           </div>
@@ -66,24 +61,18 @@
           <div class="card-footer bg-white border-0 d-flex flex-wrap gap-2 justify-content-end">
 
             <!-- Start Ride -->
-            <button
-              class="btn btn-success btn-sm"
-              (click)="startRide(ride.rideId)">
+            <button class="btn btn-success btn-sm" (click)="startRide(ride.rideId)">
               Start Ride
             </button>
 
             <!-- View Details -->
-            <button
-              *ngIf="ride.status !== 'CANCELLED'"
-              class="btn btn-outline-primary btn-sm"
+            <button *ngIf="ride.status !== 'CANCELLED'" class="btn btn-outline-primary btn-sm"
               (click)="viewDetails(ride.rideId)">
               View Details
             </button>
 
             <!-- Cancel Ride -->
-            <button
-              *ngIf="ride.status !== 'CANCELLED'"
-              class="btn btn-outline-danger btn-sm"
+            <button *ngIf="ride.status !== 'CANCELLED'" class="btn btn-outline-danger btn-sm"
               (click)="cancelRide(ride.rideId)">
               Cancel Ride
             </button>
@@ -98,18 +87,11 @@
   </div>
 </div>
 
-<div
-  *ngIf="showToast"
-  class="toast-container position-fixed top-0 end-0 p-3"
-  style="z-index: 1200"
->
-  <div
-    class="toast show text-white"
-    [ngClass]="{
+<div *ngIf="showToast" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200">
+  <div class="toast show text-white" [ngClass]="{
       'bg-success': toastType === 'success',
       'bg-danger': toastType === 'error'
-    }"
-  >
+    }">
     <div class="toast-body">
       {{ toastMessage }}
     </div>

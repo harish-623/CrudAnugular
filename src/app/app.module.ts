@@ -27,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthInterceptor } from './auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     ViewRideDetailsComponent,
     LoaderComponent,
     ForgetPasswordComponent,
-    StartRideComponent
+    StartRideComponent,
+    DriverRegistrationComponent
   ],
   imports: [
     BrowserModule,

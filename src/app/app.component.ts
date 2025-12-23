@@ -14,14 +14,16 @@ export class AppComponent {
   ) {}
   showProfile = false;
   isLoggedIn = false;
-  userName = localStorage.getItem('username') || '';
-  driverId=localStorage.getItem('driverId') || '';
+  id =  '';
+  driverId= '';
  
 
 ngOnInit() {
   this.authService.isLoggedIn$.subscribe(status => {
     this.isLoggedIn = status;
   });
+  this.id = localStorage.getItem('id') || '';
+  this.driverId=localStorage.getItem('driverId') || '';
 }
 
   goToProfile() {

@@ -14,15 +14,18 @@ import { environment } from 'src/environments/environment';
 })
 export class RideDetailsComponent {
 
-  
+
 
   rideId!: number;
-  ride: any 
+  ride: any
   selectedPassengers: number = 1;
   errorMessage: string = '';
   loading: boolean = true;
+  showToast = false;
+  toastMessage = '';
+  toastType: 'success' | 'error' = 'success';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient,private authService: AuthService,private router: Router) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -33,11 +36,11 @@ export class RideDetailsComponent {
 
   getRideDetails() {
 
-  //   const url  =
-  // window.location.hostname === 'localhost'
-  //   ?` https://api.vyropool.info/login/${this.rideId}` 
-  //   : ` https://api.vyropool.info/login/${this.rideId}` 
-  const url=`${environment.apiUrl}/${this.rideId}`
+    //   const url  =
+    // window.location.hostname === 'localhost'
+    //   ?` https://api.vyropool.info/login/${this.rideId}` 
+    //   : ` https://api.vyropool.info/login/${this.rideId}` 
+    const url = `${environment.apiUrl}/${this.rideId}`
 
     this.http.get<any>(url)
       .subscribe(
@@ -48,7 +51,7 @@ export class RideDetailsComponent {
         },
         (error) => {
           console.error('Error fetching ride details:', error);
-         
+
         }
       );
   }
@@ -65,69 +68,79 @@ export class RideDetailsComponent {
     }
   }
 
-  bookRide(){
+  showErrorAndRedirect(message: string) {
+    this.toastMessage = message;
+    this.toastType = 'error';
+    this.showToast = true;
 
-  if (!this.ride) {
-    console.error('Ride details not loaded yet.');
-    return;
+    setTimeout(() => {
+      this.showToast = false;
+      this.router.navigate(['/login']); // 🔥 redirect
+    }, 2500);
   }
 
-  const passengerId = Number(localStorage.getItem('driverId')); // logged in user id
-  const rideDriverId = this.ride.riderName.id  // driver who published ride
-
-  if (passengerId === rideDriverId) {
-    alert("🚫 Driver can't book their own ride!");
-    
-    return; // stop booking
+  closeAlert() {
+    this.showToast = false;
   }
 
-  if (!this.selectedPassengers || this.selectedPassengers <= 0) {
-    console.error('⚠️ Please select the number of passengers.');
-    return;
-  }
+  bookRide() {
+
+    if (!this.ride) {
+      console.error('Ride details not loaded yet.');
+      return;
+    }
+
+    const passengerId = Number(localStorage.getItem('driverId')); // logged in user id
+    const rideDriverId = this.ride.riderName.id  // driver who published ride
+
+    if (passengerId === rideDriverId) {
+      alert("🚫 Driver can't book their own ride!");
+
+      return; // stop booking
+    }
+
+    if (!this.selectedPassengers || this.selectedPassengers <= 0) {
+      console.error('⚠️ Please select the number of passengers.');
+      return;
+    }
 
     const token = localStorage.getItem('userToken');
-    
+
     const rideId = this.rideId; // or this.ride.id depending on your object
     console.log(rideId)
-    
+
     const seatsBooked = this.selectedPassengers;
     console.log(seatsBooked)
-    
-    // const url  =
-    // window.location.hostname === 'localhost'
-    // ? `https://api.vyropool.info/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
-    // : `https://api.vyropool.info/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
-    
 
-    const url=`${environment.apiUrl}/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
-    // const url = `http://localhost:8095/login/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
-  this.loading = true;
-  this.http.post(url, {}).subscribe({
-    next: (res: any) => {
-      console.log(res)
-      if (res.result === 'Success') {
+
+
+    const url = `${environment.apiUrl}/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
+    this.loading = true;
+    this.http.post(url, {}).subscribe({
+      next: (res: any) => {
+        console.log(res)
+        if (res.result === 'Success') {
           console.log('🎉', res.message);
           alert("Ride booked Successfully")
           this.router.navigate(['/home']);
         } else {
           console.log(res.result)
-           alert(res.message)
+          alert(res.message)
           this.errorMessage = res.message || 'Booking failed. Please try again.';
-          
+
         }
         this.loading = false;
-    },
-    error: (err) => {
-      console.error('Error booking ride:', err);
-      alert('Failed to book the ride. Please try again.');
-      this.loading = false; 
-    }
-  });
+      },
+      error: (err) => {
+        console.error('Error booking ride:', err);
+        alert('Failed to book the ride. Please try again.');
+        this.loading = false;
+      }
+    });
   }
 
-   goHome() {
-  this.router.navigate(['/home']);
-}
+  goHome() {
+    this.router.navigate(['/home']);
+  }
 
 }

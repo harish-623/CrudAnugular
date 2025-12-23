@@ -1,9 +1,9 @@
 <!-- Home Button -->
-<div class="container mt-3">
+<!-- <div class="container mt-3">
   <button class="btn btn-outline-primary" (click)="goHome()">
     Home
   </button>
-</div>
+</div> -->
 
 <div class="container my-4">
 
@@ -36,13 +36,10 @@
             Booking #{{ ride.bookingId }}
           </h6>
 
-          <span
-            class="badge"
-            [ngClass]="{
+          <span class="badge" [ngClass]="{
               'bg-success': ride.status === 'BOOKED',
               'bg-danger': ride.status === 'CANCELLED'
-            }"
-          >
+            }">
             {{ ride.status }}
           </span>
         </div>
@@ -84,11 +81,8 @@
             Booked on {{ ride.bookedOn | date: 'medium' }}
           </small>
 
-          <button
-            *ngIf="ride.status === 'BOOKED'"
-            class="btn btn-outline-danger btn-sm"
-            (click)="cancelRide(ride.bookingId)"
-          >
+          <button *ngIf="ride.status === 'BOOKED'" class="btn btn-outline-danger btn-sm"
+            (click)="cancelRide(ride.bookingId)">
             Cancel Ride
           </button>
         </div>

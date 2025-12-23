@@ -1,16 +1,16 @@
 <!-- Loader Overlay -->
 <div *ngIf="loading"
-     class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white bg-opacity-75"
-     style="z-index: 1050;">
+  class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white bg-opacity-75"
+  style="z-index: 1050;">
   <div class="spinner-border text-primary" role="status"></div>
 </div>
 
 <!-- Home Button -->
-<div class="container mt-3">
+<!-- <div class="container mt-3">
   <button class="btn btn-outline-primary" (click)="goHome()">
     Home
   </button>
-</div>
+</div> -->
 
 <!-- Ride Details -->
 <div class="container my-4">
@@ -56,27 +56,18 @@
             <label class="form-label fw-semibold">
               Select Number of Passengers
             </label>
-            <input
-              type="number"
-              class="form-control"
-              min="1"
-              [max]="ride.passengerLimit"
-              [(ngModel)]="selectedPassengers"
-              [disabled]="ride.passengerLimit === 0"
-              placeholder="Enter passenger count"
-            />
+            <input type="number" class="form-control" min="1" [max]="ride.passengerLimit"
+              [(ngModel)]="selectedPassengers" [disabled]="ride.passengerLimit === 0"
+              placeholder="Enter passenger count" />
           </div>
 
           <!-- No Seats Message -->
-          <div *ngIf="ride.passengerLimit === 0"
-               class="alert alert-warning text-center">
+          <div *ngIf="ride.passengerLimit === 0" class="alert alert-warning text-center">
             No seats available for this ride.
           </div>
 
           <!-- Book Button -->
-          <button
-            class="btn btn-primary w-100 py-2 fw-semibold mb-4"
-            (click)="bookRide()"
+          <button class="btn btn-primary w-100 py-2 fw-semibold mb-4" (click)="bookRide()"
             [disabled]="ride.passengerLimit === 0">
             Book Ride
           </button>
@@ -92,13 +83,11 @@
             </p>
 
             <div class="d-flex gap-2">
-              <button class="btn btn-outline-success btn-sm"
-                      (click)="callRider()">
+              <button class="btn btn-outline-success btn-sm" (click)="callRider()">
                 Call Rider
               </button>
 
-              <button class="btn btn-outline-secondary btn-sm"
-                      (click)="messageRider()">
+              <button class="btn btn-outline-secondary btn-sm" (click)="messageRider()">
                 Message Rider
               </button>
             </div>
@@ -111,4 +100,17 @@
     </div>
   </div>
 
+</div>
+
+<div *ngIf="showToast" class="position-fixed top-50 start-50 translate-middle"
+  style="z-index: 1200; width: 90%; max-width: 420px;">
+  <div class="alert text-center alert-dismissible fade show" [ngClass]="{
+      'alert-success': toastType === 'success',
+      'alert-danger': toastType === 'error'
+    }" role="alert">
+    {{ toastMessage }}
+
+    <button type="button" class="btn-close" (click)="closeAlert()">
+    </button>
+  </div>
 </div>

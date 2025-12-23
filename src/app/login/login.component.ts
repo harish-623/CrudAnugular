@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   loading: boolean = true;
   responseClass: string = '';
   profile: boolean | null = null;
-  
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService
   ) {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
@@ -62,19 +62,19 @@ export class LoginComponent implements OnInit {
 
   onSubmitLogin(): void {
     if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
+      const { email, password } = this.loginForm.value;
 
       this.loading = true;
-      console.log(username)
+      console.log(email)
       console.log(password)
 
-      this.authService.login(username, password).subscribe(
+      this.authService.login(email, password).subscribe(
         (response: { success: boolean; username: string; token: string; id: string; email: string; eemergencyEmail: string }) => {
           if (response.success) {
             console.log(response)
 
             // alert('Login Successful');
-            localStorage.setItem('username', response.username);
+            localStorage.setItem('id', response.id);
             localStorage.setItem('driverId', response.id)
             localStorage.setItem('token', response.token);
             localStorage.setItem('emergencyEmail', response.eemergencyEmail)
@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
             this.authService.setLoggedIn(true);
 
 
-            console.log(username)
+            console.log(email)
             this.router.navigate(['/home']);
             // this.showSuccessMessage();
           } else {
@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  
+
 
   private showMessage(message: string, cssClass: string): void {
     this.loginError = message;
@@ -165,23 +165,23 @@ export class LoginComponent implements OnInit {
   }
 
   message = '';
- 
 
-  
 
-  
+
+
+
 
   verifyPhone(): void {
-    
+
   }
 
   verifyEmail(): void {
-    
-    
+
+
   }
 
   loginWith(provider: 'google' | 'instagram'): void {
-    
+
   }
 
 }

@@ -12,6 +12,7 @@ import { DriverPublishRidesComponent } from './driver-publish-rides/driver-publi
 import { ViewRideDetailsComponent } from './view-ride-details/view-ride-details.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { StartRideComponent } from './start-ride/start-ride.component';
+import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path:'my-publish-rides',component:DriverPublishRidesComponent},
   {path:'view-details/:rideId',component:ViewRideDetailsComponent},
   {path:'forgot-password',component:ForgetPasswordComponent},
-  {path:'start-ride/:rideId',component:StartRideComponent}
+  {path:'start-ride/:rideId',component:StartRideComponent},
+  {path:'driver-registration',component:DriverRegistrationComponent}
 ];
 
 @NgModule({

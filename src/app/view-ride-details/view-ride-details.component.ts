@@ -10,30 +10,30 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./view-ride-details.component.css']
 })
 export class ViewRideDetailsComponent {
-rideId!: number;
-passengers: any[] = [];
-ride: any = {}; 
+  rideId!: number;
+  passengers: any[] = [];
+  ride: any = {};
 
-driverId!: number;
-loading = true;
+  driverId!: number;
+  loading = true;
   errorMessage = '';
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) { }
 
 
 
   ngOnInit() {
-  this.rideId = Number(this.route.snapshot.paramMap.get('rideId'));
-  const driverIdParam = Number(localStorage.getItem("driverId"));
-  this.driverId = driverIdParam;
-  this.loadPassengerData();
-}
+    this.rideId = Number(this.route.snapshot.paramMap.get('rideId'));
+    const driverIdParam = Number(localStorage.getItem("driverId"));
+    this.driverId = driverIdParam;
+    this.loadPassengerData();
+  }
 
-loadPassengerData() {
+  loadPassengerData() {
     this.loading = true;
 
     // const url = `https://api.vyropool.info/vyro/ride/${this.rideId}/driver/${this.driverId}/passengers`;
@@ -41,7 +41,7 @@ loadPassengerData() {
 
     this.http.get(url).subscribe({
       next: (res: any) => {
-        
+
         this.passengers = res.passengers || [];
         this.loading = false;
       },
@@ -52,6 +52,6 @@ loadPassengerData() {
     });
   }
   goBack() {
-  this.router.navigate(['/my-publish-rides']);
-}
+    this.router.navigate(['/my-publish-rides']);
+  }
 }

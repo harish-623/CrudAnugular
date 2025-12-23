@@ -1,4 +1,4 @@
-import { Component ,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   noResultsMessage: string = '';
   selectedFile: File | null = null;
   userImageUrl: string = '';
-  isEditable: boolean= false;
+  isEditable: boolean = false;
   loading: boolean = true;
   showToast = false;
   toastMessage = '';
@@ -24,21 +24,21 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-     private http: HttpClient,
-     private router: Router
+    private http: HttpClient,
+    private router: Router
     // private profileService: ProfileService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const username = params['username'];
-      const driverIdParam=localStorage.getItem("driverId")
+      const username = params['id'];
+      const driverIdParam = localStorage.getItem("driverId")
       if (username) {
         console.log('Username received:', username);
         this.fetchUserProfile(username);
         this.loadUserImage();
-          
-        
+
+
       } else {
         this.noResultsMessage = 'No username provided.';
       }
@@ -46,131 +46,129 @@ export class ProfileComponent implements OnInit {
   }
 
   goHome() {
-  this.router.navigate(['/home']);
-}
-
-  
-
- onFileSelected(event: any) {
-  this.selectedFile = event.target.files[0];
-  if (this.selectedFile) {
-    this.uploadImage();
+    this.router.navigate(['/home']);
   }
-}
+
+
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      this.uploadImage();
+    }
+  }
 
   uploadImage() {
- 
-  if (!this.selectedFile) {
-    alert('Please select an image first!');
-    return;
-  }
 
-  const userId = localStorage.getItem('driverId');
-  if (!userId) {
-    alert("User ID missing — please login again.");
-    return;
-  }
+    if (!this.selectedFile) {
+      alert('Please select an image first!');
+      return;
+    }
 
-  this.loading = true;
+    const userId = localStorage.getItem('driverId');
+    if (!userId) {
+      alert("User ID missing — please login again.");
+      return;
+    }
 
-  const formData = new FormData();
-  formData.append('image', this.selectedFile);
+    this.loading = true;
 
-  this.http.post(`${environment.apiUrl}/user/${userId}/upload-image`, formData)
-    .subscribe({
-      next: (res: any) => {
-        this.loading = false;
+    const formData = new FormData();
+    formData.append('image', this.selectedFile);
 
-      
-        this.showSuccess("✅ Image uploaded successfully!")
+    this.http.post(`${environment.apiUrl}/user/${userId}/upload-image`, formData)
+      .subscribe({
+        next: (res: any) => {
+          this.loading = false;
 
-        this.loadUserImage();  // refresh image from backend
-      },
-      error: (err) => {
-        this.loading = false;
-        console.error("❌ Error uploading image:", err);
 
-        if (err.status === 413) {
-          // alert("Image size too large. Please upload a smaller image.");
-          this.showError("Image size too large. Please upload a smaller image.")
-        } else {
-           this.showError("Failed to upload image. Try again.");
+          this.showSuccess("✅ Image uploaded successfully!")
+
+          this.loadUserImage();  // refresh image from backend
+        },
+        error: (err) => {
+          this.loading = false;
+          console.error("❌ Error uploading image:", err);
+
+          if (err.status === 413) {
+            // alert("Image size too large. Please upload a smaller image.");
+            this.showError("Image size too large. Please upload a smaller image.")
+          } else {
+            this.showError("Failed to upload image. Try again.");
+          }
         }
-      }
-    });
-}
+      });
+  }
 
 
-showSuccess(message: string) {
-  this.toastMessage = message;
-  this.toastType = 'success';
-  this.showToast = true;
+  showSuccess(message: string) {
+    this.toastMessage = message;
+    this.toastType = 'success';
+    this.showToast = true;
 
-  setTimeout(() => {
-    this.showToast = false;
-  }, 3000);
-}
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
+  }
 
-showError(message: string) {
-  this.toastMessage = message;
-  this.toastType = 'error';
-  this.showToast = true;
+  showError(message: string) {
+    this.toastMessage = message;
+    this.toastType = 'error';
+    this.showToast = true;
 
-  setTimeout(() => {
-    this.showToast = false;
-  }, 3000);
-}
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
+  }
 
 
   loadUserImage() {
-     const userId=localStorage.getItem("driverId")
-          
-  
+    const userId = localStorage.getItem("driverId")
 
-  const imgApi=`${environment.apiUrl}/user/${userId}/profile-image-base64`;
 
-  this.http.get(imgApi, { responseType: 'text' }).subscribe({
-    next: (dataUri) => {
-      if (dataUri && dataUri.startsWith("data")) {
-        this.user.imageUrl = dataUri; 
-        localStorage.setItem('imageUrl',this.user.imageUrl)  // set base64 image
-      } else {
-        this.user.imageUrl = 'assets/default-user.jpg'; // fallback
+
+    const imgApi = `${environment.apiUrl}/user/${userId}/profile-image-base64`;
+
+    this.http.get(imgApi, { responseType: 'text' }).subscribe({
+      next: (dataUri) => {
+        if (dataUri && dataUri.startsWith("data")) {
+          this.user.imageUrl = dataUri;
+          localStorage.setItem('imageUrl', this.user.imageUrl)  // set base64 image
+        } else {
+          this.user.imageUrl = 'assets/default-user.jpg'; // fallback
+        }
+      },
+      error: (err) => {
+        console.error("Image fetch error:", err);
+        this.user.imageUrl = 'assets/default-user.jpg';
       }
-    },
-    error: (err) => {
-      console.error("Image fetch error:", err);
-      this.user.imageUrl = 'assets/default-user.jpg';
-    }
-  });
-}
+    });
+  }
 
 
 
 
-enableEdit()
-{
-  this.isEditable = true;
-}
+  enableEdit() {
+    this.isEditable = true;
+  }
 
-updateUser()
-{
-  const userId = localStorage.getItem('driverId');
-  const payload = {
+  updateUser() {
+    const userId = localStorage.getItem('driverId');
+    const payload = {
       fullname: this.user.fullname,
       phonenumber: this.user.phonenumber,
       age: this.user.age,
       emergencyContact: this.user.emergencyContact,
       profileImage: this.user.profileImage
     };
-  const apiUrl=`${environment.apiUrl}/update/${userId}`;
+    const apiUrl = `${environment.apiUrl}/update/${userId}`;
     this.http.put(apiUrl, payload)
       .subscribe({
         next: (res) => {
           this.loading = false;
           this.showSuccess('Profile updated successfully.');
           this.isEditable = false;
-          const username="";
+          const username = "";
           this.fetchUserProfile(username);
         },
         error: (err) => {
@@ -181,16 +179,16 @@ updateUser()
         }
       });
 
-  
-
-}
 
 
-  
+  }
 
-  fetchUserProfile(username: string): void {
-      const apiUrl = `${environment.apiUrl}/profileRetrive?username=${username}`;
-      console.log(apiUrl)
+
+
+
+  fetchUserProfile(id: string): void {
+    const apiUrl = `${environment.apiUrl}/profileRetrive?id=${id}`;
+    console.log(apiUrl)
 
 
 
@@ -205,19 +203,19 @@ updateUser()
           this.user = {
             name: data.username,
             age: data.age,
-            phone:data.phonenumber,
-            fullname:data.fullname,
-            email:data.email,
-            emergencyContact:data.emergencyContact,
-            
-            
+            phone: data.phonenumber,
+            fullname: data.fullname,
+            email: data.email,
+            emergencyContact: data.emergencyContact,
+
+
             // fullname=data.fullname,
             imageUrl: 'assets/default-user.jpg',
             description: 'Passionate traveler and ride enthusiast!',
             ridesBooked: 12,
             ridesTraveled: 9
           };
-          
+
         } else {
           this.user = null;
           this.noResultsMessage = 'No profile found for this user.';

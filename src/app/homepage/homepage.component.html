@@ -29,11 +29,8 @@
       </div>
       <div class="col-lg-6">
         <div class="hero-card shadow-lg">
-          <img
-            src="https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1000&q=80"
-            alt="Passengers enjoying a safe carpool ride"
-            class="img-fluid rounded-4"
-          />
+          <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1000&q=80"
+            alt="Passengers enjoying a safe carpool ride" class="img-fluid rounded-4" />
           <div class="hero-card-overlay">
             <div class="d-flex align-items-center gap-2">
               <i class="bi bi-shield-check text-success"></i>
@@ -82,10 +79,7 @@
       <!-- Leaving from -->
       <div class="col-lg-3 col-md-6">
         <label class="form-label fw-semibold">Leaving from</label>
-        <select
-          class="form-select"
-          [(ngModel)]="leavingFrom"
-          name="leavingFrom">
+        <select class="form-select" [(ngModel)]="leavingFrom" name="leavingFrom">
           <option disabled selected>Select city</option>
           <option *ngFor="let place of placesList" [value]="place">
             {{ place }}
@@ -96,10 +90,7 @@
       <!-- Going to -->
       <div class="col-lg-3 col-md-6">
         <label class="form-label fw-semibold">Going to</label>
-        <select
-          class="form-select"
-          [(ngModel)]="goingTo"
-          name="goingTo">
+        <select class="form-select" [(ngModel)]="goingTo" name="goingTo">
           <option disabled selected>Select city</option>
           <option *ngFor="let place of placesList" [value]="place">
             {{ place }}
@@ -110,21 +101,13 @@
       <!-- Date -->
       <div class="col-lg-2 col-md-4">
         <label class="form-label fw-semibold">Date</label>
-        <input
-          type="date"
-          class="form-control"
-          [(ngModel)]="date"
-          [min]="today"
-          name="date">
+        <input type="date" class="form-control" [(ngModel)]="date" [min]="today" name="date">
       </div>
 
       <!-- Passengers -->
       <div class="col-lg-2 col-md-4">
         <label class="form-label fw-semibold">Passengers</label>
-        <select
-          class="form-select"
-          [(ngModel)]="passengers"
-          name="passengers">
+        <select class="form-select" [(ngModel)]="passengers" name="passengers">
           <option [value]="1">1</option>
           <option [value]="2">2</option>
           <option [value]="3">3</option>
@@ -134,10 +117,7 @@
 
       <!-- Button -->
       <div class="col-lg-2 col-md-4 d-grid">
-        <button
-          type="button"
-          class="btn btn-primary btn-lg"
-          (click)="searchRides()">
+        <button type="button" class="btn btn-primary btn-lg" (click)="searchRides()">
           Find rides
         </button>
       </div>
@@ -148,10 +128,10 @@
 </div>
 
 
-  <!-- NO RESULTS -->
-  <div *ngIf="noResultsMessage" class="alert alert-warning mt-3 mb-0 py-2">
-    🚗 {{ noResultsMessage }}
-  </div>
+<!-- NO RESULTS -->
+<div *ngIf="noResultsMessage" class="alert alert-warning mt-3 mb-0 py-2">
+  🚗 {{ noResultsMessage }}
+</div>
 
 
 
@@ -161,10 +141,7 @@
   <div class="row g-3">
 
     <div class="col-12" *ngFor="let ride of searchResults">
-      <div
-        class="card border-0 shadow-sm rounded-4 ride-card cursor-pointer"
-        (click)="viewRideDetails(ride.id)"
-      >
+      <div class="card border-0 shadow-sm rounded-4 ride-card cursor-pointer" (click)="viewRideDetails(ride.id)">
         <div class="card-body p-4">
 
           <!-- Top Section -->
@@ -352,43 +329,36 @@
       <div class="col-lg-4">
         <div class="testimonial-card shadow-sm">
           <div class="d-flex align-items-center gap-3">
-            <img
-              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
-              alt="Rider profile"
-              class="rounded-circle"
-            />
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
+              alt="Rider profile" class="rounded-circle" />
             <div>
               <h6 class="mb-1">Aditi Sharma</h6>
               <small class="text-muted">Frequent rider</small>
             </div>
           </div>
-          <p class="mt-3 mb-0 text-muted">“I love the safety check-ins and verified profiles. It feels like a trusted community.”</p>
+          <p class="mt-3 mb-0 text-muted">“I love the safety check-ins and verified profiles. It feels like a trusted
+            community.”</p>
         </div>
       </div>
       <div class="col-lg-4">
         <div class="testimonial-card shadow-sm">
           <div class="d-flex align-items-center gap-3">
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
-              alt="Driver profile"
-              class="rounded-circle"
-            />
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
+              alt="Driver profile" class="rounded-circle" />
             <div>
               <h6 class="mb-1">Rahul Mehta</h6>
               <small class="text-muted">Driver partner</small>
             </div>
           </div>
-          <p class="mt-3 mb-0 text-muted">“VyroPool protects drivers too with clear rider reviews and secure payments.”</p>
+          <p class="mt-3 mb-0 text-muted">“VyroPool protects drivers too with clear rider reviews and secure payments.”
+          </p>
         </div>
       </div>
       <div class="col-lg-4">
         <div class="testimonial-card shadow-sm">
           <div class="d-flex align-items-center gap-3">
-            <img
-              src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=200&q=80"
-              alt="Rider profile"
-              class="rounded-circle"
-            />
+            <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=200&q=80"
+              alt="Rider profile" class="rounded-circle" />
             <div>
               <h6 class="mb-1">Kiran Rao</h6>
               <small class="text-muted">University commuter</small>
@@ -406,7 +376,8 @@
     <div class="row align-items-center g-4">
       <div class="col-lg-8">
         <h2 class="fw-bold">Drive with confidence and earn more.</h2>
-        <p class="mb-0 text-white-75">Join a verified community, keep your schedule flexible, and enjoy protection built for drivers.</p>
+        <p class="mb-0 text-white-75">Join a verified community, keep your schedule flexible, and enjoy protection built
+          for drivers.</p>
       </div>
       <div class="col-lg-4 text-lg-end">
         <a class="btn btn-light btn-lg" href="#">Start driving today</a>
@@ -458,57 +429,34 @@
   </div>
 </footer>
 
-<button
-  type="button"
+<button type="button"
   class="btn btn-danger btn-lg position-fixed bottom-0 end-0 m-4 rounded-circle shadow-lg d-flex align-items-center justify-content-center"
-  style="width: 80px; height: 80px; font-size: 20px;"
-  (click)="triggerSOS()"
-  aria-label="Emergency SOS"
->
+  style="width: 80px; height: 80px; font-size: 20px;" (click)="triggerSOS()" aria-label="Emergency SOS">
   SOS
 </button>
 
 
 
-<div
-  *ngIf="showToast"
-  class="toast-container position-fixed top-0 end-0 p-3"
-  style="z-index: 1200"
->
-  <div
-    class="toast show text-white"
-    [ngClass]="{
+<div *ngIf="showToast" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200">
+  <div class="toast show text-white" [ngClass]="{
       'bg-success': toastType === 'success',
       'bg-danger': toastType === 'error'
-    }"
-  >
+    }">
     <div class="toast-body">
       {{ toastMessage }}
     </div>
   </div>
 </div>
 
-<div
-  *ngIf="showToast"
-  class="position-fixed top-50 start-50 translate-middle"
-  style="z-index: 1200; width: 90%; max-width: 420px;"
->
-  <div
-    class="alert text-center alert-dismissible fade show"
-    [ngClass]="{
+<div *ngIf="showToast" class="position-fixed top-50 start-50 translate-middle"
+  style="z-index: 1200; width: 90%; max-width: 420px;">
+  <div class="alert text-center alert-dismissible fade show" [ngClass]="{
       'alert-success': toastType === 'success',
       'alert-danger': toastType === 'error'
-    }"
-    role="alert"
-  >
+    }" role="alert">
     {{ toastMessage }}
 
-    <button
-      type="button"
-      class="btn-close"
-      (click)="closeAlert()">
+    <button type="button" class="btn-close" (click)="closeAlert()">
     </button>
   </div>
 </div>
-
-

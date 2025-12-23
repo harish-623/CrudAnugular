@@ -18,6 +18,9 @@ export class DriverPublishRidesComponent {
     driverId!: number; 
   
     rideCount: number = 0;
+    showToast = false;
+    toastMessage = '';
+    toastType: 'success' | 'error' = 'success';
   
     constructor(
       private route: ActivatedRoute,
@@ -42,14 +45,29 @@ export class DriverPublishRidesComponent {
         }
       });
     }
+
+    showSuccess(message: string) {
+  this.toastMessage = message;
+  this.toastType = 'success';
+  this.showToast = true;
+
+  setTimeout(() => {
+    this.showToast = false;
+  }, 3000);
+}
+
+showError(message: string) {
+  this.toastMessage = message;
+  this.toastType = 'error';
+  this.showToast = true;
+
+  setTimeout(() => {
+    this.showToast = false;
+  }, 3000);
+}
   
     fetchDriverRides(driverId: number): void {
       const apiUrl = `${environment.apiUrl}/driver/${driverId}`;
-
-  //      const apiUrl =
-  // window.location.hostname === 'localhost'
-  //   ? `http://localhost:8095/login/driver/${driverId}`
-  //   : `https://api.vyropool.info/login/driver/${driverId}`;
   
       this.http.get<{result: string; rideCount: number; rides: any[]; message: string }>(apiUrl).subscribe({
         next: (response: {result: string; rideCount:number; rides:any[]; message:string}) => {
@@ -98,12 +116,14 @@ export class DriverPublishRidesComponent {
       this.http.put(apiUrl, { responseType: 'text' }).subscribe({
         next: (response) => {
           this.loading = false;
-      alert(response); // now "Ride cancelled successfully" works!
+      alert(response); 
+      
       this.fetchDriverRides(driverId);
     },
     error: (err) => {
       console.error('Error cancelling ride:', err);
-      alert('Error cancelling ride. Please try again.');
+      this.showError('Error cancelling ride. Please try again.');
+
       this.loading = false;
     }
       });

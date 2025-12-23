@@ -1,3 +1,51 @@
+<nav class="navbar navbar-expand-lg sticky-top bg-white border-bottom shadow-sm">
+  <div class="container py-2">
+    <a class="navbar-brand fw-bold text-primary" routerLink="/">
+      VyroPool
+      <span class="text-dark">SafeRide</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/profile" routerLinkActive="active" [queryParams]="{ username: userName }">Profile</a>
+          
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLoggedIn" [queryParams]=" { driverId: this.driverId }" routerLink="/my-rides">My Rides</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLoggedIn" routerLink="/my-publish-rides">My Publish Rides</a>
+        </li>
+
+        <li class="nav-item" *ngIf="isLoggedIn">
+  <button
+    type="button"
+    class="btn btn-link nav-link text-danger"
+    (click)="logout()">
+    Logout
+  </button>
+</li>
 
 
-<router-outlet></router-outlet>
+        <li class="nav-item">
+          <a class="btn btn-outline-primary" *ngIf="!isLoggedIn" routerLink="/register">Register</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- <div style="height: 75px;"></div> -->
+<main class="app-main">
+  <router-outlet></router-outlet>
+</main>

@@ -77,6 +77,7 @@ export class RideDetailsComponent {
 
   if (passengerId === rideDriverId) {
     alert("🚫 Driver can't book their own ride!");
+    
     return; // stop booking
   }
 

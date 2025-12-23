@@ -22,6 +22,8 @@ export class PublishRideComponent {
   loading: boolean = false; // ✅ loader flag
   fromSuggestions: any[] = [];
   toSuggestions: any[] = [];
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
 
   placesList: string[] = [
   'Gachibowli,Hyderabad',
@@ -78,18 +80,17 @@ export class PublishRideComponent {
     const driverId = localStorage.getItem('driverId');
     
     console.log(driverId)
-    // const url = `http://localhost:8095/login/publish/${driverId}`;
+  
     const url = `${environment.apiUrl}/publish/${driverId}`;
     
-  // window.location.hostname === 'localhost'
-  //   ? `https://api.vyropool.info/login/publish/${driverId}`
-  //   : `https://api.vyropool.info/login/publish/${driverId}`;
+
     this.loading = true;
     this.http.post(url, payload)
       .subscribe({
         next: (res: any) => {
           this.loading = false;
-          alert('Ride Published Successfully!');
+          this.successMessage =
+        'Ride published successfully. Passengers can now request to join.';
           // this.router.navigate(['/home'], { queryParams: { driverId } });
           this.router.navigate(['/my-publish-rides'])
           this.clearForm();

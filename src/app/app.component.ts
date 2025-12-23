@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { AuthService } from './auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,9 +9,20 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'login-app';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private authService: AuthService
+  ) {}
   showProfile = false;
-// userName = 'UdayKumar';
+  isLoggedIn = false;
+  userName = localStorage.getItem('username') || '';
+  driverId=localStorage.getItem('driverId') || '';
+ 
+
+ngOnInit() {
+  this.authService.isLoggedIn$.subscribe(status => {
+    this.isLoggedIn = status;
+  });
+}
 
   goToProfile() {
   this.router.navigate(['/profile']);
@@ -23,7 +34,10 @@ goToMyRides() {
 
 logout() {
   localStorage.clear();
+  this.isLoggedIn = false;
   this.router.navigate(['/login']);
+  
+  
 }
 
 }

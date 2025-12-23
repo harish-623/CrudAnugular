@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
   registerError: any;
   loading: boolean = true;
   responseClass: string = '';
+  profile: boolean | null = null;
+  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -77,6 +79,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('token', response.token);
             localStorage.setItem('emergencyEmail', response.eemergencyEmail)
             console.log(localStorage.getItem('emergencyEmail'));
+            this.authService.setLoggedIn(true);
 
 
             console.log(username)
@@ -159,6 +162,26 @@ export class LoginComponent implements OnInit {
 
   navigateToRegister() {
     this.router.navigate(['/register']);
+  }
+
+  message = '';
+ 
+
+  
+
+  
+
+  verifyPhone(): void {
+    
+  }
+
+  verifyEmail(): void {
+    
+    
+  }
+
+  loginWith(provider: 'google' | 'instagram'): void {
+    
   }
 
 }

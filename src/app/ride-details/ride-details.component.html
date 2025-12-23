@@ -1,71 +1,114 @@
-<div *ngIf="loading" class="loader-overlay">
-  <div class="loader"></div>
+<!-- Loader Overlay -->
+<div *ngIf="loading"
+     class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white bg-opacity-75"
+     style="z-index: 1050;">
+  <div class="spinner-border text-primary" role="status"></div>
 </div>
 
-<div class="home-btn-container">
-    <button class="home-btn" (click)="goHome()">
-      🏠 Home
-    </button>
-  </div>
+<!-- Home Button -->
+<div class="container mt-3">
+  <button class="btn btn-outline-primary" (click)="goHome()">
+    Home
+  </button>
+</div>
 
-<div class="ride-detail-page">
+<!-- Ride Details -->
+<div class="container my-4">
+
   <!-- Header -->
-  <header class="ride-header">
-    <h1>Ride Details</h1>
-  </header>
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">Ride Details</h3>
+    <p class="text-muted">Review ride information before booking</p>
+  </div>
 
-  <!-- Ride Info Card -->
-  <div class="ride-card">
-    <div class="ride-info">
-      <h2>{{ ride.riderName.fullname }}</h2>
-      <p><strong>From:</strong> {{ ride.from }}</p>
-      <p><strong>To:</strong> {{ ride.to }}</p>
-      <p><strong>Date:</strong> {{ ride.date }}</p>
-      <p><strong>Time:</strong> {{ ride.time }}</p>
-      <p><strong>Car Type:</strong> {{ ride.carType }}</p>
-      <p><strong>Seats Available:</strong> {{ ride.passengerLimit }}</p>
-      <p><strong>Price:</strong> ₹{{ ride.amount }}</p>
-    </div>
+  <!-- Ride Card -->
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
 
-    <div class="passenger-select">
-      <label for="passengerCount"><strong>Select Passengers:</strong></label>
-      <input
-        id="passengerCount"
-        type="number"
-        min="1"
-        [max]="ride.passengerLimit"
-        [(ngModel)]="selectedPassengers"
-        [disabled]="ride.passengerLimit === 0"
-        placeholder="Enter number of passengers"
-      />
-    </div>
+      <div class="card shadow-sm border-0 rounded-4">
 
+        <div class="card-body p-4">
 
-    <button (click)="bookRide()" class="book-ride-btn" [disabled]="ride.passengerLimit === 0">
-  Book Ride
-</button>
+          <!-- Rider Info -->
+          <h5 class="fw-semibold mb-3">
+            {{ ride.riderName.fullname }}
+          </h5>
 
-<p *ngIf="ride.passengerLimit === 0" class="no-seats-msg">
-  ❌ No seats available for this ride
-</p>
-    <div class="contact-info">
-      <h3>Contact Rider</h3>
-      <p><strong>Phone:</strong> {{ ride.phoneNumber }}</p>
-      <button (click)="callRider()">Call Rider</button>
-      <button (click)="messageRider()">Message Rider</button>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p><strong>From:</strong> {{ ride.from }}</p>
+              <p><strong>To:</strong> {{ ride.to }}</p>
+              <p><strong>Date:</strong> {{ ride.date }}</p>
+              <p><strong>Time:</strong> {{ ride.time }}</p>
+            </div>
+
+            <div class="col-md-6">
+              <p><strong>Car Type:</strong> {{ ride.carType }}</p>
+              <p><strong>Seats Available:</strong> {{ ride.passengerLimit }}</p>
+              <p><strong>Price:</strong> ₹{{ ride.amount }}</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Passenger Selection -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">
+              Select Number of Passengers
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              min="1"
+              [max]="ride.passengerLimit"
+              [(ngModel)]="selectedPassengers"
+              [disabled]="ride.passengerLimit === 0"
+              placeholder="Enter passenger count"
+            />
+          </div>
+
+          <!-- No Seats Message -->
+          <div *ngIf="ride.passengerLimit === 0"
+               class="alert alert-warning text-center">
+            No seats available for this ride.
+          </div>
+
+          <!-- Book Button -->
+          <button
+            class="btn btn-primary w-100 py-2 fw-semibold mb-4"
+            (click)="bookRide()"
+            [disabled]="ride.passengerLimit === 0">
+            Book Ride
+          </button>
+
+          <hr>
+
+          <!-- Contact Section -->
+          <div>
+            <h6 class="fw-semibold mb-3">Contact Rider</h6>
+
+            <p class="mb-2">
+              <strong>Phone:</strong> {{ ride.phoneNumber }}
+            </p>
+
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-success btn-sm"
+                      (click)="callRider()">
+                Call Rider
+              </button>
+
+              <button class="btn btn-outline-secondary btn-sm"
+                      (click)="messageRider()">
+                Message Rider
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
   </div>
 
-
-  <!-- <div *ngIf="loading" class="loader-container">
-    <div class="spinner"></div>
-    <p>Loading your rides...</p>
-  </div> -->
-
-
-  <!-- Back Button -->
-  <!-- <div class="back-btn">
-    <button (click)="goBack()">← Back to Search</button>
-  </div> -->
 </div>
-

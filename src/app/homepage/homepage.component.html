@@ -1,235 +1,514 @@
+<header class="hero-section py-5">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="badge rounded-pill text-bg-primary-soft mb-3">Trusted rides for every journey</span>
+        <h1 class="display-5 fw-bold mb-3">Secure, friendly carpooling built for modern India.</h1>
+        <p class="lead text-muted mb-4">
+          VyroPool connects verified drivers with riders who care about safety and comfort. Real-time
+          tracking, trusted profiles, and 24/7 support ensure everyone feels confident on the road.
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-3">
+          <a class="btn btn-primary btn-lg" (click)="goToPublishRide()">Publish a ride</a>
+          <a class="btn btn-outline-dark btn-lg" href="#safety">See safety promise</a>
+        </div>
+        <div class="d-flex flex-wrap gap-4 mt-4">
+          <div>
+            <h4 class="fw-bold mb-1">1.2M+</h4>
+            <small class="text-muted">Verified members</small>
+          </div>
+          <div>
+            <h4 class="fw-bold mb-1">4.9★</h4>
+            <small class="text-muted">Average rider rating</small>
+          </div>
+          <div>
+            <h4 class="fw-bold mb-1">24/7</h4>
+            <small class="text-muted">Safety support</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-card shadow-lg">
+          <img
+            src="https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1000&q=80"
+            alt="Passengers enjoying a safe carpool ride"
+            class="img-fluid rounded-4"
+          />
+          <div class="hero-card-overlay">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-shield-check text-success"></i>
+              <span class="fw-semibold">Identity-verified drivers & riders</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-geo-alt text-primary"></i>
+              <span class="fw-semibold">Live route sharing with trusted contacts</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-chat-dots text-warning"></i>
+              <span class="fw-semibold">In-app support always available</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
-<div class="home-wrapper">
-  <!-- YOUR FULL HOME PAGE HTML HERE -->
+<!-- <section class="trust-strip border-top border-bottom py-4">
+  <div class="container">
+    <div class="row g-4 text-center text-md-start align-items-center">
+      <div class="col-md-3">
+        <p class="text-uppercase text-muted small mb-1">Safety partners</p>
+        <h5 class="fw-bold">Trusted by leading mobility teams</h5>
+      </div>
+      <div class="col-md-9">
+        <div class="d-flex flex-wrap gap-4 justify-content-md-end">
+          <span class="badge bg-light text-dark">ISO-certified security</span>
+          <span class="badge bg-light text-dark">Police-verified IDs</span>
+          <span class="badge bg-light text-dark">Vehicle inspections</span>
+          <span class="badge bg-light text-dark">Encrypted payments</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
 
-<div class="pt-10 flex flex-col min-h-screen bg-gradient-to-b from-sky-100 to-white">
-  <header class="flex justify-between items-center px-10 py-4 bg-white shadow-md fixed top-0 left-0 right-0 z-50"> 
-    <!-- <h1 class="text-2xl font-bold italic text-sky-700">Vyro</h1> -->
+<!-- FIND A RIDE (BOOTSTRAP ONLY) -->
+<div class="container my-4">
+  <div class="bg-white border rounded-4 shadow-sm p-3">
 
-      <div class="profile-container" (mouseenter)="showProfile = true" (mouseleave)="showProfile = false">
+    <form class="row g-3 align-items-end">
 
-       <div class="profile-display ">
-        <img [src]="imageUrl"  alt="Profile" class="profile-img" />
-        <span class="profile-name">Hello,{{username}}</span>
+      <!-- Leaving from -->
+      <div class="col-lg-3 col-md-6">
+        <label class="form-label fw-semibold">Leaving from</label>
+        <select
+          class="form-select"
+          [(ngModel)]="leavingFrom"
+          name="leavingFrom">
+          <option disabled selected>Select city</option>
+          <option *ngFor="let place of placesList" [value]="place">
+            {{ place }}
+          </option>
+        </select>
       </div>
 
-      <!-- Dropdown -->
-      <div *ngIf="showProfile" class="profile-dropdown ">
-          <ul>
-            <li (click)="goToProfile()">My Profile</li>
-            <li (click)="goToMyRides()">My Rides</li>
-            <li (click)="goToMyPublishRides()">My Publish Rides</li>
-            <li class="logout" (click)="logout()">Logout</li>
-          </ul>
-    </div>
-    
+      <!-- Going to -->
+      <div class="col-lg-3 col-md-6">
+        <label class="form-label fw-semibold">Going to</label>
+        <select
+          class="form-select"
+          [(ngModel)]="goingTo"
+          name="goingTo">
+          <option disabled selected>Select city</option>
+          <option *ngFor="let place of placesList" [value]="place">
+            {{ place }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Date -->
+      <div class="col-lg-2 col-md-4">
+        <label class="form-label fw-semibold">Date</label>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="date"
+          [min]="today"
+          name="date">
+      </div>
+
+      <!-- Passengers -->
+      <div class="col-lg-2 col-md-4">
+        <label class="form-label fw-semibold">Passengers</label>
+        <select
+          class="form-select"
+          [(ngModel)]="passengers"
+          name="passengers">
+          <option [value]="1">1</option>
+          <option [value]="2">2</option>
+          <option [value]="3">3</option>
+          <option [value]="4">4</option>
+        </select>
+      </div>
+
+      <!-- Button -->
+      <div class="col-lg-2 col-md-4 d-grid">
+        <button
+          type="button"
+          class="btn btn-primary btn-lg"
+          (click)="searchRides()">
+          Find rides
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+
+  <!-- NO RESULTS -->
+  <div *ngIf="noResultsMessage" class="alert alert-warning mt-3 mb-0 py-2">
+    🚗 {{ noResultsMessage }}
   </div>
 
-   <!-- <div class="header-right"> -->
-    <button class="publish-btn" (click)="goToPublishRide()">Publish Ride</button>
-    <button *ngIf="!isLoggedIn" (click)="goToLogin()" class="publish-btn">
-  Login
+
+
+
+<div class="container mt-4" *ngIf="searchResults?.length">
+
+  <div class="row g-3">
+
+    <div class="col-12" *ngFor="let ride of searchResults">
+      <div
+        class="card border-0 shadow-sm rounded-4 ride-card cursor-pointer"
+        (click)="viewRideDetails(ride.id)"
+      >
+        <div class="card-body p-4">
+
+          <!-- Top Section -->
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <h6 class="fw-bold mb-1">
+                {{ ride.time }}
+              </h6>
+              <p class="text-muted mb-0">
+                {{ ride.from }} → {{ ride.to }}
+              </p>
+            </div>
+
+            <div class="text-end">
+              <span class="fs-5 fw-bold text-success">
+                ₹{{ ride.amount }}
+              </span>
+              <div class="small text-muted">per seat</div>
+            </div>
+          </div>
+
+          <hr class="my-3">
+
+          <!-- Bottom Section -->
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="mb-0 fw-semibold">
+                {{ ride.riderName.fullname }}
+              </p>
+              <small class="text-muted">
+                {{ ride.carType }} · Seats {{ ride.passengerLimit }}
+              </small>
+            </div>
+
+            <span class="badge bg-light text-dark border">
+              {{ ride.date }}
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <section id="how" class="py-5">
+  <div class="container">
+    <div class="row align-items-end mb-4">
+      <div class="col-lg-6">
+        <h2 class="fw-bold">How VyroPool works</h2>
+        <p class="text-muted">
+          Designed for commuters and weekend travelers who value secure rides and transparent pricing.
+        </p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <div class="icon-circle bg-primary text-white mb-3"><i class="bi bi-person-check"></i></div>
+            <h5 class="fw-bold">Verify your profile</h5>
+            <p class="text-muted">Secure KYC checks and trusted reviews keep the community transparent.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <div class="icon-circle bg-warning text-dark mb-3"><i class="bi bi-search"></i></div>
+            <h5 class="fw-bold">Book or publish a ride</h5>
+            <p class="text-muted">Choose flexible pickup points, pricing, and ride preferences.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <div class="icon-circle bg-success text-white mb-3"><i class="bi bi-geo"></i></div>
+            <h5 class="fw-bold">Travel with confidence</h5>
+            <p class="text-muted">Live tracking, SOS support, and safety check-ins for every trip.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section id="safety" class="py-5 bg-light">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <img
+          src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1000&q=80"
+          alt="Driver and rider feeling safe inside car"
+          class="img-fluid rounded-4 shadow-sm"
+        />
+      </div>
+      <div class="col-lg-6">
+        <span class="badge rounded-pill text-bg-dark mb-3">Safety first</span>
+        <h2 class="fw-bold">A safety stack that protects both drivers and riders.</h2>
+        <p class="text-muted">
+          Every ride is backed by verification, smart monitoring, and quick help so everyone feels secure and respected.
+        </p>
+        <ul class="list-unstyled safety-list">
+          <li><i class="bi bi-shield-check"></i> Background checks and vehicle verification.</li>
+          <li><i class="bi bi-geo-alt"></i> Live route tracking with trusted contacts.</li>
+          <li><i class="bi bi-lock"></i> Encrypted chat and payment protection.</li>
+          <li><i class="bi bi-telephone"></i> 24/7 incident response and local helpline.</li>
+        </ul>
+        <div class="mt-4">
+          <a class="btn btn-primary" href="#app">Explore safety features</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section id="routes" class="py-5">
+  <div class="container">
+    <div class="row align-items-end mb-4">
+      <div class="col-lg-6">
+        <h2 class="fw-bold">Popular routes & communities</h2>
+        <p class="text-muted">Reliable rides between cities, campuses, and tech hubs.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <img
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80"
+            class="card-img-top"
+            alt="City skyline at sunrise"
+          />
+          <div class="card-body">
+            <h5 class="fw-bold">Delhi → Jaipur</h5>
+            <p class="text-muted mb-0">Comfortable highway rides with verified drivers.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <img
+            src="https://images.unsplash.com/photo-1495435229349-e86db7bfa013?auto=format&fit=crop&w=800&q=80"
+            class="card-img-top"
+            alt="Coastal road"
+          />
+          <div class="card-body">
+            <h5 class="fw-bold">Mumbai → Pune</h5>
+            <p class="text-muted mb-0">Tech commuters and weekend travelers share rides.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <img
+            src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"
+            class="card-img-top"
+            alt="Mountain highway"
+          />
+          <div class="card-body">
+            <h5 class="fw-bold">Bengaluru → Mysuru</h5>
+            <p class="text-muted mb-0">Safe rides with in-app check-ins and ratings.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- 
+ -->
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="testimonial-card shadow-sm">
+          <div class="d-flex align-items-center gap-3">
+            <img
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
+              alt="Rider profile"
+              class="rounded-circle"
+            />
+            <div>
+              <h6 class="mb-1">Aditi Sharma</h6>
+              <small class="text-muted">Frequent rider</small>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-muted">“I love the safety check-ins and verified profiles. It feels like a trusted community.”</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="testimonial-card shadow-sm">
+          <div class="d-flex align-items-center gap-3">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
+              alt="Driver profile"
+              class="rounded-circle"
+            />
+            <div>
+              <h6 class="mb-1">Rahul Mehta</h6>
+              <small class="text-muted">Driver partner</small>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-muted">“VyroPool protects drivers too with clear rider reviews and secure payments.”</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="testimonial-card shadow-sm">
+          <div class="d-flex align-items-center gap-3">
+            <img
+              src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=200&q=80"
+              alt="Rider profile"
+              class="rounded-circle"
+            />
+            <div>
+              <h6 class="mb-1">Kiran Rao</h6>
+              <small class="text-muted">University commuter</small>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-muted">“The clean design and live tracking make my parents feel safe too.”</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="driver" class="cta-section py-5 bg-primary text-white">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        <h2 class="fw-bold">Drive with confidence and earn more.</h2>
+        <p class="mb-0 text-white-75">Join a verified community, keep your schedule flexible, and enjoy protection built for drivers.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a class="btn btn-light btn-lg" href="#">Start driving today</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer bg-dark text-white py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <h5 class="fw-bold">VyroPool</h5>
+        <p class="text-white-50">Secure, community-first rides that respect every passenger and driver.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="text-uppercase text-white-50">Company</h6>
+        <ul class="list-unstyled">
+          <li><a class="footer-link" href="#">About</a></li>
+          <li><a class="footer-link" href="#">Safety</a></li>
+          <li><a class="footer-link" href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="text-uppercase text-white-50">Support</h6>
+        <ul class="list-unstyled">
+          <li><a class="footer-link" href="#">Help center</a></li>
+          <li><a class="footer-link" href="#">Trust & safety</a></li>
+          <li><a class="footer-link" href="#">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="text-uppercase text-white-50">Stay in the loop</h6>
+        <p class="text-white-50">Weekly updates on new routes and safety improvements.</p>
+        <form class="d-flex gap-2 flex-column flex-sm-row">
+          <input class="form-control" type="email" placeholder="Email address" aria-label="Email address" />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="d-flex flex-column flex-md-row justify-content-between border-top border-secondary pt-4 mt-4">
+      <small class="text-white-50">© 2024 VyroPool. All rights reserved.</small>
+      <div class="d-flex gap-3">
+        <a class="footer-link" href="#">Privacy</a>
+        <a class="footer-link" href="#">Terms</a>
+        <a class="footer-link" href="#">Community guidelines</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button
+  type="button"
+  class="btn btn-danger btn-lg position-fixed bottom-0 end-0 m-4 rounded-circle shadow-lg d-flex align-items-center justify-content-center"
+  style="width: 80px; height: 80px; font-size: 20px;"
+  (click)="triggerSOS()"
+  aria-label="Emergency SOS"
+>
+  SOS
 </button>
-    <!-- </div> -->
 
 
 
-
-  </header>
-  <!-- Hero Section -->
-  <section class="text-center py-16 bg-sky-200 rounded-b-3xl">
-    <h1 class="text-4xl font-bold text-gray-800 mb-8">
-      Vyro Feel comfortable and Safety
-    </h1>
-
-    <!-- Search Box -->
-    <div class="mx-auto bg-white shadow-lg rounded-full flex flex-wrap md:flex-nowrap items-center justify-between p-4 w-11/12 md:w-3/4">
- 
-      <div class="relative flex-1">
-  <select
-    [(ngModel)]="leavingFrom"
-    class="flex-1 px-4 py-2 outline-none border rounded-md w-full"
+<div
+  *ngIf="showToast"
+  class="toast-container position-fixed top-0 end-0 p-3"
+  style="z-index: 1200"
+>
+  <div
+    class="toast show text-white"
+    [ngClass]="{
+      'bg-success': toastType === 'success',
+      'bg-danger': toastType === 'error'
+    }"
   >
-    <option value="" disabled selected>Leaving from...</option>
-    <option *ngFor="let place of placesList" [value]="place">
-      {{ place }}
-    </option>
-  </select>
-</div>
-
-<!-- TO Dropdown -->
-<div class="relative flex-1 mt-3">
-  <select
-    [(ngModel)]="goingTo"
-    class="flex-1 px-4 py-2 outline-none border rounded-md w-full"
-  >
-    <option value="" disabled selected>Going to...</option>
-    <option *ngFor="let place of placesList" [value]="place">
-      {{ place }}
-    </option>
-  </select>
-</div>
-  
-
-<!-- <div class="relative flex-1">
-  <input
-    type="text"
-    [(ngModel)]="leavingFrom"
-    (input)="searchPlaces(leavingFrom, 'from')"
-    placeholder="Leaving from..."
-    
-    class="flex-1 px-4 py-2 outline-none border rounded-md"
-  />
-
-  
-  <ul *ngIf="fromSuggestions.length > 0" class="autocomplete-list">
-  <li
-    *ngFor="let place of fromSuggestions"
-    class="autocomplete-item"
-    (click)="selectPlace(place.display_name, 'from')"
-  >
-    {{ place.display_name }}
-  </li>
-</ul>
-</div>
-
-<div class="relative flex-1">
-  <input
-    type="text"
-    [(ngModel)]="goingTo"
-    (input)="searchPlaces(goingTo, 'to')"
-    placeholder="Going to..."
-    class="flex-1 px-4 py-2 outline-none border rounded-md"
-  />
-
-  <ul *ngIf="toSuggestions.length > 0" class="autocomplete-list">
-    <li
-      *ngFor="let place of toSuggestions"
-      class="autocomplete-item"
-      (click)="selectPlace(place.display_name, 'to')"
-    >
-      {{ place.display_name }}
-    </li>
-  </ul>
-</div> -->
-
-
-
-
-  <!-- <input type="date" [(ngModel)]="date" class="flex-1 px-4 py-2 outline-none border-t md:border-t-0 md:border-l border-gray-300" /> -->
-  <input
-  type="date"
-  [(ngModel)]="date"
-  [min]="today"
-  class="flex-1 px-4 py-2 outline-none border-t md:border-t-0 md:border-l border-gray-300"
-/>
-  <select [(ngModel)]="passengers" class="flex-1 px-4 py-2 outline-none border-t md:border-t-0 md:border-l border-gray-300">
-    <option [value]="1">1 passenger</option>
-    <option [value]="2">2 passengers</option>
-    <option [value]="3">3 passengers</option>
-    <option [value]="4">4 passengers</option>
-  </select>
-  <button (click)="searchRides()" class="bg-sky-600 text-white font-semibold px-8 py-2 rounded-full hover:bg-sky-700 transition">
-    Search
-  </button>
-</div>
-
-  <div *ngIf="noResultsMessage" class="no-results">
-  🚗 {{ noResultsMessage }}
-</div>
-
-
-  <div class="search-results-container" *ngIf="searchResults && searchResults.length > 0">
-  <!-- (click)="viewRideDetails(ride.id) -->
-
-  <div *ngFor="let ride of searchResults" class="ride-card" (click)="viewRideDetails(ride.id)">
-    <div class="ride-header">
-      <div class="ride-time">
-        <span class="time">{{ ride.time }}</span>
-        <span class="from">{{ ride.from }}</span>
-        <span class="arrow">→</span>
-        <span class="to">{{ ride.to }}</span>
-      </div>
-      <div class="ride-price">
-        ₹{{ ride.amount }}
-      </div>
-    </div>
-
-    <div class="ride-footer">
-      <div class="driver">
-        <!-- <img src="assets/user.png" alt="Driver" class="driver-img" /> -->
-        <span class="driver-name">{{ ride.riderName.fullname }}</span>
-      </div>
-      <div class="details">
-        <span class="car">{{ ride.carType }}</span> |
-        <span class="passengers">Seats: {{ ride.passengerLimit }}</span> |
-        <span class="date">{{ ride.date }}</span>
-      </div>
+    <div class="toast-body">
+      {{ toastMessage }}
     </div>
   </div>
 </div>
 
+<div
+  *ngIf="showToast"
+  class="position-fixed top-50 start-50 translate-middle"
+  style="z-index: 1200; width: 90%; max-width: 420px;"
+>
+  <div
+    class="alert text-center alert-dismissible fade show"
+    [ngClass]="{
+      'alert-success': toastType === 'success',
+      'alert-danger': toastType === 'error'
+    }"
+    role="alert"
+  >
+    {{ toastMessage }}
 
-
-   
-
-<ng-template #noResults>
-  <p>No rides found.</p>
-</ng-template>
-
-
-
-
-
-  </section>
-
-  <button class="sos-float-btn" (click)="triggerSOS()">
-  🚨 SOS 
-  </button>
-
-  <!-- Info Cards Section -->
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-8 px-8 py-16">
-    <!-- Card 1 -->
-    <div class="text-center p-6 bg-white shadow-md rounded-2xl hover:shadow-lg transition">
-      <div class="text-sky-600 text-4xl mb-4">🚗</div>
-      <h3 class="font-bold text-lg mb-2">Your pick of rides at low prices</h3>
-      <p class="text-gray-600 text-sm">
-        No matter where you’re going, find the perfect carpool ride at affordable prices.
-      </p>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="text-center p-6 bg-white shadow-md rounded-2xl hover:shadow-lg transition">
-      <div class="text-sky-600 text-4xl mb-4">🧑‍🤝‍🧑</div>
-      <h3 class="font-bold text-lg mb-2">Trust who you travel with</h3>
-      <p class="text-gray-600 text-sm">
-        We verify profiles, ratings, and reviews so you can travel with peace of mind.
-      </p>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="text-center p-6 bg-white shadow-md rounded-2xl hover:shadow-lg transition">
-      <div class="text-sky-600 text-4xl mb-4">⚡</div>
-      <h3 class="font-bold text-lg mb-2">Scroll, click, tap and go!</h3>
-      <p class="text-gray-600 text-sm">
-        Book your next ride in just a few taps — simple, fast, and secure.
-      </p>
-    </div>
-  </section>
-
-  <!-- <div *ngIf="loading" class="loader-container">
-    <div class="spinner"></div>
-    <p>Loading your rides...</p>
-  </div> -->
-
-
+    <button
+      type="button"
+      class="btn-close"
+      (click)="closeAlert()">
+    </button>
+  </div>
 </div>
-
-<!-- Floating SOS Button -->
-
-
-
-
-
 
 

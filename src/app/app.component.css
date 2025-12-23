@@ -1,14 +1,129 @@
-.loader-container {
-  text-align: center;
-  color: #555;
+/* ================== FONT ================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ================== GLOBAL ================== */
+body {
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  background-color: #ffffff;
+  color: #101828;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #ccc;
-  border-top-color: #00b894;
-  border-radius: 50%;
-  margin: 20px auto;
-  animation: spin 1s linear infinite;
+/* ================== NAVBAR ================== */
+.navbar {
+  backdrop-filter: saturate(180%) blur(6px);
+  background-color: rgba(255, 255, 255, 0.96);
+}
+
+.navbar-brand {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.navbar-brand span {
+  font-weight: 600;
+}
+
+/* ================== NAV LINKS ================== */
+.nav-link {
+  font-weight: 500;
+  color: #101828;
+  position: relative;
+  padding: 0.5rem 0.75rem;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #2563eb;
+}
+
+/* Active route underline */
+.nav-link.active {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  bottom: 4px;
+  width: 76%;
+  height: 2px;
+  background-color: #2563eb;
+  border-radius: 2px;
+}
+
+/* ================== BUTTONS ================== */
+.btn-outline-primary {
+  border-radius: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  transition: all 0.25s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  border-radius: 0.85rem;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* ================== NAVBAR TOGGLER ================== */
+.navbar-toggler {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar-toggler-icon {
+  filter: brightness(0.2);
+}
+
+/* ================== MOBILE DROPDOWN ================== */
+@media (max-width: 991px) {
+  .navbar-nav {
+    padding-top: 1rem;
+  }
+
+  .nav-link {
+    padding: 0.75rem 0;
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+
+  .btn-outline-primary {
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+}
+
+/* ================== UTILITIES ================== */
+.bg-primary-soft {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.text-white-75 {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.form-control {
+  border-radius: 0.75rem;
+}
+
+.btn-lg {
+  border-radius: 0.85rem;
 }

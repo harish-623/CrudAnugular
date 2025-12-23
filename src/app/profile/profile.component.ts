@@ -18,6 +18,9 @@ export class ProfileComponent implements OnInit {
   userImageUrl: string = '';
   isEditable: boolean= false;
   loading: boolean = true;
+  showToast = false;
+  toastMessage = '';
+  toastType: 'success' | 'error' = 'success';
 
   constructor(
     private route: ActivatedRoute,
@@ -56,13 +59,12 @@ export class ProfileComponent implements OnInit {
 }
 
   uploadImage() {
-  // Check file
+ 
   if (!this.selectedFile) {
     alert('Please select an image first!');
     return;
   }
 
-  // Get logged-in userId
   const userId = localStorage.getItem('driverId');
   if (!userId) {
     alert("User ID missing — please login again.");
@@ -79,7 +81,8 @@ export class ProfileComponent implements OnInit {
       next: (res: any) => {
         this.loading = false;
 
-        alert('✅ Image uploaded successfully!');
+      
+        this.showSuccess("✅ Image uploaded successfully!")
 
         this.loadUserImage();  // refresh image from backend
       },
@@ -88,22 +91,41 @@ export class ProfileComponent implements OnInit {
         console.error("❌ Error uploading image:", err);
 
         if (err.status === 413) {
-          alert("Image size too large. Please upload a smaller image.");
+          // alert("Image size too large. Please upload a smaller image.");
+          this.showError("Image size too large. Please upload a smaller image.")
         } else {
-          alert("Failed to upload image. Try again.");
+           this.showError("Failed to upload image. Try again.");
         }
       }
     });
 }
 
 
+showSuccess(message: string) {
+  this.toastMessage = message;
+  this.toastType = 'success';
+  this.showToast = true;
+
+  setTimeout(() => {
+    this.showToast = false;
+  }, 3000);
+}
+
+showError(message: string) {
+  this.toastMessage = message;
+  this.toastType = 'error';
+  this.showToast = true;
+
+  setTimeout(() => {
+    this.showToast = false;
+  }, 3000);
+}
+
+
   loadUserImage() {
      const userId=localStorage.getItem("driverId")
           
-  // const imgApi =
-  //   window.location.hostname === 'localhost'
-  //     ? `https://api.vyropool.info/login/user/${userId}/profile-image-base64`
-  //     : `https://api.vyropool.info/login/user/${userId}/profile-image-base64`;
+  
 
   const imgApi=`${environment.apiUrl}/user/${userId}/profile-image-base64`;
 
@@ -141,24 +163,20 @@ updateUser()
       emergencyContact: this.user.emergencyContact,
       profileImage: this.user.profileImage
     };
-
-  //   const apiUrl =
-  // window.location.hostname === 'localhost'
-  //   ? `https://api.vyropool.info/login/update/${userId}`
-  //   : `https://api.vyropool.info/login/update/${userId}`;
   const apiUrl=`${environment.apiUrl}/update/${userId}`;
     this.http.put(apiUrl, payload)
       .subscribe({
         next: (res) => {
           this.loading = false;
-          alert("Profile updated successfully!");
+          this.showSuccess('Profile updated successfully.');
           this.isEditable = false;
           const username="";
           this.fetchUserProfile(username);
         },
         error: (err) => {
           console.error("Update failed:", err);
-          alert("Failed to update profile.");
+          // alert("Failed to update profile.");
+          this.showError("Failed to update profile.")
           this.loading = false;
         }
       });

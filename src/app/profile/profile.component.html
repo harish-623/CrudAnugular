@@ -1,82 +1,157 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
 
-<div class="home-btn-container">
-    <button class="home-btn" (click)="goHome()">
-      🏠 Home
-    </button>
-  </div>
-<div class="profile-container">
+      <div class="card shadow-lg border-0">
 
-  
+        <!-- PROFILE HEADER -->
+        <div class="card-body text-center border-bottom">
 
-  
-  <div class="profile-card">
+          <img
+            [src]="user.imageUrl"
+            class="rounded-circle mb-3"
+            width="120"
+            height="120"
+            alt="Profile"
+          />
 
-    <!-- Profile Header -->
-    <div class="profile-header">
-      <img [src]="user.imageUrl" class="profile-img">
-      <h2 class="profile-name">{{ user.fullname }}</h2>
-      <p class="profile-age">Age: {{ user.age || 'N/A' }}</p>
+          <h4 class="fw-bold mb-1">{{ user.fullname }}</h4>
+          <p class="text-muted mb-1">Age: {{ user.age || 'N/A' }}</p>
+
+          <!-- Upload Button -->
+          <input
+            type="file"
+            accept="image/*"
+            #fileInput
+            hidden
+            (change)="onFileSelected($event)"
+          />
+
+          <button
+            class="btn btn-sm btn-outline-primary mt-2"
+            (click)="fileInput.click()">
+            {{ user.imageUrl ? 'Change Photo' : 'Upload Photo' }}
+          </button>
+        </div>
+
+        <!-- CONTACT INFO -->
+        <div class="card-body">
+
+          <h6 class="fw-bold mb-3">Contact Information</h6>
+
+          <ul class="list-group list-group-flush">
+
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="fw-semibold">Username</span>
+              <span>{{ user.name}}</span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="fw-semibold">Full Name</span>
+              <span>{{ user.fullname }}</span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="fw-semibold">Email</span>
+              <span>{{ user.email }}</span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="fw-semibold">Phone</span>
+              <span>{{ user.phone }}</span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="fw-semibold">Emergency Email</span>
+              <span>{{ user.emergencyContact }}</span>
+            </li>
+
+          </ul>
+
+          <!-- EDIT BUTTON -->
+          <div class="text-end mt-4">
+            <button class="btn btn-primary" (click)="enableEdit()">
+              Edit Profile
+            </button>
+          </div>
+        </div>
+
+        <!-- EDIT FORM -->
+        <div class="card-body border-top" *ngIf="isEditable">
+
+          <h6 class="fw-bold mb-3">Edit Profile</h6>
+
+          <form (ngSubmit)="updateUser()">
+
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="user.fullname"
+                name="fullname"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Phone Number</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="user.phonenumber"
+                name="phonenumber"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Age</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="user.age"
+                name="age"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Emergency Email</label>
+              <input
+                type="email"
+                class="form-control"
+                [(ngModel)]="user.emergencyContact"
+                name="emergencyContact"
+              />
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+              <button type="submit" class="btn btn-success">
+                Save Changes
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
     </div>
-
-
-<div class="upload-section">
-  <input
-    type="file"
-    accept="image/*"
-    #fileInput
-    style="display: none;"
-    (change)="onFileSelected($event)"
-  />
-
-  <!-- Upload / Change Button -->
-  <button class="upload-btn" (click)="fileInput.click()">
-    {{ user.imageUrl ? 'Change Photo' : 'Upload Photo' }}
-  </button>
-
+  </div>
 </div>
 
-
-
-    <!-- Contact Info -->
-    <div class="contact-info">
-      <p><strong>📛 Username:</strong> {{ user.name }}</p>
-      <p><strong>📛 Full Name:</strong> {{ user.fullname }}</p>
-      <p><strong>📧 Email:</strong> {{ user.email }}</p>
-      <p><strong>📞 Phone:</strong> {{ user.phone }}</p>
-      <p><strong>📟 Emergency Email:</strong> {{ user.emergencyContact }}</p>
+<div
+  *ngIf="showToast"
+  class="toast-container position-fixed top-0 end-0 p-3"
+  style="z-index: 1200"
+>
+  <div
+    class="toast show text-white"
+    [ngClass]="{
+      'bg-success': toastType === 'success',
+      'bg-danger': toastType === 'error'
+    }"
+  >
+    <div class="toast-body">
+      {{ toastMessage }}
     </div>
-
-    <!-- Edit Button -->
-    <div class="edit-section">
-      <button class="edit-btn" (click)="enableEdit()">Edit Profile</button>
-    </div>
-
-    <!-- Editable User Form -->
-    <form *ngIf="isEditable" (ngSubmit)="updateUser()" class="edit-form">
-
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" [(ngModel)]="user.fullname" name="fullname" />
-      </div>
-
-      <div class="form-group">
-        <label>Phone Number</label>
-        <input type="text" [(ngModel)]="user.phonenumber" name="phonenumber" />
-      </div>
-
-      <div class="form-group">
-        <label>Age</label>
-        <input type="number" [(ngModel)]="user.age" name="age" />
-      </div>
-
-      <div class="form-group">
-        <label>Emergency Email</label>
-        <input type="text" [(ngModel)]="user.emergencyContact" name="emergencyContact" />
-      </div>
-
-      <button class="save-btn" type="submit">Save Changes</button>
-    </form>
-
   </div>
 </div>
-

@@ -23,6 +23,10 @@ export class HomepageComponent {
   date: string = '';
   passengers: number = 1;
   noResultsMessage: string = '';
+  showToast = false;
+toastMessage = '';
+toastType: 'success' | 'error' = 'success';
+
   
   searchResults: any[] = []; // To store results from backend
   fromSuggestions: any[] = [];
@@ -68,12 +72,6 @@ export class HomepageComponent {
      const userId=localStorage.getItem("driverId")
 
      const imgApi=`${environment.apiUrl}/user/${userId}/profile-image-base64`
-          
-  // const imgApi =
-  //   window.location.hostname === 'localhost'
-  //     ? `https://api.vyropool.info/login/user/${userId}/profile-image-base64`
-  //     : `https://api.vyropool.info/login/user/${userId}/profile-image-base64`;
-
   this.http.get(imgApi, { responseType: 'text' }).subscribe({
     next: (dataUri) => {
       if (dataUri && dataUri.startsWith("data")) {
@@ -94,8 +92,31 @@ export class HomepageComponent {
   this.router.navigate(['/publish-ride']); // Replace with your route path
 }
 
+showErrorAndRedirect(message: string) {
+  this.toastMessage = message;
+  this.toastType = 'error';
+  this.showToast = true;
+
+  setTimeout(() => {
+    this.showToast = false;
+    this.router.navigate(['/login']); // 🔥 redirect
+  }, 2500);
+}
+
+closeAlert() {
+  this.showToast = false;
+}
+
+
   searchRides() {
     // Build the payload to send to backend
+
+    const token = localStorage.getItem('token');
+
+  if (!token) {
+    this.showErrorAndRedirect('Please login to search and book rides.');
+    return;
+  }
     const payload = {
       leavingFrom: this.leavingFrom,
       goingTo: this.goingTo,
@@ -103,12 +124,8 @@ export class HomepageComponent {
       passengers: this.passengers
     };
     console.log(payload)
-
-  //   const apiUrl =
-  // window.location.hostname === 'localhost'
-  //   ? 'https://api.vyropool.info/login/search'
-  //   : 'https://api.vyropool.info/login/search';
   const apiUrl=`${environment.apiUrl}/search`
+  console.log(apiUrl)
 
     this.http.post<any[]>(apiUrl, payload)
       .subscribe(
@@ -144,10 +161,9 @@ export class HomepageComponent {
 showProfile = false;
 userName = localStorage.getItem('username') || '';
 
- // Can come from login later
 
 goToProfile() {
-  // this.router.navigate(['/profile']) ;
+ 
   this.router.navigate(['/profile'], { queryParams: { username: this.userName } });
 }
 
@@ -190,10 +206,7 @@ triggerSOS()
           username:username
         };
         console.log(payload)
-  //       const apiUrl =
-  // window.location.hostname === 'localhost'
-  //   ? `https://api.vyropool.info/login/alert`
-  //   : `https://api.vyropool.info/login/alert`;
+  
     const apiUrl=`${environment.apiUrl}/alert`
 
 

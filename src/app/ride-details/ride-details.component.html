@@ -102,15 +102,31 @@
 
 </div>
 
-<div *ngIf="showToast" class="position-fixed top-50 start-50 translate-middle"
-  style="z-index: 1200; width: 90%; max-width: 420px;">
-  <div class="alert text-center alert-dismissible fade show" [ngClass]="{
+<div
+  *ngIf="showToast"
+  class="position-fixed top-50 start-50 translate-middle"
+  style="z-index: 1200; width: 90%; max-width: 420px;"
+>
+  <div
+    class="alert alert-dismissible fade show text-center shadow-lg"
+    [ngClass]="{
       'alert-success': toastType === 'success',
       'alert-danger': toastType === 'error'
-    }" role="alert">
-    {{ toastMessage }}
+    }"
+    role="alert"
+  >
+    <strong *ngIf="toastType === 'success'">✅ Success</strong>
+    <strong *ngIf="toastType === 'error'">❌ Error</strong>
 
-    <button type="button" class="btn-close" (click)="closeAlert()">
-    </button>
+    <div class="mt-2">
+      {{ toastMessage }}
+    </div>
+
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="closePopup()"
+    ></button>
   </div>
 </div>

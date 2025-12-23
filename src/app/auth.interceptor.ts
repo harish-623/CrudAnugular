@@ -45,10 +45,10 @@ export class AuthInterceptor implements HttpInterceptor {
           alert('Session expired. Please login again.')
 
           // clear session
-          localStorage.clear();
+          // localStorage.clear();
 
           // redirect to login
-          this.router.navigate(['/login']);
+          // this.router.navigate(['/login']);
         }
 
         return throwError(() => error);

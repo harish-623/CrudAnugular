@@ -1,0 +1,92 @@
+<div class="container my-5">
+
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">Ride Booking Requests</h3>
+    <p class="text-muted">Approve or reject passenger requests</p>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary"></div>
+  </div>
+
+  <!-- No Requests -->
+  <div *ngIf="!loading && pendingRequests?.length === 0"
+       class="alert alert-info text-center">
+    {{ noResultsMessage || 'No pending booking requests' }}
+  </div>
+
+  <!-- Requests -->
+  <div class="row justify-content-center"
+       *ngFor="let request of pendingRequests">
+
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0 rounded-4 mb-4">
+        <div class="card-body p-4">
+
+          <!-- Passenger Info -->
+          <div class="d-flex align-items-center mb-3">
+            <div class="rounded-circle bg-primary text-white d-flex
+                        align-items-center justify-content-center"
+                 style="width:48px;height:48px;">
+              👤
+            </div>
+
+            <div class="ms-3">
+              <h6 class="mb-0 fw-semibold">
+                {{ request.passengerName }}
+              </h6>
+              <small class="text-muted">
+                {{ request.passengerEmail }}
+              </small>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Ride Details -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p><strong>From:</strong> {{ request.from }}</p>
+              <p><strong>To:</strong> {{ request.to }}</p>
+            </div>
+
+            <div class="col-md-6">
+              <p><strong>Date:</strong> {{ request.date }}</p>
+              <p><strong>Time:</strong> {{ request.time }}</p>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p><strong>Seats:</strong> {{ request.seatsBooked }}</p>
+            </div>
+
+            <div class="col-md-6">
+              <span class="badge bg-warning text-dark">
+                {{ request.status }}
+              </span>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Actions -->
+          <div class="d-flex gap-3 justify-content-end">
+            <button class="btn btn-outline-danger"
+                    (click)="rejectRequest(request.bookingId)">
+              ❌ Reject
+            </button>
+
+            <button class="btn btn-success"
+                    (click)="approveRequest(request.bookingId)">
+              ✅ Approve
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -36,10 +36,6 @@ export class RideDetailsComponent {
 
   getRideDetails() {
 
-    //   const url  =
-    // window.location.hostname === 'localhost'
-    //   ?` https://api.vyropool.info/login/${this.rideId}` 
-    //   : ` https://api.vyropool.info/login/${this.rideId}` 
     const url = `${environment.apiUrl}/${this.rideId}`
 
     this.http.get<any>(url)
@@ -68,20 +64,22 @@ export class RideDetailsComponent {
     }
   }
 
-  showErrorAndRedirect(message: string) {
-    this.toastMessage = message;
-    this.toastType = 'error';
-    this.showToast = true;
+ showPopup(message: string, type: 'success' | 'error') {
+  this.toastMessage = message;
+  this.toastType = type;
+  this.showToast = true;
 
-    setTimeout(() => {
-      this.showToast = false;
-      this.router.navigate(['/login']); // 🔥 redirect
-    }, 2500);
-  }
-
-  closeAlert() {
+  setTimeout(() => {
     this.showToast = false;
-  }
+  }, 2500);
+}
+
+closePopup() {
+  this.showToast = false;
+}
+
+
+  
 
   bookRide() {
 
@@ -121,7 +119,11 @@ export class RideDetailsComponent {
         console.log(res)
         if (res.result === 'Success') {
           console.log('🎉', res.message);
+          this.loading = false;
+          
+          // this.showPopup('Ride booked successfully!', 'success');
           alert("Ride booked Successfully")
+
           this.router.navigate(['/home']);
         } else {
           console.log(res.result)

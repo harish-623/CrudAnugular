@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-approve-request',
@@ -17,11 +19,12 @@ export class ApproveRequestComponent implements OnInit {
 
   driverId!: number;
 
+   ride: any
   // ✅ Pending booking requests
   pendingRequests: any[] = [];
   noResultsMessage = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router: Router) { }
 
   ngOnInit(): void {
     this.driverId = Number(localStorage.getItem('driverId'));
@@ -43,16 +46,17 @@ export class ApproveRequestComponent implements OnInit {
     this.http.get<any>(apiUrl).subscribe({
       next: (response) => {
         console.log('Pending booking response:', response);
-this.pendingRequests = response.rides; 
-console.log('pendingRequests:', this.pendingRequests);
-        if (response.result === 'Success' ) {
-          this.pendingRequests = response.rides; 
+        this.pendingRequests = response.rides;
+        console.log('pendingRequests:', this.pendingRequests);
+        if (response.success === true) {
+          
+          this.pendingRequests = response.rides;
           this.noResultsMessage = '';
+
+        } else {
+          this.pendingRequests = [];
+          this.noResultsMessage = response.message || 'No pending requests';
         }
-        // } else {
-        //   this.pendingRequests = [];
-        //   this.noResultsMessage = response.message || 'No pending requests';
-        // }
 
         this.loading = false;
       },
@@ -111,8 +115,67 @@ console.log('pendingRequests:', this.pendingRequests);
     this.showToast = false;
   }
 
-  approveRequest(bookingId:number)
-  {
+  approveRequest(request: any) {
+    
+
+    const passengerId = Number(localStorage.getItem('driverId')); // logged in user id
+    const rideDriverId = request.id  // driver who published ride
+
+    if (passengerId === rideDriverId) {
+      alert("🚫 Driver can't book their own ride!");
+
+      return; // stop booking
+    }
+
+    
+
+    
+
+    const rideId = request.id; // or this.ride.id depending on your object
+    console.log(rideId)
+
+    const seatsBooked = request.seatsBooked
+    console.log(seatsBooked)
+
+    const bookingId=request.bookingId;
+
+
+    const url = `${environment.apiUrl}/approve-ride/${bookingId}`;
+
+  const params = new HttpParams()
+    .set('rideId', rideId)
+    .set('passengerId', passengerId)
+    .set('seatsBooked', seatsBooked);
+
+    this.loading = true;
+   
+    this.http.post(url, null, { params }).subscribe({
+      next: (res: any) => {
+        console.log(res)
+        if (res.result === 'Success') {
+          console.log('🎉', res.message);
+          this.loading = false;
+          
+          // this.showPopup('Ride booked successfully!', 'success');
+          alert("Ride booked Successfully")
+
+          this.router.navigate(['/home']);
+        } else {
+          console.log(res.result)
+          alert(res.message)
+          // this.errorMessage = res.message || 'Booking failed. Please try again.';
+
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error booking ride:', err);
+        alert('Failed to book the ride. Please try again.');
+        this.loading = false;
+      }
+    });
+  
+
 
   }
 }

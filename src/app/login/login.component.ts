@@ -43,7 +43,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadLogo();
+    // this.loadLogo();
+    this.loading = false
   }
 
   showPassword = false;
@@ -52,13 +53,13 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  loadLogo() {
-    const logoUrl = 'https://avatars.githubusercontent.com/u/124091983';
-    this.imageLoader.loadImage(logoUrl).subscribe((blob: Blob) => {
-      this.logoUrl = URL.createObjectURL(blob);
-      this.loading = false
-    });
-  }
+  // loadLogo() {
+  //   const logoUrl = 'https://avatars.githubusercontent.com/u/124091983';
+  //   this.imageLoader.loadImage(logoUrl).subscribe((blob: Blob) => {
+  //     this.logoUrl = URL.createObjectURL(blob);
+  //     this.loading = false
+  //   });
+  // }
 
   onSubmitLogin(): void {
     if (this.loginForm.valid) {

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-driver-registration',
@@ -21,9 +22,14 @@ export class DriverRegistrationComponent {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
+  ngOnInit(): void {
+  const driverId = localStorage.getItem('driverId');
+  console.log(driverId)
+}
   submit(): void {
     if (this.driverForm.invalid) {
       return;
@@ -48,10 +54,14 @@ export class DriverRegistrationComponent {
         this.message = 'Driver registered successfully. Awaiting verification.';
         this.loading = false;
         this.success.emit();
+        this.router.navigate(['/publish-ride'], {
+            queryParams: { userId: userId }
+          });
       },
       error: () => {
         this.message = 'Registration failed. Try again.';
         this.loading = false;
+        this.router.navigate(['/home']);
       }
     });
   }

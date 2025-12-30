@@ -29,7 +29,7 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       phonenumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      age: ['', [Validators.required, Validators.min(18)]],
+      age: ['', [Validators.required, Validators.min(18),Validators.max(100)]],
       fullname: ['', [Validators.required]],
       role: ['USER', [Validators.required]],
       otp: ['']   // <-- FIX
@@ -38,20 +38,79 @@ export class RegisterComponent {
     });
   }
 
+  onAgeInput(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  const digitsOnly = input.value.replace(/\D/g, '');
+
+  this.userForm.get('age')?.setValue(digitsOnly, {
+    emitEvent: false
+  });
+}
+
   ngOnInit() {
     this.userForm.statusChanges.subscribe(() => {
-      console.log(this.userForm);
-      console.log("✔ Form Valid:", this.userForm.valid);
-      console.log("✖ Form Invalid:", this.userForm.invalid);
+      if (this.userForm.invalid) {
 
-      console.log("Field Validation Errors:");
-      Object.keys(this.userForm.controls).forEach(key => {
-        console.log(key, this.userForm.get(key)?.errors);
-      });
+    // 🔴 Mark all fields as touched so errors appear
+      this.userForm.markAllAsTouched();
 
-      console.log("OTP Verified:", this.otpVerified);
+    // 🔽 Optional: scroll to first invalid field
+      this.scrollToFirstInvalidControl();
+
+      ;
+     }
+      
     });
   }
+
+  scrollToFirstInvalidControl(): void {
+  const firstInvalidControl: HTMLElement | null =
+    document.querySelector('.ng-invalid[formControlName]');
+
+  if (firstInvalidControl) {
+    firstInvalidControl.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+    firstInvalidControl.focus();
+  }
+}
+
+get submitDisabledReason(): string | null {
+
+  if (this.userForm.invalid) {
+    const invalidControls = Object.keys(this.userForm.controls)
+      .filter(control => this.userForm.get(control)?.invalid);
+
+    if (invalidControls.includes('fullname')) return 'Please enter your full name';
+    if (invalidControls.includes('gender')) return 'Please select your gender';
+    if (invalidControls.includes('phonenumber')) return 'Please enter a valid 10-digit phone number';
+    if (invalidControls.includes('age')) return 'Please enter a valid age (18+)';
+    if (invalidControls.includes('email')) return 'Please enter a valid email address';
+    if (invalidControls.includes('password')) return 'Please enter a valid password';
+    if (invalidControls.includes('otp')) return 'Please enter OTP';
+
+    return 'Please fill all required fields correctly';
+  }
+
+  if (!this.otpVerified) {
+    return 'Please verify your email using OTP';
+  }
+
+  return null; // ✅ form is ready
+}
+
+
+
+  onPhoneInput(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  const digitsOnly = input.value.replace(/\D/g, '');
+
+  // update form control value
+  this.userForm.get('phonenumber')?.setValue(digitsOnly, {
+    emitEvent: false
+  });
+}
 
 
   private showMessage(message: string, cssClass: string): void {

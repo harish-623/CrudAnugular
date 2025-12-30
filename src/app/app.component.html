@@ -13,8 +13,12 @@
           <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/profile" routerLinkActive="active" [queryParams]="{ id: id }">Profile</a>
+          <a class="nav-link" *ngIf="isLoggedIn" routerLink="/profile" routerLinkActive="active" [queryParams]="{ driverId: this.driverId }">Profile</a>
           
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLoggedIn" routerLink="/my-publish-rides">My Publish Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>

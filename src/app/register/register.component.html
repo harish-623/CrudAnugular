@@ -46,7 +46,9 @@
               <!-- PHONE -->
               <div class="mb-3">
                 <label class="form-label fw-semibold">Phone Number</label>
-                <input class="form-control" formControlName="phonenumber" placeholder="10-digit mobile number" />
+                <input class="form-control" formControlName="phonenumber" placeholder="10-digit mobile number"  maxlength="10"
+    inputmode="numeric"
+    (input)="onPhoneInput($event)"/>
 
                 <div class="text-danger small mt-1"
                   *ngIf="userForm.get('phonenumber')?.invalid && userForm.get('phonenumber')?.touched">
@@ -62,8 +64,14 @@
               <!-- AGE -->
               <div class="mb-3">
                 <label class="form-label fw-semibold">Age</label>
-                <input type="number" class="form-control" formControlName="age" />
-
+                <input
+    class="form-control"
+    formControlName="age"
+    placeholder="Enter age"
+    maxlength="2"
+    inputmode="numeric"
+    (input)="onAgeInput($event)"
+  />
                 <div class="text-danger small mt-1"
                   *ngIf="userForm.get('age')?.invalid && userForm.get('age')?.touched">
                   <div *ngIf="userForm.get('age')?.errors?.['required']">Age is required.</div>
@@ -133,6 +141,10 @@
               <div *ngIf="responseMessage" class="alert mt-3" [ngClass]="responseClass">
                 {{ responseMessage }}
               </div>
+
+              <div *ngIf="submitDisabledReason" class="alert alert-warning py-2 small mb-3">
+  ⚠️ {{ submitDisabledReason }}
+</div>
 
               <!-- SUBMIT -->
               <div class="d-grid mt-4">

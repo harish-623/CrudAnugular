@@ -31,12 +31,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const username = params['id'];
+      const username = params['driverId'];
       const driverIdParam = localStorage.getItem("driverId")
       if (username) {
         console.log('Username received:', username);
         this.fetchUserProfile(username);
-        this.loadUserImage();
+        // this.loadUserImage();
 
 
       } else {
@@ -84,7 +84,7 @@ export class ProfileComponent implements OnInit {
 
           this.showSuccess("✅ Image uploaded successfully!")
 
-          this.loadUserImage();  // refresh image from backend
+          // this.loadUserImage();  // refresh image from backend
         },
         error: (err) => {
           this.loading = false;
@@ -122,28 +122,28 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  loadUserImage() {
-    const userId = localStorage.getItem("driverId")
+  // loadUserImage() {
+  //   const userId = localStorage.getItem("driverId")
 
 
 
-    const imgApi = `${environment.apiUrl}/user/${userId}/profile-image-base64`;
+  //   const imgApi = `${environment.apiUrl}/user/${userId}/profile-image-base64`;
 
-    this.http.get(imgApi, { responseType: 'text' }).subscribe({
-      next: (dataUri) => {
-        if (dataUri && dataUri.startsWith("data")) {
-          this.user.imageUrl = dataUri;
-          localStorage.setItem('imageUrl', this.user.imageUrl)  // set base64 image
-        } else {
-          this.user.imageUrl = 'assets/default-user.jpg'; // fallback
-        }
-      },
-      error: (err) => {
-        console.error("Image fetch error:", err);
-        this.user.imageUrl = 'assets/default-user.jpg';
-      }
-    });
-  }
+  //   this.http.get(imgApi, { responseType: 'text' }).subscribe({
+  //     next: (dataUri) => {
+  //       if (dataUri && dataUri.startsWith("data")) {
+  //         this.user.imageUrl = dataUri;
+  //         localStorage.setItem('imageUrl', this.user.imageUrl)  // set base64 image
+  //       } else {
+  //         this.user.imageUrl = 'assets/default-user.jpg'; // fallback
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error("Image fetch error:", err);
+  //       this.user.imageUrl = 'assets/default-user.jpg';
+  //     }
+  //   });
+  // }
 
 
 

@@ -102,7 +102,7 @@ export class HomepageComponent {
 
     setTimeout(() => {
       this.showToast = false;
-      this.router.navigate(['/login']); // 🔥 redirect
+      // this.router.navigate(['/login']); // 🔥 redirect
     }, 2500);
   }
 
@@ -202,22 +202,25 @@ export class HomepageComponent {
       return;
     }
 
+    this.loading=true
     this.checkDriverEligibility(idDriver).subscribe({
       next: (res) => {
         console.log('Eligibility response:', res);
 
         if (res.eligible === true) {
+          this.loading=false
 
           this.router.navigate(['/publish-ride'], {
             queryParams: { userId: idDriver }
           });
         } else {
-
-          this.showErrorAndRedirect('Please register as a driver before publishing rides');
+this.loading=false
+          // this.showErrorAndRedirect('Please register as a driver before publishing rides');
           this.router.navigate(['/driver-registration']);
         }
       },
       error: (err) => {
+        this.loading=false
         console.error('Eligibility API error:', err);
         this.showErrorAndRedirect('Unable to check eligibility. Please try again later.');
       }

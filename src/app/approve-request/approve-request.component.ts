@@ -69,22 +69,51 @@ export class ApproveRequestComponent implements OnInit {
   }
 
   // 🔹 Reject booking
-  rejectRequest(bookingId: number) {
+  rejectRequest(request: any) {
+   
+const bookingId=request.bookingId;
+    const url = `${environment.apiUrl}/reject-ride/${bookingId}`;
     this.loading = true;
+    const passengerId = Number(localStorage.getItem('driverId')); // logged in user id
+    const rideDriverId = request.id 
+    const seatsBooked = request.seatsBooked
+    console.log(seatsBooked) // driver who published ride
 
-    this.http.post(
-      `${environment.apiUrl}/driver/bookings/reject/${bookingId}`,
-      {}
-    ).subscribe({
-      next: () => {
+    if (passengerId === rideDriverId) {
+      alert("🚫 Driver can't book their own ride!");
+
+      return; // stop booking
+    }
+    const rideId = request.id; // or this.ride.id depending on your object
+    console.log(rideId)
+    
+    const params = new HttpParams()
+    .set('rideId', rideId)
+    .set('passengerId', passengerId)
+    .set('seatsBooked', seatsBooked);
+   
+    this.http.post(url, null, { params }).subscribe({
+      next: (res: any) => {
+        console.log(res)
+        if (res.result === 'Success') {
+          console.log('🎉', res.message);
+          this.loading = false;
+          
+          // this.showPopup('Ride booked successfully!', 'success');
+          alert("Ride Rejected Successfully")
+
+          // this.router.navigate(['/home']);
+          this.fetchPendingRequests()
+        } else {
+          console.log(res.result)
+          alert(res.message)
+        }
         this.loading = false;
-        this.showPopup('Booking rejected successfully', 'success');
-        this.removeRequestFromList(bookingId);
       },
       error: (err) => {
-        console.error('Reject failed', err);
+        console.error('Error booking ride:', err);
+        alert('Failed to book the ride. Please try again.');
         this.loading = false;
-        this.showPopup('Failed to reject booking', 'error');
       }
     });
   }
@@ -126,11 +155,6 @@ export class ApproveRequestComponent implements OnInit {
 
       return; // stop booking
     }
-
-    
-
-    
-
     const rideId = request.id; // or this.ride.id depending on your object
     console.log(rideId)
 
@@ -178,4 +202,7 @@ export class ApproveRequestComponent implements OnInit {
 
 
   }
+
+
+
 }

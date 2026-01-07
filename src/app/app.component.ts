@@ -27,12 +27,37 @@ ngOnInit() {
 }
 
   goToProfile() {
-  this.router.navigate(['/profile']);
+  const driverId = localStorage.getItem('driverId');
+
+  if (!driverId) {
+    alert('Session expired. Please login again.');
+    this.router.navigate(['/login']);
+    return;
+  }
+
+  this.router.navigate(['/profile'], {
+    queryParams: { driverId }
+  });
 }
 
+
 goToMyRides() {
-  this.router.navigate(['/my-rides']);
+  
+  const driverId = localStorage.getItem('driverId');
+
+  if (!driverId) {
+    alert('Session expired. Please login again.');
+    this.router.navigate(['/login']);
+    return;
+  }
+
+  this.router.navigate(['/my-rides'], {
+    queryParams: { driverId }
+  });
 }
+
+  
+
 
 logout() {
   localStorage.clear();

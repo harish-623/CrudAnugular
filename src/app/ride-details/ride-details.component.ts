@@ -122,7 +122,7 @@ closePopup() {
           this.loading = false;
           
           // this.showPopup('Ride booked successfully!', 'success');
-          alert("Ride booked Successfully")
+          alert("Ride Request Sent to user , Please wait for confirmation")
 
           this.router.navigate(['/home']);
         } else {

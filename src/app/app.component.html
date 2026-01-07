@@ -12,9 +12,14 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn" routerLink="/profile" routerLinkActive="active" [queryParams]="{ driverId: this.driverId }">Profile</a>
-          
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <!-- <a class="nav-link" *ngIf="isLoggedIn" [queryParams]="{ driverId: this.driverId }" routerLink="/profile"  >Profile</a> -->
+          <button
+    type="button"
+    class="btn btn-link nav-link text-danger"
+    (click)="goToProfile()">
+   Profile
+  </button>
         </li>
 
         <li class="nav-item">
@@ -24,9 +29,16 @@
           <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
         </li>
         
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn" [queryParams]=" { driverId: this.driverId }" routerLink="/my-rides">My Rides</a>
-        </li>
+         <li class="nav-item" *ngIf="isLoggedIn"> 
+          <!-- <a class="nav-link" *ngIf="isLoggedIn" [queryParams]=" { driverId: this.driverId }" routerLink="/my-rides">My Rides</a> -->
+        
+        <button
+    type="button"
+    class="btn btn-link nav-link text-danger"
+    (click)="goToMyRides()">
+    My Rides
+  </button>
+  </li> 
         
         
         <li class="nav-item">

@@ -117,6 +117,7 @@ export class DriverPublishRidesComponent {
         next: (response) => {
           this.loading = false;
           alert(response);
+          this.showSuccess('Successfully Cancelled Ride');
 
           this.fetchDriverRides(driverId);
         },

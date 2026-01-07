@@ -54,9 +54,11 @@ export class DriverRegistrationComponent {
         this.message = 'Driver registered successfully. Awaiting verification.';
         this.loading = false;
         this.success.emit();
-        this.router.navigate(['/publish-ride'], {
-            queryParams: { userId: userId }
-          });
+       setTimeout(() => {
+  this.router.navigate(['/publish-ride'], {
+    queryParams: { userId: userId }
+  });
+}, 3000); // 2000 ms = 2 seconds
       },
       error: () => {
         this.message = 'Registration failed. Try again.';

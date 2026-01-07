@@ -1,9 +1,4 @@
-<!-- Home Button -->
-<!-- <div class="container mt-3">
-  <button class="btn btn-outline-primary" (click)="goHome()">
-    Home
-  </button>
-</div> -->
+
 
 <div class="container my-4">
 
@@ -37,8 +32,10 @@
           </h6>
 
           <span class="badge" [ngClass]="{
-              'bg-success': ride.status === 'BOOKED',
-              'bg-danger': ride.status === 'CANCELLED'
+              'bg-success': ride.status?.toUpperCase() === 'BOOKED',
+  'bg-warning text-dark': ride.status?.toUpperCase() === 'PENDING',
+  'bg-danger': ride.status?.toUpperCase() === 'CANCELLED',
+  'bg-secondary': ride.status?.toUpperCase() === 'REJECTED'
             }">
             {{ ride.status }}
           </span>

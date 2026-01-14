@@ -88,45 +88,48 @@ closePopup() {
       return;
     }
 
-    const passengerId = Number(localStorage.getItem('driverId')); // logged in user id
-    const rideDriverId = this.ride.riderName.id  // driver who published ride
+    const passengerId = Number(localStorage.getItem('driverId')); 
+    const rideDriverId = this.ride.riderName.id  
 
     if (passengerId === rideDriverId) {
       alert("🚫 Driver can't book their own ride!");
 
-      return; // stop booking
+      return; 
     }
 
     if (!this.selectedPassengers || this.selectedPassengers <= 0) {
       console.error('⚠️ Please select the number of passengers.');
       return;
     }
-
     const token = localStorage.getItem('userToken');
-
-    const rideId = this.rideId; // or this.ride.id depending on your object
-    console.log(rideId)
-
+    const rideId = this.rideId; 
+    // console.log(rideId)
     const seatsBooked = this.selectedPassengers;
-    console.log(seatsBooked)
+    // console.log(seatsBooked)
+    // const url = `${environment.apiUrl}/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
 
-
-
-    const url = `${environment.apiUrl}/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
+    const url = this.ride.instantBooking
+    ? `${environment.apiUrl}/instantBook?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`
+    :   `${environment.apiUrl}/book?rideId=${rideId}&passengerId=${passengerId}&seatsBooked=${seatsBooked}`;
     this.loading = true;
     this.http.post(url, {}).subscribe({
       next: (res: any) => {
-        console.log(res)
+        // console.log(res)
         if (res.result === 'Success') {
-          console.log('🎉', res.message);
+          // console.log('🎉', res.message);
           this.loading = false;
           
           // this.showPopup('Ride booked successfully!', 'success');
-          alert("Ride Request Sent to user , Please wait for confirmation")
+          // alert("Ride Request Sent to user , Please wait for confirmation")
+          if (this.ride.instantBooking) {
+  alert("✅ Ride booked instantly! Your seat is confirmed.");
+} else {
+  alert("⏳ Ride request sent to the driver. Please wait for confirmation.");
+}
 
           this.router.navigate(['/home']);
         } else {
-          console.log(res.result)
+          // console.log(res.result)
           alert(res.message)
           this.errorMessage = res.message || 'Booking failed. Please try again.';
 

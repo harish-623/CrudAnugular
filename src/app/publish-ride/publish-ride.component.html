@@ -93,6 +93,27 @@
                 placeholder="Enter amount per seat" required />
             </div>
 
+            <!-- Instant Booking Toggle -->
+<div class="mb-4">
+  <div class="form-check form-switch">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="instantBooking"
+      [(ngModel)]="instantBooking"
+      name="instantBooking"
+    />
+    <label class="form-check-label fw-semibold" for="instantBooking">
+      Enable Instant Booking
+    </label>
+  </div>
+
+  <small class="text-muted">
+    If enabled, passengers can book instantly without approval.
+  </small>
+</div>
+
+
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-3"
               [disabled]="rideForm.invalid || loading">

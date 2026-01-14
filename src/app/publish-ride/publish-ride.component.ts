@@ -18,6 +18,7 @@ export class PublishRideComponent {
   amount: number = 0;
   contactNumber: string = '';
   riderName: string = 'Rider1'; // or fetch from login
+  instantBooking :boolean=false;
 
   loading: boolean = false; // ✅ loader flag
   fromSuggestions: any[] = [];
@@ -72,7 +73,8 @@ export class PublishRideComponent {
       passengerLimit: this.passengerLimit,
       amount: this.amount,
       carType: this.carType,
-      phoneNumber: this.contactNumber    // map to backend key
+      phoneNumber: this.contactNumber,
+      instantBooking: this.instantBooking   // map to backend key
     };
 
 

@@ -1,20 +1,68 @@
-<!-- <header class="flex justify-between items-center px-10 py-4 bg-white shadow-md fixed top-0 left-0 right-0 z-50"> 
-    <h1 class="text-2xl font-bold italic text-sky-700">Vyro</h1>
+<nav class="navbar navbar-expand-lg sticky-top bg-white border-bottom shadow-sm">
+  <div class="container py-2">
+    <a class="navbar-brand fw-bold text-primary" routerLink="/">
+      VyroPool
+      <span class="text-dark">SafeRide</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <!-- <a class="nav-link" *ngIf="isLoggedIn" [queryParams]="{ driverId: this.driverId }" routerLink="/profile"  >Profile</a> -->
+          <button
+    type="button"
+    class="btn btn-link nav-link text-danger"
+    (click)="goToProfile()">
+   Profile
+  </button>
+        </li>
 
-    <div class="profile-container relative" (mouseenter)="showProfile = true" (mouseleave)="showProfile = false">
-       <div class="profile-display flex items-center gap-3 cursor-pointer">
-    <img src="assets/user.png" alt="Profile" class="profile-img" />
-     <span class="profile-name">Hi, {{ userName || 'Guest' }}</span>
-  </div> -->
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLoggedIn" routerLink="/my-publish-rides">My Publish Rides</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        
+         <li class="nav-item" *ngIf="isLoggedIn"> 
+          <!-- <a class="nav-link" *ngIf="isLoggedIn" [queryParams]=" { driverId: this.driverId }" routerLink="/my-rides">My Rides</a> -->
+        
+        <button
+    type="button"
+    class="btn btn-link nav-link text-danger"
+    (click)="goToMyRides()">
+    My Rides
+  </button>
+  </li> 
+        
+        
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLoggedIn" routerLink="/approve-request">Approve Request</a>
+        </li>
 
-      <!-- Dropdown -->
-      <!-- <div *ngIf="showProfile" class="profile-dropdown absolute right-0 mt-2">
-    <ul>
-      <li (click)="goToProfile()">My Profile</li>
-      <li (click)="goToMyRides()">My Rides</li>
-      <li class="logout" (click)="logout()">Logout</li>
-    </ul>
+        <li class="nav-item" *ngIf="isLoggedIn">
+  <button
+    type="button"
+    class="btn btn-link nav-link text-danger"
+    (click)="logout()">
+    Logout
+  </button>
+</li>
+
+
+        <li class="nav-item">
+          <a class="btn btn-outline-primary" *ngIf="!isLoggedIn" routerLink="/register">Register</a>
+        </li>
+      </ul>
     </div>
-  </div> --> 
-
-<router-outlet></router-outlet>
+  </div>
+</nav>
+<!-- <div style="height: 75px;"></div> -->
+<main class="app-main">
+  <router-outlet></router-outlet>
+</main>

@@ -1,55 +1,99 @@
-<div class="rides-container">
-  <h2 class="page-title">🚗 My Booked Rides</h2>
+<div class="container my-4">
+
+  <!-- Page Title -->
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">My Published Rides</h3>
+    <p class="text-muted">Manage and track rides you have published</p>
+  </div>
 
   <!-- Loading -->
-  <div *ngIf="loading" class="loader-container">
-    <div class="spinner"></div>
-    <p>Loading your rides...</p>
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-3 text-muted">Loading your rides...</p>
   </div>
 
-  <!-- No Rides Message -->
-  <div *ngIf="!loading && noResultsMessage" class="no-results">
-    <p>{{ noResultsMessage }}</p>
+  <!-- No Results -->
+  <div *ngIf="!loading && noResultsMessage" class="alert alert-info text-center">
+    {{ noResultsMessage }}
   </div>
 
-  <!-- Ride Cards -->
-  <div *ngIf="!loading && rides && rides.length > 0" class="ride-grid">
-    <div *ngFor="let ride of rides" class="ride-card">
-      <div class="ride-header">
-        <h3>Booking #{{ ride.bookingId }}</h3>
-        <span class="status-badge" 
-              [ngClass]="{
-                'status-booked': ride.status === 'BOOKED',
-                'status-cancelled': ride.status === 'CANCELLED'
+  <!-- Ride List -->
+  <div *ngIf="!loading && rides?.length">
+
+    <div class="row g-4">
+
+      <div class="col-12" *ngFor="let ride of rides">
+        <div class="card border-0 shadow-sm rounded-4">
+
+          <!-- Card Header -->
+          <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+            <h6 class="mb-0 fw-semibold">
+              {{ ride.fromLocation }} → {{ ride.toLocation }}
+            </h6>
+
+            <span class="badge" [ngClass]="{
+                'bg-success': ride.status === 'BOOKED',
+                'bg-secondary': ride.status === 'ONGOING',
+                'bg-danger': ride.status === 'CANCELLED'
               }">
-          {{ ride.status }}
-        </span>
+              {{ ride.status }}
+            </span>
+          </div>
+
+          <!-- Card Body -->
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Driver:</strong> {{ ride.driverDetails.driverName }}</p>
+                <p><strong>Car Type:</strong> {{ ride.carType }}</p>
+              </div>
+
+              <div class="col-md-6">
+                <p><strong>Date:</strong> {{ ride.rideDate }}</p>
+                <p><strong>Time:</strong> {{ ride.rideTime }}</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Card Footer -->
+          <div class="card-footer bg-white border-0 d-flex flex-wrap gap-2 justify-content-end">
+
+            <!-- Start Ride -->
+            <button class="btn btn-success btn-sm" (click)="startRide(ride.rideId)">
+              Start Ride
+            </button>
+
+            <!-- View Details -->
+            <button *ngIf="ride.status !== 'CANCELLED'" class="btn btn-outline-primary btn-sm"
+              (click)="viewDetails(ride.rideId)">
+              View Details
+            </button>
+
+            <!-- Cancel Ride -->
+            <button *ngIf="ride.status !== 'CANCELLED'" class="btn btn-outline-danger btn-sm"
+              (click)="cancelRide(ride.rideId)">
+              Cancel Ride
+            </button>
+
+          </div>
+
+        </div>
       </div>
 
-      <div class="ride-details">
-        <p><strong>Rider Name:</strong> {{ ride.driverDetails.driverName }}</p>
-        <p><strong>From :</strong> {{ ride.rideDetails.fromLocation }}</p>
-        <p><strong>To :</strong> {{ ride.rideDetails.toLocation}}</p>
-        <p><strong>Car:</strong> {{ ride.rideDetails.carType }}</p>
-        <p><strong>Date:</strong> {{ ride.rideDetails.rideDate }}</p>
-        <p><strong>Time:</strong> {{ ride.rideDetails.rideTime }}</p>
-        <p><strong>Seats Booked:</strong> {{ ride.seatsBooked }}</p>
-
-      </div>
-
-      <div class="ride-footer">
-        <p><i class="fa-regular fa-calendar"></i> 
-            <strong>Booked on:</strong>
-          {{ ride.bookedOn | date: 'medium' }}
-        </p>
-        <button 
-    *ngIf="ride.status === 'BOOKED'" 
-    class="cancel-btn" 
-    (click)="cancelRide(ride.bookingId)">
-    Cancel Ride
-  </button>
-      </div>
     </div>
+
   </div>
 </div>
 
+<div *ngIf="showToast" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200">
+  <div class="toast show text-white" [ngClass]="{
+      'bg-success': toastType === 'success',
+      'bg-danger': toastType === 'error'
+    }">
+    <div class="toast-body">
+      {{ toastMessage }}
+    </div>
+  </div>
+</div>

@@ -1,8 +1,16 @@
 /* Hero Section Background Animation */
 @keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 section.text-center {
@@ -10,12 +18,33 @@ section.text-center {
   animation: gradientBG 15s ease infinite;
 }
 
+.select-with-placeholder {
+  color: #999;
+  /* Placeholder color by default */
+  font-size: 16px;
+}
+
+/* All normal options */
+.select-with-placeholder option {
+  color: #000;
+  /* Normal option color */
+  font-style: normal;
+}
+
+/* Placeholder option only */
+.select-with-placeholder option[value=""] {
+  color: #999;
+  /* Placeholder color */
+  font-style: italic;
+  /* Optional styling for placeholder */
+}
 
 
 /* Button hover animation */
 button {
   transition: all 0.3s ease;
 }
+
 button:hover {
   transform: scale(1.05);
 }
@@ -24,6 +53,7 @@ button:hover {
 section.grid .shadow-md {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 section.grid .shadow-md:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
@@ -39,6 +69,7 @@ html {
   section.text-center h1 {
     font-size: 2rem;
   }
+
   .chat-container {
     width: 90%;
   }
@@ -47,71 +78,82 @@ html {
 
 /* --- Global Styles --- */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f6f9; /* Light, neutral background */
-    color: #333; /* Standard text color */
-    line-height: 1.6;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f6f9;
+  /* Light, neutral background */
+  color: #333;
+  /* Standard text color */
+  line-height: 1.6;
 }
 
 .container {
-    max-width: 1000px; /* Max width for content area */
-    margin: 40px auto; /* Center the content */
-    padding: 20px;
+  max-width: 1000px;
+  /* Max width for content area */
+  margin: 40px auto;
+  /* Center the content */
+  padding: 20px;
 }
 
 /* --- Typography and Headings --- */
 h1 {
-    font-size: 2.2em;
-    color: #007bff; /* Primary blue color for brand/headings */
-    margin-bottom: 20px;
-    font-weight: 700;
+  font-size: 2.2em;
+  color: #007bff;
+  /* Primary blue color for brand/headings */
+  margin-bottom: 20px;
+  font-weight: 700;
 }
 
 /* Style for the main feature sections */
 .feature-section {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
-    margin-bottom: 30px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  /* Subtle shadow for depth */
+  margin-bottom: 30px;
 }
 
 .feature-section p {
-    font-size: 1.1em;
-    color: #555;
+  font-size: 1.1em;
+  color: #555;
 }
 
 .feature-section h2 {
-    font-size: 1.5em;
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
+  font-size: 1.5em;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
 }
 
 .feature-section h2::before {
-    content: attr(data-icon); /* Use a custom attribute for icons/emojis */
-    margin-right: 10px;
-    font-size: 1.5em;
+  content: attr(data-icon);
+  /* Use a custom attribute for icons/emojis */
+  margin-right: 10px;
+  font-size: 1.5em;
 }
 
 
 /* --- Ride Search Form (The most important part) --- */
 .search-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    display: flex; /* Use flexbox for layout */
-    gap: 10px; /* Space between form elements */
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    align-items: stretch; /* Make all items the same height */
-    margin-bottom: 40px;
-    border: 1px solid #ddd;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  /* Use flexbox for layout */
+  gap: 10px;
+  /* Space between form elements */
+  flex-wrap: wrap;
+  /* Allow wrapping on smaller screens */
+  align-items: stretch;
+  /* Make all items the same height */
+  margin-bottom: 40px;
+  border: 1px solid #ddd;
 }
 
 .search-form input[type="text"],
@@ -120,25 +162,29 @@ h1 {
 
 /* --- Utility/Icon Styles (Optional: if you wrap your emoji in a span) --- */
 .icon {
-    font-size: 1.5em;
-    margin-right: 10px;
+  font-size: 1.5em;
+  margin-right: 10px;
 }
 
 /* --- Media Queries for Responsiveness --- */
 @media (max-width: 768px) {
-    .search-form {
-        flex-direction: column; /* Stack elements vertically on smaller screens */
-        gap: 15px;
-    }
-    .search-form input,
-    .search-form select,
-    .search-button {
-        width: 100%; /* Full width for form controls */
-        box-sizing: border-box;
-    }
-    .container {
-        margin: 20px;
-    }
+  .search-form {
+    flex-direction: column;
+    /* Stack elements vertically on smaller screens */
+    gap: 15px;
+  }
+
+  .search-form input,
+  .search-form select,
+  .search-button {
+    width: 100%;
+    /* Full width for form controls */
+    box-sizing: border-box;
+  }
+
+  .container {
+    margin: 20px;
+  }
 
 
 }
@@ -150,7 +196,7 @@ h1 {
   border-radius: 12px;
   padding: 16px 18px;
   margin: 12px 0;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -160,10 +206,11 @@ h1 {
 
 .ride-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
-.ride-header, .ride-footer {
+.ride-header,
+.ride-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -213,7 +260,9 @@ h1 {
   flex-wrap: wrap;
 }
 
-.car, .passengers, .date {
+.car,
+.passengers,
+.date {
   font-size: 13px;
 }
 
@@ -284,7 +333,8 @@ h1 {
 /* Search button */
 .mx-auto button {
   padding: 12px 30px;
-  background-color: #0284c7; /* Sky blue */
+  background-color: #0284c7;
+  /* Sky blue */
   color: #fff;
   font-size: 1.05em;
   font-weight: 600;
@@ -333,7 +383,7 @@ section.grid {
 }
 
 /* Card styling */
-section.grid > div {
+section.grid>div {
   background-color: #ffffff;
   padding: 2rem;
   border-radius: 1.5rem;
@@ -343,13 +393,13 @@ section.grid > div {
   cursor: default;
 }
 
-section.grid > div:hover {
+section.grid>div:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   transform: translateY(-5px);
 }
 
 /* Card emoji/icon */
-section.grid > div > div.text-sky-600 {
+section.grid>div>div.text-sky-600 {
   font-size: 3rem;
   margin-bottom: 1rem;
   display: inline-block;
@@ -386,12 +436,14 @@ section.grid p {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom, #bae6fd, #ffffff); /* Sky gradient */
+  background: linear-gradient(to bottom, #bae6fd, #ffffff);
+  /* Sky gradient */
 }
 
 /* Hero Section Box */
 section.text-center {
-  background-color: #bae6fd; /* Light sky blue */
+  background-color: #bae6fd;
+  /* Light sky blue */
   padding: 4rem 2rem;
   border-bottom-left-radius: 3rem;
   border-bottom-right-radius: 3rem;
@@ -410,7 +462,8 @@ section.text-center:hover {
 h1.text-4xl {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1e293b; /* Dark slate gray */
+  color: #1e293b;
+  /* Dark slate gray */
   margin-bottom: 2rem;
   line-height: 1.2;
 }
@@ -426,6 +479,7 @@ h1.text-4xl {
     opacity: 0;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -471,26 +525,39 @@ h1.text-4xl {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  border: 2px solid #38bdf8; /* Tailwind sky-500 */
+  border: 2px solid #38bdf8;
+  /* Tailwind sky-500 */
   object-fit: cover;
 }
 
 .profile-name {
   font-weight: 600;
-  color: #374151; /* gray-700 */
+  color: #374151;
+  /* gray-700 */
   font-size: 15px;
 }
 
 /* Dropdown menu */
 .profile-dropdown {
+  position: absolute;
+  top: 90%;
+  /* moved UP from 100%+10px */
+  right: -20px;
+  /* shift slightly left to align */
+  width: 200px;
   background-color: #fff;
-  border: 1px solid #e5e7eb; /* gray-200 */
+
+  border: 1px solid #e5e7eb;
+  /* gray-200  */
   border-radius: 10px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   width: 190px;
   animation: fadeIn 0.25s ease-in-out;
   z-index: 50;
+  right: -40px;
 }
+
+
 
 /* Dropdown items */
 .profile-dropdown ul {
@@ -510,18 +577,22 @@ h1.text-4xl {
 }
 
 .profile-dropdown li:hover {
-  background-color: #e0f2fe; /* sky-100 */
-  color: #0369a1; /* sky-700 */
+  background-color: #e0f2fe;
+  /* sky-100 */
+  color: #0369a1;
+  /* sky-700 */
 }
 
 .profile-dropdown li.logout {
-  color: #dc2626; /* red-600 */
+  color: #dc2626;
+  /* red-600 */
   font-weight: 500;
 }
 
 .profile-dropdown li.logout:hover {
   background-color: #fee2e2;
-  color: #b91c1c; /* darker red */
+  color: #b91c1c;
+  /* darker red */
 }
 
 /* Smooth dropdown fade-in */
@@ -530,40 +601,24 @@ h1.text-4xl {
     opacity: 0;
     transform: translateY(-6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* ===== Profile Dropdown Menu ===== */
-.profile-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb; /* gray-200 */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  width: 200px;
-  padding: 6px 0;
-  animation: fadeIn 0.25s ease-in-out;
-  z-index: 100;
-}
 
-/* Dropdown List */
-.profile-dropdown ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
+
+
 
 /* Dropdown Items */
 .profile-dropdown li {
   padding: 10px 18px;
   font-size: 15px;
   font-weight: 500;
-  color: #374151; /* gray-700 */
+  color: #374151;
+  /* gray-700 */
   cursor: pointer;
   transition: all 0.25s ease;
   border-radius: 6px;
@@ -575,21 +630,15 @@ h1.text-4xl {
 
 /* Hover Effect */
 .profile-dropdown li:hover {
-  background-color: #e0f2fe; /* sky-100 */
-  color: #0369a1; /* sky-700 */
+  background-color: #e0f2fe;
+  /* sky-100 */
+  color: #0369a1;
+  /* sky-700 */
   transform: translateX(3px);
 }
 
-/* Logout Button Style */
-.profile-dropdown li.logout {
-  color: #dc2626; /* red-600 */
-  font-weight: 600;
-}
 
-.profile-dropdown li.logout:hover {
-  background-color: #fee2e2;
-  color: #b91c1c; /* red-700 */
-}
+
 
 /* Add subtle fade-in animation */
 @keyframes fadeIn {
@@ -597,6 +646,7 @@ h1.text-4xl {
     opacity: 0;
     transform: translateY(-6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -607,34 +657,41 @@ h1.text-4xl {
 .profile-dropdown li::before {
   content: '•';
   font-size: 18px;
-  color: transparent; /* hidden by default */
+  color: transparent;
+  /* hidden by default */
   transition: color 0.3s ease;
 }
 
 .profile-dropdown li:hover::before {
-  color: #0ea5e9; /* sky-500 */
+  color: #0ea5e9;
+  /* sky-500 */
 }
 
 
 input[type="text"] {
- 
+
 
   padding: 12px 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1em;
-  flex-grow: 1; /* Allow fields to grow */
-  min-width: 150px; /* Minimum width for inputs */
+  flex-grow: 1;
+  /* Allow fields to grow */
+  min-width: 150px;
+  /* Minimum width for inputs */
   transition: border-color 0.3s, box-shadow 0.3s;
-  -webkit-appearance: none; /* Remove default styling for better control */
+  -webkit-appearance: none;
+  /* Remove default styling for better control */
   -moz-appearance: none;
   appearance: none;
   background-color: #f9f9f9;
 }
 
 input[type="text"]:focus {
-  border-color: #0284c7; /* sky-600 */
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3); /* light blue focus ring */
+  border-color: #0284c7;
+  /* sky-600 */
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+  /* light blue focus ring */
 }
 
 
@@ -653,7 +710,8 @@ input[type="text"]:focus {
   margin-top: 6px;
   background: #ffffff;
   border-radius: 12px;
-  border: 1px solid #e2e8f0; /* gray-300 */
+  border: 1px solid #e2e8f0;
+  /* gray-300 */
   box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   overflow: hidden;
@@ -666,7 +724,8 @@ input[type="text"]:focus {
 .autocomplete-item {
   padding: 12px 16px;
   font-size: 15px;
-  color: #374151; /* gray-700 */
+  color: #374151;
+  /* gray-700 */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -682,13 +741,16 @@ input[type="text"]:focus {
 
 /* Hover state */
 .autocomplete-item:hover {
-  background-color: #e0f2fe; /* sky-100 */
-  color: #0369a1; /* sky-700 */
+  background-color: #e0f2fe;
+  /* sky-100 */
+  color: #0369a1;
+  /* sky-700 */
 }
 
 /* Divider line between results */
 .autocomplete-item:not(:last-child) {
-  border-bottom: 1px solid #f1f5f9; /* gray-100 */
+  border-bottom: 1px solid #f1f5f9;
+  /* gray-100 */
 }
 
 /* Mobile adjustments */
@@ -704,6 +766,7 @@ input[type="text"]:focus {
     opacity: 0;
     transform: translateY(-6px);
   }
+
   to {
     opacity: 1;
   }
@@ -711,24 +774,28 @@ input[type="text"]:focus {
 
 
 .publish-btn {
-  background-color: #0284c7; /* sky-600 */
+  background-color: #0284c7;
+  /* sky-600 */
   color: white;
   font-weight: 600;
   padding: 8px 20px;
   border: none;
-  border-radius: 9999px; /* full rounded */
+  border-radius: 9999px;
+  /* full rounded */
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, transform 0.2s ease;
   /* display: flex; */
-  align-items: center; 
-  /* gap: 16px; */
+  align-items: center;
+  /* float: right; 
+  gap: 16px;  */
   margin-left: auto;
 }
 
 
 .publish-btn:hover {
-  background-color: #0369a1; /* darker shade */
+  background-color: #0369a1;
+  /* darker shade */
   transform: translateY(-2px);
 }
 
@@ -741,9 +808,12 @@ input[type="text"]:focus {
 }
 
 .no-results {
-  background-color: #fff3cd;        /* soft yellow background */
-  color: #856404;                   /* dark yellow text */
-  border: 1px solid #ffeeba;        /* light yellow border */
+  background-color: #fff3cd;
+  /* soft yellow background */
+  color: #856404;
+  /* dark yellow text */
+  border: 1px solid #ffeeba;
+  /* light yellow border */
   border-radius: 8px;
   padding: 12px 16px;
   margin-top: 15px;
@@ -786,4 +856,20 @@ input[type="text"]:focus {
 
 .sos-float-btn:active {
   transform: scale(0.95);
+}
+
+/* --- Loader --- */
+.loader-container {
+  text-align: center;
+  color: #555;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top-color: #00b894;
+  border-radius: 50%;
+  margin: 20px auto;
+  animation: spin 1s linear infinite;
 }

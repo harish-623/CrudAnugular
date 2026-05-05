@@ -1,0 +1,61 @@
+<div class="container my-4">
+
+  <!-- Page Title -->
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">Passengers Booked for Your Ride</h3>
+    <p class="text-muted">View the list of passengers who have booked this ride</p>
+  </div>
+
+  <!-- No Passengers -->
+  <div *ngIf="passengers.length === 0" class="alert alert-info text-center">
+    No passengers have booked this ride yet.
+  </div>
+
+  <!-- Passenger List -->
+  <div *ngIf="passengers.length > 0">
+
+    <div class="row g-4">
+
+      <div class="col-12" *ngFor="let p of passengers">
+        <div class="card border-0 shadow-sm rounded-4">
+
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-6">
+                <p class="mb-2">
+                  <strong>Name:</strong> {{ p.name }}
+                </p>
+                <p class="mb-2">
+                  <strong>Email:</strong> {{ p.email }}
+                </p>
+              </div>
+
+              <div class="col-md-6">
+                <p class="mb-2">
+                  <strong>Seats Booked:</strong> {{ p.seatsBooked }}
+                </p>
+                <p class="mb-0">
+                  <strong>Booked On:</strong>
+                  {{ p.bookedOn | date:'medium' }}
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Back Button -->
+  <div class="text-center mt-4">
+    <button class="btn btn-outline-secondary" (click)="goBack()">
+      Back
+    </button>
+  </div>
+
+</div>

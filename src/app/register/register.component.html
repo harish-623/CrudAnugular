@@ -1,163 +1,164 @@
-<div class="container mt-5">
-  <h2>User Registration</h2>
+<section class="min-vh-100 d-flex align-items-center bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
 
-  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        formControlName="username"
-        class="form-control"
-        placeholder="Enter Username"
-        required
-      />
-    </div>
+        <div class="card border-0 shadow-lg">
+          <div class="card-body p-4 p-md-5">
 
-    <div class="form-group">
-      <label for="fullname">Full Name</label>
-      <input
-        type="text"
-        id="fullname"
-        formControlName="fullname"
-        class="form-control"
-        placeholder="Enter Full Name"
-        required
-      />
-    </div>
+            <!-- HEADER -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h3 class="fw-bold mb-1">Create your VyroPool account</h3>
+                <p class="text-muted mb-0">Join a trusted community of riders & drivers</p>
+              </div>
+              <button class="btn btn-outline-secondary btn-sm" (click)="goHome()">
+                Login
+              </button>
+            </div>
 
-    <div class="form-group">
-      <label for="phonenumber">Phone Number</label>
-      <input
-        type="text"
-        id="phonenumber"
-        formControlName="phonenumber"
-        class="form-control"
-        placeholder="Enter Phone Number"
-        required
-      />
-    </div>
+            <!-- FORM -->
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
-    <div class="form-group">
-      <label for="age">Age</label>
-      <input
-        type="number"
-        id="age"
-        formControlName="age"
-        class="form-control"
-        placeholder="Enter Age"
-        required
-      />
-    </div>
+              <!-- USERNAME -->
+              <!-- <div class="mb-3">
+                <label class="form-label fw-semibold">Username</label>
+                <input class="form-control" formControlName="username" placeholder="Choose a username" />
+              </div> -->
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        class="form-control"
-        placeholder="Enter Email"
-        required
-      />
-      <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="sendOtp()"
-          [disabled]="userForm.get('email')?.invalid || otpSent"
-        >
-          {{ otpSent ? 'OTP Sent' : 'Send OTP' }}
-        </button>
-    </div>
+              <!-- FULL NAME -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Full Name</label>
+                <input class="form-control" formControlName="fullname" placeholder="Enter full name" />
+              </div>
 
-    <div *ngIf="otpSent" class="form-group mt-3">
-      <label for="otp">Enter OTP</label>
-      <div class="input-group">
-        <input
-          type="text"
-          id="otp"
-          formControlName="otp"
-          class="form-control"
-          placeholder="Enter the OTP"
-          required
-        />
-        <button
-          type="button"
-          class="btn btn-success"
-          (click)="verifyOtp()"
-          [disabled]="otpVerified"
-        >
-          {{ otpVerified ? 'Verified ✅' : 'Verify OTP' }}
-        </button>
-      </div>
-      <small *ngIf="otpVerified" class="text-success">Email verified successfully!</small>
-    </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Gender</label>
+                <select class="form-select" formControlName="gender">
+                  <option value="" disabled selected>Select gender</option>
+                  <option value="MALE">Male</option>
+                  <option value="FEMALE">Female</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
 
-    <!-- <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        [type]="showPassword ? 'text' : 'password'"
-        id="password"
-        formControlName="password"
-        class="form-control"
-        placeholder="Enter Password"
-        required
-        [disabled]="!otpVerified"
-      />
-      <button
-    type="button"
-    (click)="togglePassword()"
-    class="btn btn-outline-secondary position-absolute end-0 top-50 translate-middle-y me-2"
-    style="border: none; background: transparent;"
-  >
-    <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-  </button>
-      
-    </div> -->
 
-    <div class="form-group">
-  <label for="password">Password</label>
-  <input
-   [type]="showPassword ? 'text' : 'password'"
-    id="password"
-    formControlName="password"
+              <!-- PHONE -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Phone Number</label>
+                <input class="form-control" formControlName="phonenumber" placeholder="10-digit mobile number"  maxlength="10"
+    inputmode="numeric"
+    (input)="onPhoneInput($event)"/>
+
+                <div class="text-danger small mt-1"
+                  *ngIf="userForm.get('phonenumber')?.invalid && userForm.get('phonenumber')?.touched">
+                  <div *ngIf="userForm.get('phonenumber')?.errors?.['required']">
+                    Phone number is required.
+                  </div>
+                  <div *ngIf="userForm.get('phonenumber')?.errors?.['pattern']">
+                    Phone number must be 10 digits.
+                  </div>
+                </div>
+              </div>
+
+              <!-- AGE -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Age</label>
+                <input
     class="form-control"
-    placeholder="Enter Password"
-    required
-    [disabled]="!otpVerified"
+    formControlName="age"
+    placeholder="Enter age"
+    maxlength="2"
+    inputmode="numeric"
+    (input)="onAgeInput($event)"
   />
-  <div class="form-check mt-2">
-    <input
-      type="checkbox"
-      id="showPasswordCheckbox"
-      class="form-check-input"
-      (change)="togglePassword()"
-    />
-    <label for="showPasswordCheckbox" class="form-check-label">Show Password</label>
-  </div>
+                <div class="text-danger small mt-1"
+                  *ngIf="userForm.get('age')?.invalid && userForm.get('age')?.touched">
+                  <div *ngIf="userForm.get('age')?.errors?.['required']">Age is required.</div>
+                  <div *ngIf="userForm.get('age')?.errors?.['min']">Minimum age is 18.</div>
+                </div>
+              </div>
 
+              <!-- EMAIL + OTP -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <div class="input-group">
+                  <input type="email" class="form-control" formControlName="email" placeholder="Enter email" />
+                  <button class="btn btn-outline-primary" type="button" (click)="sendOtp()"
+                    [disabled]="userForm.get('email')?.invalid || otpSent">
+                    {{ otpSent ? 'OTP Sent' : 'Send OTP' }}
+                  </button>
+                </div>
+              </div>
 
-  <!-- <input type="checkbox" onclick="togglePassword()">Show Password
-  <button
-  type="button"
-  class="toggle-password-btn"
-  (click)="togglePassword()"
-  aria-label="Toggle password visibility"
->
-  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-</button> -->
+              <!-- OTP -->
+              <div *ngIf="otpSent" class="mb-3">
+                <label class="form-label fw-semibold">Enter OTP</label>
+                <div class="input-group">
+                  <input class="form-control" formControlName="otp" placeholder="OTP" />
+                  <button class="btn btn-success" type="button" (click)="verifyOtp()" [disabled]="otpVerified">
+                    {{ otpVerified ? 'Verified ✅' : 'Verify OTP' }}
+                  </button>
+                </div>
+                <small *ngIf="otpVerified" class="text-success">
+                  Email verified successfully
+                </small>
+              </div>
 
+              <!-- PASSWORD -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Password</label>
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
+                  placeholder="Create password" />
+
+                <small class="text-muted">
+                  Use uppercase, lowercase, number & symbol
+                </small>
+
+                <div class="text-danger small mt-1"
+                  *ngIf="userForm.get('password')?.touched && userForm.get('password')?.invalid">
+                  <div *ngIf="userForm.get('password')?.hasError('required')">
+                    Password is required.
+                  </div>
+                  <div *ngIf="userForm.get('password')?.hasError('minlength')">
+                    Minimum 6 characters required.
+                  </div>
+                </div>
+
+                <div class="form-check mt-2">
+                  <input class="form-check-input" type="checkbox" (change)="togglePassword()" />
+                  <label class="form-check-label small">Show password</label>
+                </div>
+              </div>
+
+              <!-- LOADER -->
+              <div *ngIf="loading" class="text-center my-3">
+                <div class="spinner-border text-primary"></div>
+                <p class="small mt-2">Processing...</p>
+              </div>
+
+              <!-- RESPONSE -->
+              <div *ngIf="responseMessage" class="alert mt-3" [ngClass]="responseClass">
+                {{ responseMessage }}
+              </div>
+
+              <div *ngIf="submitDisabledReason" class="alert alert-warning py-2 small mb-3">
+  ⚠️ {{ submitDisabledReason }}
 </div>
 
+              <!-- SUBMIT -->
+              <div class="d-grid mt-4">
+                <button class="btn btn-primary btn-lg" type="submit" [disabled]="userForm.invalid || !otpVerified">
+                  Create account
+                </button>
+              </div>
 
+            </form>
 
+          </div>
+        </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid || !otpVerified">
-      Submit
-    </button>
-  </form>
-
-  <div *ngIf="responseMessage" class="mt-3 alert" [ngClass]="responseClass">
-    {{ responseMessage }}
+      </div>
+    </div>
   </div>
-</div>
+</section>

@@ -1,0 +1,78 @@
+<div class="container my-4">
+
+  <!-- Page Title -->
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">Passengers Booked for Your Ride</h3>
+    <p class="text-muted">View passenger details and verify ride OTPs</p>
+  </div>
+
+  <!-- No Passengers -->
+  <div *ngIf="passengers.length === 0" class="alert alert-info text-center">
+    No passengers have booked this ride yet.
+  </div>
+
+  <!-- Passenger List -->
+  <div *ngIf="passengers.length > 0">
+
+    <div class="row g-4">
+
+      <div class="col-12" *ngFor="let p of passengers">
+        <div class="card border-0 shadow-sm rounded-4">
+
+          <!-- Card Body -->
+          <div class="card-body">
+
+            <div class="row">
+              <!-- Passenger Info -->
+              <div class="col-md-7">
+                <p><strong>Name:</strong> {{ p.name }}</p>
+                <p><strong>Email:</strong> {{ p.email }}</p>
+                <p><strong>Seats Booked:</strong> {{ p.seatsBooked }}</p>
+                <p>
+                  <strong>Booked On:</strong>
+                  {{ p.bookedOn | date:'medium' }}
+                </p>
+              </div>
+
+              <!-- OTP Section -->
+              <div class="col-md-5 d-flex align-items-center">
+
+                <!-- OTP Input -->
+                <div *ngIf="!p.otpVerified" class="w-100">
+                  <label class="form-label fw-semibold">
+                    Enter OTP
+                  </label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="4-digit OTP" maxlength="4"
+                      [(ngModel)]="p.otp" />
+                    <button class="btn btn-success" (click)="verifyRideOtp(p.bookingId, p.otp)">
+                      Verify
+                    </button>
+                  </div>
+                </div>
+
+                <!-- OTP Verified -->
+                <div *ngIf="p.otpVerified" class="alert alert-success w-100 text-center mb-0">
+                  OTP verified successfully
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Back Button -->
+  <div class="text-center mt-4">
+    <button class="btn btn-outline-secondary" (click)="goBack()">
+      Back
+    </button>
+  </div>
+
+</div>

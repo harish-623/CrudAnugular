@@ -3,12 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RegisterComponent } from './register/register.component';
-import { MoviesComponent } from './movies/movies.component';
+
 import { ProfileComponent } from './profile/profile.component';
 import { RideDetailsComponent } from './ride-details/ride-details.component';
 import { PublishRideComponent } from './publish-ride/publish-ride.component';
 import { MyRidesComponent } from './my-rides/my-rides.component';
 import { DriverPublishRidesComponent } from './driver-publish-rides/driver-publish-rides.component';
+import { ViewRideDetailsComponent } from './view-ride-details/view-ride-details.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { StartRideComponent } from './start-ride/start-ride.component';
+import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
+import { ApproveRequestComponent } from './approve-request/approve-request.component';
+
 
 
 const routes: Routes = [
@@ -18,11 +24,16 @@ const routes: Routes = [
   { path: 'ride/:id', component: RideDetailsComponent },
   { path: 'home', component: HomepageComponent },
   {path: 'register',component:RegisterComponent},
-  {path: 'movies',component:MoviesComponent},
   {path:'profile',component:ProfileComponent},
   {path: 'publish-ride', component: PublishRideComponent },
   {path:'my-rides',component:MyRidesComponent},
-  {path:'my-publish-rides',component:DriverPublishRidesComponent}
+  {path:'my-publish-rides',component:DriverPublishRidesComponent},
+  {path:'view-details/:rideId',component:ViewRideDetailsComponent},
+  {path:'forgot-password',component:ForgetPasswordComponent},
+  {path:'start-ride/:rideId',component:StartRideComponent},
+  {path:'driver-registration',component:DriverRegistrationComponent},
+  {path:'approve-request',component:ApproveRequestComponent}
+  
 ];
 
 @NgModule({

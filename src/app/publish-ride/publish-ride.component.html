@@ -1,141 +1,94 @@
-<div class="container my-4">
-  <div class="row justify-content-center">
-    <div class="col-lg-8 col-md-10">
+<section class="publish-section">
+  <div class="publish-card">
+    <div class="publish-header">
+      <div>
+        <p class="publish-tag">Driver dashboard</p>
+        <h1 class="publish-title">Publish a Ride</h1>
+        <p class="publish-subtitle">Share your route, schedule, and availability with verified passengers using a fast and secure ride publishing experience.</p>
+      </div>
+    </div>
 
-      <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body p-4">
-
-          <!-- Page Title -->
-          <h4 class="fw-bold mb-1">Publish a Ride</h4>
-          <p class="text-muted mb-4">
-            Create a ride by sharing your route, schedule, and availability with verified passengers.
-          </p>
-
-          <!-- SUCCESS ALERT -->
-          <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ successMessage }}
-            <button type="button" class="btn-close" (click)="successMessage=null"></button>
-          </div>
-
-          <!-- ERROR ALERT -->
-          <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ errorMessage }}
-            <button type="button" class="btn-close" (click)="errorMessage=null"></button>
-          </div>
-
-          <form (ngSubmit)="publishRide()" #rideForm="ngForm">
-
-            <!-- Leaving From & Going To -->
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold">Leaving From</label>
-                <select class="form-select" [(ngModel)]="leavingFrom" name="leavingFrom" #from="ngModel" required>
-                  <option value="" disabled selected>Select your starting location</option>
-                  <option *ngFor="let place of placesList" [value]="place">
-                    {{ place }}
-                  </option>
-                </select>
-                <div *ngIf="from.invalid && from.touched" class="text-danger small mt-1">
-                  Please select a starting location.
-                </div>
-              </div>
-
-              <div class="col-md-6 mt-3 mt-md-0">
-                <label class="form-label fw-semibold">Going To</label>
-                <select class="form-select" [(ngModel)]="goingTo" name="goingTo" #to="ngModel" required>
-                  <option value="" disabled selected>Select your destination location</option>
-                  <option *ngFor="let place of placesList" [value]="place">
-                    {{ place }}
-                  </option>
-                </select>
-                <div *ngIf="to.invalid && to.touched" class="text-danger small mt-1">
-                  Please select a destination location.
-                </div>
-              </div>
-            </div>
-
-            <!-- Date & Time -->
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold">Date</label>
-                <input type="date" class="form-control" [(ngModel)]="date" [min]="today" name="date"
-                  [ngModelOptions]="{ standalone: true }" required />
-              </div>
-
-              <div class="col-md-6 mt-3 mt-md-0">
-                <label class="form-label fw-semibold">Time</label>
-                <input type="time" class="form-control" [(ngModel)]="time" name="time" required />
-              </div>
-            </div>
-
-            <!-- Passenger Limit & Car Type -->
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold">Passenger Limit</label>
-                <select class="form-select" [(ngModel)]="passengerLimit" name="passengerLimit" required>
-                  <option *ngFor="let p of [1,2,3,4,5,6,7]" [value]="p">
-                    {{ p }}
-                  </option>
-                </select>
-              </div>
-
-              <div class="col-md-6 mt-3 mt-md-0">
-                <label class="form-label fw-semibold">Car Type</label>
-                <input type="text" class="form-control" [(ngModel)]="carType" name="carType"
-                  placeholder="E.g., Sedan, SUV" required />
-              </div>
-            </div>
-
-            <!-- Fare -->
-            <div class="mb-4">
-              <label class="form-label fw-semibold">Fare (₹)</label>
-              <input type="number" class="form-control" [(ngModel)]="amount" name="amount" min="1"
-                placeholder="Enter amount per seat" required />
-            </div>
-
-            <!-- Instant Booking Toggle -->
-<div class="mb-4">
-  <div class="form-check form-switch">
-    <input
-      class="form-check-input"
-      type="checkbox"
-      id="instantBooking"
-      [(ngModel)]="instantBooking"
-      name="instantBooking"
-    />
-    <label class="form-check-label fw-semibold" for="instantBooking">
-      Enable Instant Booking
-    </label>
-  </div>
-
-  <small class="text-muted">
-    If enabled, passengers can book instantly without approval.
-  </small>
-</div>
-
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-3"
-              [disabled]="rideForm.invalid || loading">
-              Publish Ride
-            </button>
-
-            <!-- Loader -->
-            <div *ngIf="loading" class="text-center mt-3">
-              <div class="spinner-border text-primary" role="status"></div>
-              <p class="mt-2 mb-0 text-muted">Publishing your ride...</p>
-            </div>
-
-            <!-- Info Alert -->
-            <div class="alert alert-info mt-4">
-              Please ensure all ride details are accurate. Safety checks apply to every published ride.
-            </div>
-
-          </form>
-
-        </div>
+    <div class="publish-body">
+      <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ successMessage }}
+        <button type="button" class="btn-close" (click)="successMessage=null"></button>
       </div>
 
+      <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ errorMessage }}
+        <button type="button" class="btn-close" (click)="errorMessage=null"></button>
+      </div>
+
+      <form class="publish-form" (ngSubmit)="publishRide()" #rideForm="ngForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Leaving From</label>
+            <select class="form-select" [(ngModel)]="leavingFrom" name="leavingFrom" #from="ngModel" required>
+              <option value="" disabled selected>Select your starting location</option>
+              <option *ngFor="let place of placesList" [value]="place">{{ place }}</option>
+            </select>
+            <div *ngIf="from.invalid && from.touched" class="field-error">Please select a starting location.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Going To</label>
+            <select class="form-select" [(ngModel)]="goingTo" name="goingTo" #to="ngModel" required>
+              <option value="" disabled selected>Select your destination location</option>
+              <option *ngFor="let place of placesList" [value]="place">{{ place }}</option>
+            </select>
+            <div *ngIf="to.invalid && to.touched" class="field-error">Please select a destination location.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-control" [(ngModel)]="date" [min]="today" name="date" [ngModelOptions]="{ standalone: true }" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Time</label>
+            <input type="time" class="form-control" [(ngModel)]="time" name="time" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Passenger Limit</label>
+            <select class="form-select" [(ngModel)]="passengerLimit" name="passengerLimit" required>
+              <option *ngFor="let p of [1,2,3,4,5,6,7]" [value]="p">{{ p }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Car Type</label>
+            <input type="text" class="form-control" [(ngModel)]="carType" name="carType" placeholder="E.g. Sedan, SUV" required />
+          </div>
+
+          <div class="form-group full-width">
+            <label class="form-label">Fare (₹)</label>
+            <input type="number" class="form-control" [(ngModel)]="amount" name="amount" min="1" placeholder="Enter amount per seat" required />
+          </div>
+        </div>
+
+        <div class="toggle-card">
+          <div>
+            <p class="toggle-title">Instant booking</p>
+            <p class="toggle-description">Allow passengers to confirm seats instantly without manual approval.</p>
+          </div>
+          <div class="toggle-switch">
+            <input class="form-check-input" type="checkbox" id="instantBooking" [(ngModel)]="instantBooking" name="instantBooking" />
+            <label class="form-check-label" for="instantBooking">Enable</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary-custom" [disabled]="rideForm.invalid || loading">Publish Ride</button>
+
+        <div *ngIf="loading" class="loader-footer">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p>Publishing your ride...</p>
+        </div>
+
+        <div class="info-note">
+          <strong>Note:</strong> Please ensure all ride details are accurate. Safety checks apply to every published ride.
+        </div>
+      </form>
     </div>
   </div>
-</div>
+</section>

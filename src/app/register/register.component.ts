@@ -22,6 +22,9 @@ export class RegisterComponent {
   message: string = '';
 
   private baseUrl = `${environment.apiUrl}`;
+
+  showPassword = false;
+
   constructor(private fb: FormBuilder, private http: HttpClient, private userService: RegisteService, private router: Router) {
     this.userForm = this.fb.group({
       // username: ['', [Validators.required]],
@@ -48,19 +51,7 @@ export class RegisterComponent {
 }
 
   ngOnInit() {
-    this.userForm.statusChanges.subscribe(() => {
-      if (this.userForm.invalid) {
-
-    // 🔴 Mark all fields as touched so errors appear
-      this.userForm.markAllAsTouched();
-
-    // 🔽 Optional: scroll to first invalid field
-      this.scrollToFirstInvalidControl();
-
-      ;
-     }
-      
-    });
+    
   }
 
   scrollToFirstInvalidControl(): void {
@@ -122,8 +113,10 @@ get submitDisabledReason(): string | null {
   sendOtp(): void {
     const email = this.userForm.get('email')?.value;
 
-    if (!email) {
-      this.showMessage('❌ Please enter a valid email address', 'alert-danger');
+    if (this.userForm.get('email')?.invalid) {
+      this.userForm.get('email')?.markAsTouched();
+      this.scrollToFirstInvalidControl();
+      this.showMessage('Please enter a valid email address', 'alert-danger');
       return;
     }
 
@@ -135,7 +128,7 @@ get submitDisabledReason(): string | null {
         next: (response: string) => {
           this.loading = false;
           this.otpSent = true;
-          this.showMessage(`✅ ${response}`, 'alert-success');
+          this.showMessage(`${response}`, 'alert-success');
         },
         error: (error) => {
           this.loading = false;
@@ -144,10 +137,10 @@ get submitDisabledReason(): string | null {
           if (error?.status === 400 && typeof error.error === 'string') {
             errorMessage = error.error;
           } else if (error?.status === 0) {
-            errorMessage = '❌ Server is unreachable';
+            errorMessage = 'Server is unreachable';
           }
 
-          this.showMessage(`❌ ${errorMessage}`, 'alert-danger');
+          this.showMessage(`${errorMessage}`, 'alert-danger');
         }
       });
   }
@@ -155,7 +148,7 @@ get submitDisabledReason(): string | null {
 
 
 
-  showPassword = false;
+  // Show password functionality removed - using HTML5 password field visual feedback only
 
   togglePassword() {
     this.showPassword = !this.showPassword;
@@ -206,7 +199,8 @@ get submitDisabledReason(): string | null {
     const otp = this.userForm.get('otp')?.value;
 
     if (!otp) {
-      this.showMessage('❌ Please enter the OTP.', 'alert-danger');
+      this.userForm.get('otp')?.markAsTouched();
+      this.showMessage('Please enter the OTP', 'alert-danger');
       return;
     }
 
@@ -233,7 +227,7 @@ get submitDisabledReason(): string | null {
           const errorMessage =
             typeof error.error === 'string'
               ? error.error
-              : '❌ Invalid OTP or OTP expired';
+              : 'Invalid OTP or OTP expired';
 
           this.showMessage(errorMessage, 'alert-danger');
         }
@@ -242,10 +236,17 @@ get submitDisabledReason(): string | null {
 
 
   onSubmit() {
-    console.log(this.userForm)
-
-
     // Mark all fields as touched → shows validation errors in UI
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
+      this.scrollToFirstInvalidControl();
+      return;
+    }
+
+    if (!this.otpVerified) {
+      this.showMessage('Please verify your email using OTP', 'alert-warning');
+      return;
+    }
 
     this.loading = true
     if (this.userForm.valid) {

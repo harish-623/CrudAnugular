@@ -14,14 +14,10 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  registerForm: FormGroup;
   logoUrl: string = '';
-  loginError: any;
-  registerError: any;
-  loading: boolean = true;
+  loginError: string = '';
+  loading: boolean = false;
   responseClass: string = '';
-  profile: boolean | null = null;
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,17 +30,10 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
-
-    this.registerForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', [Validators.required, Validators.email]]
-    });
   }
 
   ngOnInit(): void {
-    // this.loadLogo();
-    this.loading = false
+    this.loading = false;
   }
 
   showPassword = false;
@@ -52,14 +41,6 @@ export class LoginComponent implements OnInit {
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
-
-  // loadLogo() {
-  //   const logoUrl = 'https://avatars.githubusercontent.com/u/124091983';
-  //   this.imageLoader.loadImage(logoUrl).subscribe((blob: Blob) => {
-  //     this.logoUrl = URL.createObjectURL(blob);
-  //     this.loading = false
-  //   });
-  // }
 
   onSubmitLogin(): void {
     if (this.loginForm.valid) {
@@ -96,16 +77,13 @@ export class LoginComponent implements OnInit {
         (error: any) => {
           this.loading = false;
           if (error.status === 401) {
-            this.loginError = '❌ Invalid username or password';
-            this.loginError = "Login failed. Please check your credentials."; // Display error message to the user
-            console.log(this.loginError);
+            this.loginError = 'Invalid email or password';
             this.showMessage(this.loginError, 'alert-danger');
           } else if (error.error) {
             this.loginError = error.error;
             this.showMessage(this.loginError, 'alert-danger');
           }
           console.error('Error occurred during login:', error);
-
         }
 
       );
@@ -124,39 +102,10 @@ export class LoginComponent implements OnInit {
 
     setTimeout(() => {
       this.loginError = '';
-    }, 40000);
+    }, 5000); // Reduced from 40 seconds to 5 seconds
   }
 
 
-  onSubmitRegister(): void {
-    if (this.registerForm.valid) {
-      const registerData = this.registerForm.value;
-      this.http.post<any>(`${environment.apiUrl}/register`, registerData).pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.error instanceof ErrorEvent) {
-            console.error('An error occurred:', error.error.message);
-          } else {
-            console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
-            this.registerError = error.error;
-          }
-          return throwError('Something went wrong during registration; please try again later.');
-        })
-      )
-        .subscribe(response => {
-          if (response.success) {
-            alert("Registration Successful");
-            this.router.navigate(['/login']);
-          } else {
-            console.log('Registration failed');
-          }
-        }, error => {
-          console.error('Error occurred during registration:', error);
-          alert("Registration failed, please check your input.");
-        });
-    } else {
-      console.log('Registration form is invalid');
-    }
-  }
   navigateToForgotPassword() {
     this.router.navigate(['/forgot-password']);
   }

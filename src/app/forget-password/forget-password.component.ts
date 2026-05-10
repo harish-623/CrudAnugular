@@ -38,6 +38,17 @@ export class ForgetPasswordComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  goBackToStep1(): void {
+    this.step = 1;
+    this.message = '';
+    this.otp = '';
+  }
+
 
 
   sendOtp(): void {

@@ -1,76 +1,107 @@
-<section class="min-vh-100 d-flex align-items-center bg-light">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-5 col-md-7">
+<section class="login-section">
+  <div class="login-container">
+    <div class="login-card">
+      <!-- HEADER -->
+      <div class="login-header">
+        <div class="header-content">
+          <h1 class="login-title">Welcome Back</h1>
+          <p class="login-subtitle">Sign in to your VyroPool account</p>
+        </div>
+        <div class="header-divider"></div>
+      </div>
 
-        <div class="card border-0 shadow-lg">
-          <div class="card-body p-4 p-md-5">
+      <!-- FORM -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()" class="login-form">
 
-            <!-- HEADER -->
-            <div class="text-center mb-4">
-              <h3 class="fw-bold mb-1">Login to VyroPool</h3>
-              <p class="text-muted mb-0">Access your account securely</p>
-            </div>
-
-            <!-- LOADER -->
-            <div *ngIf="loading" class="text-center my-3">
-              <div class="spinner-border text-primary" role="status"></div>
-              <p class="mt-2 small">Logging you in...</p>
-            </div>
-
-            <!-- LOGIN FORM -->
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()" *ngIf="!loading">
-
-              <!-- USERNAME -->
-              <div class="mb-3">
-                <label class="form-label fw-semibold">Email</label>
-                <input type="email" class="form-control" formControlName="email" placeholder="Enter email address" />
-              </div>
-
-              <!-- PASSWORD -->
-              <div class="mb-2">
-                <label class="form-label fw-semibold">Password</label>
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
-                  placeholder="Enter password" />
-              </div>
-
-              <!-- SHOW PASSWORD -->
-              <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="showPassword" (change)="togglePassword()" />
-                <label class="form-check-label small" for="showPassword">
-                  Show password
-                </label>
-              </div>
-
-              <!-- LOGIN BUTTON -->
-              <div class="d-grid mb-3">
-                <button class="btn btn-primary btn-lg" type="submit">
-                  Login
-                </button>
-              </div>
-
-              <!-- REGISTER + FORGOT -->
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <button type="button" class="btn btn-outline-secondary btn-sm" (click)="navigateToRegister()">
-                  Create account
-                </button>
-
-                <a class="link-primary small" (click)="navigateToForgotPassword()">
-                  Forgot password?
-                </a>
-              </div>
-
-              <!-- ERROR / STATUS -->
-              <div *ngIf="loginError" class="alert mt-3" [ngClass]="responseClass" role="alert">
-                {{ loginError }}
-              </div>
-
-            </form>
-
+        <!-- EMAIL -->
+        <div class="form-group form-group-full">
+          <label class="form-label">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="your.email@example.com"
+            [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          />
+          <div class="error-text" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            Please enter a valid email address
           </div>
         </div>
 
-      </div>
+        <!-- PASSWORD -->
+        <div class="form-group form-group-full">
+          <label class="form-label">Password</label>
+          <div class="password-input-group">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              formControlName="password"
+              placeholder="Enter your password"
+              [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+            />
+            <button
+              type="button"
+              class="password-toggle-btn"
+              (click)="togglePassword()"
+              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+            >
+              <svg *ngIf="!showPassword" class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <svg *ngIf="showPassword" class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20C5 20 1 12 1 12C1 12 2.64 8.53 6.06 6.06M9.9 4.24A9.12 9.12 0 0 1 12 4C19 4 23 12 23 12C23 12 21.27 15.47 17.94 17.94M9.9 4.24L17.94 17.94M9.9 4.24L3 3L17.94 17.94" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="error-text" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <div *ngIf="loginForm.get('password')?.hasError('required')">
+              Password is required
+            </div>
+            <div *ngIf="loginForm.get('password')?.hasError('minlength')">
+              Minimum 6 characters required
+            </div>
+          </div>
+        </div>
+
+        <!-- LOADER -->
+        <div *ngIf="loading" class="loader-section">
+          <div class="spinner-border"></div>
+          <p class="loader-text">Signing you in...</p>
+        </div>
+
+        <!-- ERROR MESSAGE -->
+        <div *ngIf="loginError" class="alert" [ngClass]="responseClass">
+          {{ loginError }}
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <button
+          class="btn-submit"
+          type="submit"
+          [disabled]="loginForm.invalid || loading"
+          [class.btn-disabled]="loginForm.invalid || loading"
+        >
+          <span *ngIf="!loading">Sign In</span>
+          <span *ngIf="loading">Signing In...</span>
+        </button>
+
+        <!-- AUTH LINKS -->
+        <div class="auth-links">
+          <button type="button" class="btn-link" (click)="navigateToForgotPassword()">
+            Forgot Password?
+          </button>
+        </div>
+
+        <!-- REGISTER LINK -->
+        <div class="auth-switch">
+          <span class="auth-text">Don't have an account?</span>
+          <button type="button" class="btn-link" (click)="navigateToRegister()">
+            Create Account
+          </button>
+        </div>
+      </form>
+
     </div>
   </div>
 </section>

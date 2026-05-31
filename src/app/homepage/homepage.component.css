@@ -13,200 +13,182 @@
   }
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 section.text-center {
   background-size: 200% 200%;
   animation: gradientBG 15s ease infinite;
 }
 
-.select-with-placeholder {
-  color: #999;
-  /* Placeholder color by default */
-  font-size: 16px;
+/* ===== NEW SEARCH SECTION STYLES ===== */
+.bg-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* All normal options */
-.select-with-placeholder option {
-  color: #000;
-  /* Normal option color */
-  font-style: normal;
+.search-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Placeholder option only */
-.select-with-placeholder option[value=""] {
-  color: #999;
-  /* Placeholder color */
-  font-style: italic;
-  /* Optional styling for placeholder */
+.search-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat bottom;
+  background-size: cover;
 }
 
+.search-header {
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 0.6s ease;
+}
 
-/* Button hover animation */
-button {
+.search-header h2 {
+  color: #0d6efd;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-header p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+}
+
+.search-form-container {
+  position: relative;
+  z-index: 2;
+  animation: fadeInUp 0.8s ease 0.1s both;
+  border: 1px solid #e0e0e0;
+}
+
+.search-form-container .form-label {
+  color: #333;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #666;
+}
+
+.search-form-container .form-select-lg,
+.search-form-container .form-control-lg {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
   transition: all 0.3s ease;
 }
 
-button:hover {
-  transform: scale(1.05);
+.search-form-container .form-select-lg:focus,
+.search-form-container .form-control-lg:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background-color: #f8f9ff;
 }
 
-/* Info cards hover effect */
-section.grid .shadow-md {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-section.grid .shadow-md:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* Smooth scrolling for the page */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  section.text-center h1 {
-    font-size: 2rem;
-  }
-
-  .chat-container {
-    width: 90%;
-  }
-}
-
-
-/* --- Global Styles --- */
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f6f9;
-  /* Light, neutral background */
-  color: #333;
-  /* Standard text color */
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 1000px;
-  /* Max width for content area */
-  margin: 40px auto;
-  /* Center the content */
-  padding: 20px;
-}
-
-/* --- Typography and Headings --- */
-h1 {
-  font-size: 2.2em;
-  color: #007bff;
-  /* Primary blue color for brand/headings */
-  margin-bottom: 20px;
-  font-weight: 700;
-}
-
-/* Style for the main feature sections */
-.feature-section {
-  background-color: #fff;
-  padding: 30px;
+.search-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  /* Subtle shadow for depth */
-  margin-bottom: 30px;
-}
-
-.feature-section p {
-  font-size: 1.1em;
-  color: #555;
-}
-
-.feature-section h2 {
-  font-size: 1.5em;
-  color: #333;
-  margin-top: 0;
-  margin-bottom: 15px;
   font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.75rem 1.5rem;
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.search-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== SEARCH RESULTS STYLES ===== */
+.search-results-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 1rem;
+  animation: fadeInUp 0.6s ease;
 }
 
-.feature-section h2::before {
-  content: attr(data-icon);
-  /* Use a custom attribute for icons/emojis */
-  margin-right: 10px;
-  font-size: 1.5em;
+.search-results-header h4 {
+  color: #333;
+  font-size: 1.5rem;
+  margin: 0;
 }
 
-
-/* --- Ride Search Form (The most important part) --- */
-.search-form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  display: flex;
-  /* Use flexbox for layout */
-  gap: 10px;
-  /* Space between form elements */
-  flex-wrap: wrap;
-  /* Allow wrapping on smaller screens */
-  align-items: stretch;
-  /* Make all items the same height */
-  margin-bottom: 40px;
-  border: 1px solid #ddd;
+.search-results-header .text-muted {
+  font-size: 0.9rem;
 }
 
-.search-form input[type="text"],
-.search-form input[type="date"],
-
-
-/* --- Utility/Icon Styles (Optional: if you wrap your emoji in a span) --- */
-.icon {
-  font-size: 1.5em;
-  margin-right: 10px;
-}
-
-/* --- Media Queries for Responsiveness --- */
-@media (max-width: 768px) {
-  .search-form {
-    flex-direction: column;
-    /* Stack elements vertically on smaller screens */
-    gap: 15px;
-  }
-
-  .search-form input,
-  .search-form select,
-  .search-button {
-    width: 100%;
-    /* Full width for form controls */
-    box-sizing: border-box;
-  }
-
-  .container {
-    margin: 20px;
-  }
-
-
-}
-
-
-/* Ride code */
+/* ===== RIDE CARD HIGHLIGHTING ===== */
 .ride-card {
   background: #ffffff;
   border-radius: 12px;
   padding: 16px 18px;
   margin: 12px 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
+  animation: fadeInUp 0.5s ease forwards;
+  overflow: hidden;
+}
+
+.ride-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.ride-card:hover::before {
+  left: 100%;
+}
+
+/* Highlight effect for ride card */
+.ride-card-highlight:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.25), 0 0 0 1px rgba(102, 126, 234, 0.3);
+  border-color: rgba(102, 126, 234, 0.3);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
 }
 
 .ride-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
 }
 
 .ride-header,
@@ -266,10 +248,49 @@ h1 {
   font-size: 13px;
 }
 
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .search-section {
+    padding: 2rem 0;
+  }
 
+  .search-header h2 {
+    font-size: 1.8rem;
+  }
 
+  .search-form-container {
+    padding: 1.5rem;
+  }
 
+  .search-form-container .form-select-lg,
+  .search-form-container .form-control-lg {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
 
+  .ride-card {
+    margin: 8px 0;
+    padding: 12px 14px;
+  }
+
+  .search-results-header h4 {
+    font-size: 1.2rem;
+  }
+
+  .mx-auto {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 20px 15px;
+  }
+
+  .mx-auto input[type="date"],
+  .mx-auto select,
+  .mx-auto button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
 
 
 
@@ -305,6 +326,252 @@ h1 {
 }
 
 /* Input & select fields */
+.mx-auto input[type="date"],
+.mx-auto select {
+  flex: 1;
+  min-width: 150px;
+  padding: 12px 15px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  outline: none;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.mx-auto input[type="date"]:focus,
+.mx-auto select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  background-color: #fff;
+}
+
+/* Dropdown first option styling */
+.mx-auto select option[disabled] {
+  color: #888;
+}
+
+/* Search button */
+.mx-auto button {
+  padding: 12px 30px;
+  background-color: #0284c7;
+  color: #fff;
+  font-size: 1.05em;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.mx-auto button:hover {
+  background-color: #0369a1;
+  transform: translateY(-2px);
+}
+
+.mx-auto button:active {
+  transform: translateY(1px);
+}
+
+/* Smooth scrolling for the page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Button hover animation */
+button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Info cards hover effect */
+section.grid .shadow-md {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section.grid .shadow-md:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Vyro Assist chat widget */
+
+.vyro-chat-root {
+  position: fixed;
+  right: 24px;
+  bottom: 110px; /* sits above SOS button */
+  z-index: 1300;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.vyro-chat-button {
+  display: none;
+}
+.vyro-chat-button .vyro-chat-sos-text { font-weight:700; color:#fff; }
+
+.vyro-chat-panel {
+  width: 360px;
+  max-width: calc(100vw - 48px);
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+.vyro-chat-header {
+  background: linear-gradient(90deg,#667eea,#764ba2);
+  color: #fff;
+}
+.vyro-chat-header strong {
+  font-size: 1rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+.vyro-chat-header .small {
+  color: rgba(255,255,255,0.88);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.vyro-chat-messages { max-height: 300px; overflow-y: auto; background: #f7f9fb; }
+.vyro-chat-message {
+  display: flex;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.vyro-chat-bubble {
+  padding: 10px 12px;
+  border-radius: 10px;
+  max-width: 82%;
+  letter-spacing: 0;
+  word-break: break-word;
+}
+.vyro-chat-message.user { justify-content: flex-end; }
+.vyro-chat-message.assistant { justify-content: flex-start; }
+.vyro-chat-bubble.user { background: #e8f0ff; color: #0f172a; border-bottom-right-radius: 2px; }
+.vyro-chat-bubble.assistant { background: #ffffff; color: #1f2937; border-bottom-left-radius: 2px; box-shadow: 0 6px 18px rgba(39,49,66,0.06); }
+.vyro-chat-bubble .chat-message-text strong {
+  color: #0f172a;
+  font-weight: 800;
+}
+.vyro-chat-bubble .chat-detail-separator {
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.vyro-chat-input { background: #fff; }
+.vyro-chat-input .form-control {
+  border-radius: 8px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.vyro-chat-input .btn,
+.vyro-chat-header .btn {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+@media (max-width: 576px) {
+  .vyro-chat-panel { width: 94vw; right: 12px; bottom: 140px; }
+  .vyro-chat-root { right: 12px; bottom: 100px; }
+  .vyro-chat-name { display: none !important; }
+}
+
+/* Name pill for Vyro Assist */
+.vyro-chat-name {
+  background: #ffffff;
+  color: #0b2447;
+  padding: 8px 12px;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  cursor: pointer;
+  gap: 8px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.vyro-chat-name-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(90deg,#667eea,#764ba2);
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.vyro-chat-name-text {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+/* Grid container */
+section.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Card styling */
+section.grid>div {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-align: center;
+  cursor: default;
+}
+
+section.grid>div:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+/* Animate ride cards with stagger effect */
+.col-12:nth-child(1) .ride-card {
+  animation-delay: 0s;
+}
+
+.col-12:nth-child(2) .ride-card {
+  animation-delay: 0.1s;
+}
+
+.col-12:nth-child(3) .ride-card {
+  animation-delay: 0.2s;
+}
+
+.col-12:nth-child(4) .ride-card {
+  animation-delay: 0.3s;
+}
+
+.col-12:nth-child(5) .ride-card {
+  animation-delay: 0.4s;
+}
+
+.col-12:nth-child(n+6) .ride-card {
+  animation-delay: 0.5s;
+}
+
+/* Badge styles */
+.bg-success-soft {
+  background-color: #d1f4e8;
+  color: #027a48;
+}
+
 .mx-auto input[type="date"],
 .mx-auto select {
   flex: 1;

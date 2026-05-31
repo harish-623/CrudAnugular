@@ -14,6 +14,12 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { StartRideComponent } from './start-ride/start-ride.component';
 import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 import { ApproveRequestComponent } from './approve-request/approve-request.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
+import { TrustSafetyComponent } from './trust-safety/trust-safety.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { AboutComponent } from './about/about.component';
+import { SafetyComponent } from './safety/safety.component';
+import { SupportChatComponent } from './support-chat/support-chat.component';
 
 
 
@@ -32,7 +38,13 @@ const routes: Routes = [
   {path:'forgot-password',component:ForgetPasswordComponent},
   {path:'start-ride/:rideId',component:StartRideComponent},
   {path:'driver-registration',component:DriverRegistrationComponent},
-  {path:'approve-request',component:ApproveRequestComponent}
+  {path:'approve-request',component:ApproveRequestComponent},
+  {path:'help-center',component:HelpCenterComponent},
+  {path:'trust-safety',component:TrustSafetyComponent},
+  {path:'contact-us',component:ContactUsComponent},
+  {path:'support-chat', component: SupportChatComponent},
+  {path:'about',component:AboutComponent},
+  {path:'safety',component:SafetyComponent}
   
 ];
 

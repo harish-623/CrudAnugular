@@ -47,8 +47,7 @@ export class LoginComponent implements OnInit {
       const { email, password } = this.loginForm.value;
 
       this.loading = true;
-      console.log(email)
-      console.log(password)
+     
 
       this.authService.login(email, password).subscribe(
         (response: { success: boolean; username: string; token: string; id: string; email: string; eemergencyEmail: string }) => {

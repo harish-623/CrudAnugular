@@ -22,11 +22,12 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
 
     const token = localStorage.getItem('token');
+    const isChatRequest = req.url.includes('127.0.0.1:5000/chat') || req.url.includes('localhost:5000/chat');
 
     let authReq = req;
 
     // ✅ Attach token if exists
-    if (token) {
+    if (token && !isChatRequest) {
       authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
@@ -39,7 +40,7 @@ export class AuthInterceptor implements HttpInterceptor {
         console.log(error.status)
 
         // 🔥 FORCE LOGOUT ON 401
-        if (error.status === 500) {
+        if (!isChatRequest && (error.status === 401 || error.status === 403)) {
 
           console.warn('Token expired or invalid. Logging out.');
           alert('Session expired. Please login again.')

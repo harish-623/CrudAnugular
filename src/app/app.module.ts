@@ -35,6 +35,12 @@ import { DriverRegistrationComponent } from './driver-registration/driver-regist
 /* Interceptor */
 import { AuthInterceptor } from './auth.interceptor';
 import { ApproveRequestComponent } from './approve-request/approve-request.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
+import { TrustSafetyComponent } from './trust-safety/trust-safety.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { AboutComponent } from './about/about.component';
+import { SafetyComponent } from './safety/safety.component';
+import { SupportChatComponent } from './support-chat/support-chat.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +58,13 @@ import { ApproveRequestComponent } from './approve-request/approve-request.compo
     ForgetPasswordComponent,
     StartRideComponent,
     DriverRegistrationComponent,
-    ApproveRequestComponent
+    ApproveRequestComponent,
+    HelpCenterComponent,
+    TrustSafetyComponent,
+    ContactUsComponent,
+    AboutComponent,
+    SafetyComponent,
+    SupportChatComponent
   ],
   imports: [
     BrowserModule,

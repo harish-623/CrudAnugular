@@ -146,9 +146,12 @@ const bookingId=request.bookingId;
 
   approveRequest(request: any) {
     
-
-    const passengerId = Number(localStorage.getItem('driverId')); // logged in user id
+    console.log('Approving request:', request);
+    const passengerId = request.passengerID; // logged in user id
     const rideDriverId = request.id  // driver who published ride
+
+    console.log("Passenger ID:", passengerId);
+    console.log("Ride Driver ID:", rideDriverId);
 
     if (passengerId === rideDriverId) {
       alert("🚫 Driver can't book their own ride!");

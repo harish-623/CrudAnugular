@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ChatMessage, ChatService } from '../chat.service';
 
 @Component({
   selector: 'app-homepage',
@@ -10,6 +11,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent {
+  @ViewChild('floatingChatWindow') floatingChatWindow?: ElementRef<HTMLDivElement>;
 
 
 
@@ -49,13 +51,118 @@ export class HomepageComponent {
     'Kurnool Bus stand, Kurnool',
     'MGBS,Hyderabad',
     'C-Camp ,Kurnool',
-    'Manikonda, Hyderabad'
+    'Manikonda, Hyderabad',
+    'Marathalli, Bangalore',
+    'Whitefield, Bangalore',
+    'Electronic City, Bangalore',
+    'Indiranagar, Bangalore',
+    'Koramangala, Bangalore',
+    'MG Road, Bangalore',
+    'Hebbal, Bangalore',
+    'Rajajinagar, Bangalore',
+    'Yellahanka, Bangalore',
+    'Anathapuram,Andhrapradesh',
+    'Rayachoti,Andhrapradesh',
+    'Kadapa,Andhrapradesh'
+
   ];
 
   searchSubject = new Subject<{ query: string; type: 'from' | 'to' }>();
 
-  constructor(private http: HttpClient, private router: Router) {
+  // Chat widget state
+  chatOpen: boolean = false;
+  chatPrompt: string = '';
+  chatLoading: boolean = false;
+  defaultChatMessages: ChatMessage[] = [
+    { role: 'assistant', text: 'Hi, I\'m Vyro Assist - ask me about rides, safety, or your bookings.' }
+  ];
+  chatMessages: ChatMessage[] = [...this.defaultChatMessages];
 
+  constructor(private http: HttpClient, private router: Router, private chatService: ChatService) {
+  }
+
+  toggleChat() {
+    this.chatOpen = !this.chatOpen;
+    if (this.chatOpen) {
+      this.scrollFloatingChatToLatestMessage();
+    }
+  }
+
+  openChat() {
+    this.chatOpen = true;
+    this.scrollFloatingChatToLatestMessage();
+  }
+
+  closeChat() {
+    this.chatOpen = false;
+  }
+
+  sendChat() {
+    const trimmed = this.chatPrompt.trim();
+    if (!trimmed) return;
+
+    const userMessage: ChatMessage = { role: 'user', text: trimmed };
+    this.chatMessages.push(userMessage);
+    this.chatService.addLocalMessage(userMessage);
+    this.scrollFloatingChatToLatestMessage();
+
+    this.chatPrompt = '';
+    this.chatLoading = true;
+
+    this.chatService.sendPrompt(trimmed).subscribe({
+      next: (res) => {
+        const text = res?.ai_response || 'No response from assistant.';
+        const assistantMessage: ChatMessage = { role: 'assistant', text };
+        this.chatMessages.push(assistantMessage);
+        this.chatService.addLocalMessage(assistantMessage);
+        this.scrollFloatingChatToLatestMessage();
+        this.chatLoading = false;
+      },
+      error: (err) => {
+        console.error('Chat API error:', err);
+        const assistantMessage: ChatMessage = {
+          role: 'assistant',
+          text: err?.status === 500
+            ? 'The AI ride assistant had a server error. Please check the Python chat service and try again.'
+            : 'Unable to reach the chat service. Please try again later.'
+        };
+        this.chatMessages.push(assistantMessage);
+        this.chatService.addLocalMessage(assistantMessage);
+        this.scrollFloatingChatToLatestMessage();
+        this.chatLoading = false;
+      }
+    });
+  }
+
+  loadChatHistory() {
+    const savedMessages = this.chatService.loadLocalHistory();
+    this.chatMessages = savedMessages.length ? savedMessages : [...this.defaultChatMessages];
+    this.scrollFloatingChatToLatestMessage();
+  }
+
+  clearChatHistory() {
+    this.chatService.clearLocalHistory();
+    this.chatMessages = [...this.defaultChatMessages];
+    this.scrollFloatingChatToLatestMessage();
+  }
+
+  formatMessageText(text: string): string {
+    return this.chatService.formatMessageText(text);
+  }
+
+  private scrollFloatingChatToLatestMessage(): void {
+    setTimeout(() => {
+      const chatWindow = this.floatingChatWindow?.nativeElement;
+
+      if (chatWindow) {
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+    });
+  }
+
+  openSupportChat() {
+    this.router.navigate(['/support-chat']);
+    this.closeChat();
   }
 
 
@@ -68,6 +175,7 @@ export class HomepageComponent {
     this.driverId = localStorage.getItem('driverId') || '';
     this.email = localStorage.getItem('emergencyEmail') || '';
     this.isLoggedIn = !!localStorage.getItem('username');
+    this.loadChatHistory();
     this.loadUserImage();   // Load image automatically
   }
 

@@ -37,7 +37,20 @@ export class PublishRideComponent {
     'Kurnool Bus stand, Kurnool',
     'MGBS,Hyderabad',
     'C-Camp ,Kurnool',
-    'Manikonda, Hyderabad'
+    'Manikonda, Hyderabad',
+    'Marathalli, Bangalore',
+    'Whitefield, Bangalore',
+    'Electronic City, Bangalore',
+    'Indiranagar, Bangalore',
+    'Koramangala, Bangalore',
+    'MG Road, Bangalore',
+    'Hebbal, Bangalore',
+    'Rajajinagar, Bangalore',
+    'Yellahanka, Bangalore',
+    'Anathapuram,Andhrapradesh',
+    'Rayachoti,Andhrapradesh',
+    'Kadapa,Andhrapradesh'
+
   ];
 
   constructor(private http: HttpClient, private router: Router) { }

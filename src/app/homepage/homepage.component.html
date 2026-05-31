@@ -1,3 +1,188 @@
+
+
+<!-- FIND A RIDE SECTION -->
+<div class="search-section py-5 bg-gradient">
+  <div class="container">
+    <div class="search-header mb-4 text-center">
+      <h2 class="fw-bold mb-2">Find Your Perfect Ride</h2>
+      <p class="text-muted">Search and book trusted rides instantly</p>
+    </div>
+    
+    <div class="search-form-container bg-white rounded-4 shadow-lg p-4">
+      <form class="row g-3 align-items-end">
+
+        <!-- Leaving from -->
+        <div class="col-lg-3 col-md-6">
+          <label class="form-label fw-semibold small">Leaving from</label>
+          <select class="form-select form-select-lg" [(ngModel)]="leavingFrom" name="leavingFrom">
+            <option disabled selected>Select city</option>
+            <option *ngFor="let place of placesList" [value]="place">
+              {{ place }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Going to -->
+        <div class="col-lg-3 col-md-6">
+          <label class="form-label fw-semibold small">Going to</label>
+          <select class="form-select form-select-lg" [(ngModel)]="goingTo" name="goingTo">
+            <option disabled selected>Select city</option>
+            <option *ngFor="let place of placesList" [value]="place">
+              {{ place }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Date -->
+        <div class="col-lg-2 col-md-4">
+          <label class="form-label fw-semibold small">Date</label>
+          <input type="date" class="form-control form-control-lg" [(ngModel)]="date" [min]="today" name="date">
+        </div>
+
+        <!-- Passengers -->
+        <div class="col-lg-2 col-md-4">
+          <label class="form-label fw-semibold small">Passengers</label>
+          <select class="form-select form-select-lg" [(ngModel)]="passengers" name="passengers">
+            <option [value]="1">1</option>
+            <option [value]="2">2</option>
+            <option [value]="3">3</option>
+            <option [value]="4">4</option>
+          </select>
+        </div>
+
+        <!-- Button -->
+        <div class="col-lg-2 col-md-4 d-grid">
+          <button type="button" class="btn btn-primary btn-lg search-btn" (click)="searchRides()">
+            <i class="bi bi-search me-2"></i>Find rides
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+    <!-- Floating chat widget -->
+    <div class="vyro-chat-root">
+      <!-- Visible name/pill for clarity on larger screens (stacked above button) -->
+      <div class="vyro-chat-name d-none d-sm-inline-flex align-items-center" (click)="toggleChat()" title="Open Vyro Assist chat">
+        <span class="vyro-chat-name-icon d-flex align-items-center justify-content-center me-2"><i class="bi bi-robot"></i></span>
+        <span class="vyro-chat-name-text">Vyro Assist</span>
+      </div>
+
+      <div *ngIf="chatOpen" class="vyro-chat-panel shadow-lg rounded-3">
+        <div class="vyro-chat-header d-flex justify-content-between align-items-center p-3 border-bottom">
+          <div>
+            <strong>Vyro Assist</strong>
+            <div class="small text-muted">AI help for rides, safety, and bookings</div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="clearChatHistory()"
+              [disabled]="chatLoading || chatMessages.length <= defaultChatMessages.length"
+            >
+              Clear
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" (click)="openSupportChat()">Full chat</button>
+            <button class="btn btn-sm btn-close" (click)="closeChat()" aria-label="Close chat"></button>
+          </div>
+        </div>
+
+        <div #floatingChatWindow class="vyro-chat-messages p-3" role="log" aria-live="polite">
+          <div *ngFor="let m of chatMessages" class="vyro-chat-message mb-2" [ngClass]="m.role">
+            <div class="vyro-chat-bubble" [ngClass]="{'user': m.role === 'user', 'assistant': m.role === 'assistant'}">
+              <span class="small text-muted" [innerHTML]="formatMessageText(m.text)"></span>
+            </div>
+          </div>
+          <div *ngIf="chatLoading" class="small text-muted">Thinking…</div>
+        </div>
+
+        <div class="vyro-chat-input p-3 border-top d-flex gap-2">
+          <input type="text" class="form-control" placeholder="Ask about safety, bookings, or rides..."
+            [(ngModel)]="chatPrompt" (keyup.enter)="sendChat()" [disabled]="chatLoading" />
+          <button class="btn btn-primary" (click)="sendChat()" [disabled]="chatLoading">{{ chatLoading ? '…' : 'Send' }}</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- NO RESULTS -->
+<div *ngIf="noResultsMessage" class="container mt-4">
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <i class="bi bi-info-circle me-2"></i>{{ noResultsMessage }}
+    <button type="button" class="btn-close" (click)="closeAlert()"></button>
+  </div>
+</div>
+
+
+
+
+<div class="container mt-5 mb-5" *ngIf="searchResults?.length">
+  <div class="search-results-header mb-4">
+    <h4 class="fw-bold">
+      <i class="bi bi-car-front me-2 text-primary"></i>{{ searchResults.length }} Available Rides
+    </h4>
+  </div>
+
+  <div class="row g-3">
+
+    <div class="col-12" *ngFor="let ride of searchResults">
+      <div class="card border-0 shadow-sm rounded-4 ride-card cursor-pointer transition-all" 
+           (click)="viewRideDetails(ride.id)"
+           [ngClass]="{'ride-card-highlight': true}">
+        <div class="card-body p-4">
+
+          <!-- Top Section: Time and Price -->
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <h6 class="fw-bold mb-1">
+                <i class="bi bi-clock-history me-2 text-primary"></i>{{ ride.time }}
+              </h6>
+              <p class="text-muted mb-0">
+                <i class="bi bi-geo me-1"></i>{{ ride.from }} → {{ ride.to }}
+              </p>
+            </div>
+
+            <div class="text-end">
+              <span class="fs-4 fw-bold text-success">
+                ₹{{ ride.amount }}
+              </span>
+              <div class="small text-muted">per seat</div>
+            </div>
+          </div>
+
+          <hr class="my-3">
+
+          <!-- Bottom Section: Driver and Vehicle Info -->
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="mb-0 fw-semibold">
+                <i class="bi bi-person-circle me-2 text-secondary"></i>{{ ride.riderName.fullname }}
+              </p>
+              <small class="text-muted">
+                <i class="bi bi-car-front me-1"></i>{{ ride.carType }} · {{ ride.passengerLimit }} seats available
+              </small>
+            </div>
+
+            <div class="text-end">
+              <span class="badge bg-primary">
+                <i class="bi bi-calendar me-1"></i>{{ ride.date }}
+              </span>
+              <div class="badge bg-success-soft mt-2">
+                <i class="bi bi-star-fill me-1"></i>Verified
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 <header class="hero-section py-5">
   <div class="container">
     <div class="row align-items-center g-5">
@@ -50,143 +235,6 @@
     </div>
   </div>
 </header>
-
-<!-- <section class="trust-strip border-top border-bottom py-4">
-  <div class="container">
-    <div class="row g-4 text-center text-md-start align-items-center">
-      <div class="col-md-3">
-        <p class="text-uppercase text-muted small mb-1">Safety partners</p>
-        <h5 class="fw-bold">Trusted by leading mobility teams</h5>
-      </div>
-      <div class="col-md-9">
-        <div class="d-flex flex-wrap gap-4 justify-content-md-end">
-          <span class="badge bg-light text-dark">ISO-certified security</span>
-          <span class="badge bg-light text-dark">Police-verified IDs</span>
-          <span class="badge bg-light text-dark">Vehicle inspections</span>
-          <span class="badge bg-light text-dark">Encrypted payments</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-<!-- FIND A RIDE (BOOTSTRAP ONLY) -->
-<div class="container my-4">
-  <div class="bg-white border rounded-4 shadow-sm p-3">
-
-    <form class="row g-3 align-items-end">
-
-      <!-- Leaving from -->
-      <div class="col-lg-3 col-md-6">
-        <label class="form-label fw-semibold">Leaving from</label>
-        <select class="form-select" [(ngModel)]="leavingFrom" name="leavingFrom">
-          <option disabled selected>Select city</option>
-          <option *ngFor="let place of placesList" [value]="place">
-            {{ place }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Going to -->
-      <div class="col-lg-3 col-md-6">
-        <label class="form-label fw-semibold">Going to</label>
-        <select class="form-select" [(ngModel)]="goingTo" name="goingTo">
-          <option disabled selected>Select city</option>
-          <option *ngFor="let place of placesList" [value]="place">
-            {{ place }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Date -->
-      <div class="col-lg-2 col-md-4">
-        <label class="form-label fw-semibold">Date</label>
-        <input type="date" class="form-control" [(ngModel)]="date" [min]="today" name="date">
-      </div>
-
-      <!-- Passengers -->
-      <div class="col-lg-2 col-md-4">
-        <label class="form-label fw-semibold">Passengers</label>
-        <select class="form-select" [(ngModel)]="passengers" name="passengers">
-          <option [value]="1">1</option>
-          <option [value]="2">2</option>
-          <option [value]="3">3</option>
-          <option [value]="4">4</option>
-        </select>
-      </div>
-
-      <!-- Button -->
-      <div class="col-lg-2 col-md-4 d-grid">
-        <button type="button" class="btn btn-primary btn-lg" (click)="searchRides()">
-          Find rides
-        </button>
-      </div>
-
-    </form>
-
-  </div>
-</div>
-
-
-<!-- NO RESULTS -->
-<div *ngIf="noResultsMessage" class="alert alert-warning mt-3 mb-0 py-2">
-  🚗 {{ noResultsMessage }}
-</div>
-
-
-
-
-<div class="container mt-4" *ngIf="searchResults?.length">
-
-  <div class="row g-3">
-
-    <div class="col-12" *ngFor="let ride of searchResults">
-      <div class="card border-0 shadow-sm rounded-4 ride-card cursor-pointer" (click)="viewRideDetails(ride.id)">
-        <div class="card-body p-4">
-
-          <!-- Top Section -->
-          <div class="d-flex justify-content-between align-items-start mb-3">
-            <div>
-              <h6 class="fw-bold mb-1">
-                {{ ride.time }}
-              </h6>
-              <p class="text-muted mb-0">
-                {{ ride.from }} → {{ ride.to }}
-              </p>
-            </div>
-
-            <div class="text-end">
-              <span class="fs-5 fw-bold text-success">
-                ₹{{ ride.amount }}
-              </span>
-              <div class="small text-muted">per seat</div>
-            </div>
-          </div>
-
-          <hr class="my-3">
-
-          <!-- Bottom Section -->
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <p class="mb-0 fw-semibold">
-                {{ ride.riderName.fullname }}
-              </p>
-              <small class="text-muted">
-                {{ ride.carType }} · Seats {{ ride.passengerLimit }}
-              </small>
-            </div>
-
-            <span class="badge bg-light text-dark border">
-              {{ ride.date }}
-            </span>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 
 
@@ -323,24 +371,10 @@
 <!-- 
  -->
 
-<section class="py-5">
+<!-- <section class="py-5">
   <div class="container">
     <div class="row g-4">
-      <div class="col-lg-4">
-        <div class="testimonial-card shadow-sm">
-          <div class="d-flex align-items-center gap-3">
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
-              alt="Rider profile" class="rounded-circle" />
-            <div>
-              <h6 class="mb-1">Nallabothula Harish</h6>
-              <small class="text-muted">Founder</small>
-            </div>
-          </div>
-          <p class="mt-3 mb-0 text-muted">“I love the safety check-ins and verified profiles. It feels like a trusted
-            community.”</p>
-        </div>
-      </div>
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <div class="testimonial-card shadow-sm">
           <div class="d-flex align-items-center gap-3">
             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
@@ -354,7 +388,7 @@
           </p>
         </div>
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <div class="testimonial-card shadow-sm">
           <div class="d-flex align-items-center gap-3">
             <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=200&q=80"
@@ -369,22 +403,21 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
-<section id="driver" class="cta-section py-5 bg-primary text-white">
+<!-- <section id="driver" class="cta-section py-5 bg-primary text-white">
   <div class="container">
     <div class="row align-items-center g-4">
       <div class="col-lg-8">
-        <h2 class="fw-bold">Drive with confidence and earn more.</h2>
-        <p class="mb-0 text-white-75">Join a verified community, keep your schedule flexible, and enjoy protection built
-          for drivers.</p>
+        <h2 class="fw-bold">Ready to earn extra income?</h2>
+        <p class="mb-0 text-white-75">Join thousands of verified drivers earning flexible income. Manage your schedule, enjoy protection, and build trust within our community.</p>
       </div>
       <div class="col-lg-4 text-lg-end">
-        <a class="btn btn-light btn-lg" href="#">Start driving today</a>
+        <a class="btn btn-light btn-lg" (click)="goToPublishRide()">Start driving today</a>
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <footer class="footer bg-dark text-white py-5">
   <div class="container">
@@ -396,34 +429,36 @@
       <div class="col-6 col-lg-2">
         <h6 class="text-uppercase text-white-50">Company</h6>
         <ul class="list-unstyled">
-          <li><a class="footer-link" href="#">About</a></li>
-          <li><a class="footer-link" href="#">Safety</a></li>
-          <li><a class="footer-link" href="#">Careers</a></li>
+          <li><a class="footer-link" routerLink="/about">About</a></li>
+          <li><a class="footer-link" routerLink="/safety">Safety</a></li>
+          <!-- <li><a class="footer-link" href="#">Careers</a></li> -->
         </ul>
       </div>
       <div class="col-6 col-lg-2">
         <h6 class="text-uppercase text-white-50">Support</h6>
         <ul class="list-unstyled">
-          <li><a class="footer-link" href="#">Help center</a></li>
-          <li><a class="footer-link" href="#">Trust & safety</a></li>
-          <li><a class="footer-link" href="#">Contact us</a></li>
+          <li><a class="footer-link" routerLink="/help-center">Help center</a></li>
+          <li><a class="footer-link" routerLink="/support-chat">AI Support Chat</a></li>
+          <li><a class="footer-link" routerLink="/trust-safety">Trust & safety</a></li>
+          <li><a class="footer-link" routerLink="/contact-us">Contact us</a></li>
         </ul>
       </div>
-      <div class="col-lg-4">
-        <h6 class="text-uppercase text-white-50">Stay in the loop</h6>
-        <p class="text-white-50">Weekly updates on new routes and safety improvements.</p>
-        <form class="d-flex gap-2 flex-column flex-sm-row">
-          <input class="form-control" type="email" placeholder="Email address" aria-label="Email address" />
-          <button class="btn btn-primary" type="submit">Subscribe</button>
+      <div class="col-lg-3">
+        <h6 class="text-uppercase text-white-50 fw-bold small">Newsletter</h6>
+        <p class="text-white-50 small">Get the latest updates on new routes and safety features.</p>
+        <form class="d-flex gap-2">
+          <input class="form-control form-control-sm" type="email" placeholder="Your email" aria-label="Email address" />
+          <button class="btn btn-primary btn-sm" type="submit">Subscribe</button>
         </form>
       </div>
     </div>
-    <div class="d-flex flex-column flex-md-row justify-content-between border-top border-secondary pt-4 mt-4">
+    <hr class="border-secondary my-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
       <small class="text-white-50">© 2025 VyroPool. All rights reserved.</small>
       <div class="d-flex gap-3">
-        <a class="footer-link" href="#">Privacy</a>
-        <a class="footer-link" href="#">Terms</a>
-        <a class="footer-link" href="#">Community guidelines</a>
+        <a class="footer-link small" href="#">Privacy Policy</a>
+        <a class="footer-link small" href="#">Terms of Service</a>
+        <a class="footer-link small" href="#">Community Guidelines</a>
       </div>
     </div>
   </div>

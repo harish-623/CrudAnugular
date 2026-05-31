@@ -109,27 +109,66 @@ export class DriverPublishRidesComponent {
     console.log(this.driverId)
   }
 
+  // cancelRide(rideId: number): void {
+  //   if (confirm('Are you sure you want to cancel this ride?')) {
+  //     const driverId = this.driverId;
+  //     const apiUrl = `${environment.apiUrl}/cancel/${rideId}/driver/${driverId}`;
+  //     this.http.put(apiUrl, { responseType: 'text' }).subscribe({
+  //       next: (response) => {
+  //         this.loading = false;
+  //         alert(response);
+  //         this.showSuccess('Successfully Cancelled Ride');
+
+  //         this.fetchDriverRides(driverId);
+  //       },
+  //       error: (err) => {
+  //         console.error('Error cancelling ride:', err);
+  //         this.showError('Error cancelling ride. Please try again.');
+
+  //         this.loading = false;
+  //       }
+  //     });
+  //   }
+  // }
+
   cancelRide(rideId: number): void {
-    if (confirm('Are you sure you want to cancel this ride?')) {
-      const driverId = this.driverId;
-      const apiUrl = `${environment.apiUrl}/cancel/${rideId}/driver/${driverId}`;
-      this.http.put(apiUrl, { responseType: 'text' }).subscribe({
-        next: (response) => {
-          this.loading = false;
-          alert(response);
-          this.showSuccess('Successfully Cancelled Ride');
 
-          this.fetchDriverRides(driverId);
-        },
-        error: (err) => {
-          console.error('Error cancelling ride:', err);
-          this.showError('Error cancelling ride. Please try again.');
+  if (confirm('Are you sure you want to cancel this ride?')) {
 
-          this.loading = false;
-        }
-      });
-    }
+    this.loading = true;
+
+    const driverId = this.driverId;
+
+    const apiUrl = `${environment.apiUrl}/cancel/${rideId}/driver/${driverId}`;
+
+    this.http.put(apiUrl, {}, { responseType: 'text' }).subscribe({
+
+      next: (response: string) => {
+
+        console.log('Ride Cancel Response:', response);
+
+        this.loading = false;
+
+        alert(response);
+
+        this.showSuccess('Successfully Cancelled Ride');
+
+        // Refresh rides list
+        this.fetchDriverRides(driverId);
+      },
+
+      error: (err) => {
+
+        console.error('Error cancelling ride:', err);
+
+        this.showError('Error cancelling ride. Please try again.');
+
+        this.loading = false;
+      }
+
+    });
   }
+}
 
   startRide(rideId: number) {
     this.router.navigate(['/start-ride', rideId]);

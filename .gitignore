@@ -40,3 +40,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+angular.out.log
+backend/__pycache__/server.cpython-314.pyc
+*.py
+/.angular
+/backend

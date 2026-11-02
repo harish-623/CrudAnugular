@@ -41,6 +41,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { AboutComponent } from './about/about.component';
 import { SafetyComponent } from './safety/safety.component';
 import { SupportChatComponent } from './support-chat/support-chat.component';
+import { RevealDirective } from './reveal.directive';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { SupportChatComponent } from './support-chat/support-chat.component';
     ContactUsComponent,
     AboutComponent,
     SafetyComponent,
-    SupportChatComponent
+    SupportChatComponent,
+    RevealDirective
   ],
   imports: [
     BrowserModule,

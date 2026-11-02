@@ -1,14 +1,20 @@
-<div class="container my-4">
+<div class="container my-4 workspace-page passenger-page">
 
   <!-- Page Title -->
-  <div class="text-center mb-4">
-    <h3 class="fw-bold">Passengers Booked for Your Ride</h3>
-    <p class="text-muted">View passenger details and verify ride OTPs</p>
+  <div class="workspace-page__heading">
+    <div>
+      <p class="section-kicker">Your driver dashboard</p>
+      <h1>Start your ride</h1>
+      <p class="workspace-page__description">Verify each passenger’s ride code before you set off.</p>
+    </div>
+    <span class="workspace-page__mark" aria-hidden="true">↗</span>
   </div>
 
   <!-- No Passengers -->
-  <div *ngIf="passengers.length === 0" class="alert alert-info text-center">
-    No passengers have booked this ride yet.
+  <div *ngIf="passengers.length === 0" class="workspace-empty" role="status">
+    <span aria-hidden="true">↗</span>
+    <h2>Waiting for passengers</h2>
+    <p>Passenger details and verification codes will appear here when the ride is booked.</p>
   </div>
 
   <!-- Passenger List -->
@@ -25,13 +31,10 @@
             <div class="row">
               <!-- Passenger Info -->
               <div class="col-md-7">
-                <p><strong>Name:</strong> {{ p.name }}</p>
-                <p><strong>Email:</strong> {{ p.email }}</p>
-                <p><strong>Seats Booked:</strong> {{ p.seatsBooked }}</p>
-                <p>
-                  <strong>Booked On:</strong>
-                  {{ p.bookedOn | date:'medium' }}
-                </p>
+                <p class="request-detail"><span>Passenger</span><strong>{{ p.name }}</strong></p>
+                <p class="request-detail"><span>Email</span><strong>{{ p.email }}</strong></p>
+                <p class="request-detail"><span>Seats booked</span><strong>{{ p.seatsBooked }}</strong></p>
+                <p class="request-detail"><span>Booked on</span><strong>{{ p.bookedOn | date:'medium' }}</strong></p>
               </div>
 
               <!-- OTP Section -->
@@ -39,11 +42,11 @@
 
                 <!-- OTP Input -->
                 <div *ngIf="!p.otpVerified" class="w-100">
-                  <label class="form-label fw-semibold">
-                    Enter OTP
+                  <label class="form-label fw-semibold" [for]="'otp-' + p.bookingId">
+                    Passenger verification code
                   </label>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="4-digit OTP" maxlength="4"
+                    <input [id]="'otp-' + p.bookingId" type="text" class="form-control" placeholder="4-digit OTP" maxlength="4"
                       [(ngModel)]="p.otp" />
                     <button class="btn btn-success" (click)="verifyRideOtp(p.bookingId, p.otp)">
                       Verify
@@ -53,7 +56,7 @@
 
                 <!-- OTP Verified -->
                 <div *ngIf="p.otpVerified" class="alert alert-success w-100 text-center mb-0">
-                  OTP verified successfully
+                  Verification complete — you’re ready to go.
                 </div>
 
               </div>

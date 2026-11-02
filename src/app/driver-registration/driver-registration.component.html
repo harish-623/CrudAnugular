@@ -1,37 +1,64 @@
-<div class="modal-backdrop fade show"></div>
-
-<div class="modal d-block" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Driver Registration</h5>
-                <button type="button" class="btn-close" (click)="close()"></button>
-            </div>
-
-            <div class="modal-body">
-                <form [formGroup]="driverForm">
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Driving License Number</label>
-                        <input type="text" class="form-control" formControlName="dlNumber"
-                            placeholder="Enter DL number" />
-                    </div>
-
-                    <div *ngIf="message" class="alert alert-info">
-                        {{ message }}
-                    </div>
-
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" (click)="close()">Cancel</button>
-                <button class="btn btn-primary" [disabled]="driverForm.invalid || loading" (click)="submit()">
-                    {{ loading ? 'Submitting...' : 'Submit' }}
-                </button>
-            </div>
-
+<section class="driver-registration-page">
+  <div class="driver-registration-layout">
+    <aside class="driver-registration-story">
+      <a class="driver-registration-back" routerLink="/home">
+        <span aria-hidden="true">←</span> Back to VyroPool
+      </a>
+      <div class="driver-registration-story__body">
+        <span class="driver-registration-icon" aria-hidden="true">↗</span>
+        <p class="section-kicker">For the people behind the wheel</p>
+        <h1>Make room<br />for a better<br /><span>journey.</span></h1>
+        <p class="driver-registration-story__copy">
+          Register your driving licence to unlock ride publishing and help passengers travel with confidence.
+        </p>
+        <div class="driver-registration-note">
+          <span aria-hidden="true">✳</span>
+          <p><strong>One quick step</strong><br />Your licence details are used for driver verification.</p>
         </div>
+      </div>
+      <span class="driver-registration-story__footer">DRIVE WELL. GO FAR.</span>
+    </aside>
+
+    <div class="driver-registration-main">
+      <div class="driver-registration-card">
+        <div class="driver-registration-card__top">
+          <div class="driver-registration-card__symbol" aria-hidden="true">01</div>
+          <button type="button" class="driver-registration-close" (click)="close()" aria-label="Close driver registration">×</button>
+        </div>
+
+        <p class="section-kicker">Driver onboarding</p>
+        <h2>Verify your licence</h2>
+        <p class="driver-registration-description">
+          Enter your driving licence number to submit your driver profile for verification.
+        </p>
+
+        <form [formGroup]="driverForm" (ngSubmit)="submit()" class="driver-registration-form">
+          <div class="form-group">
+            <label class="form-label" for="dl-number">Driving licence number</label>
+            <input id="dl-number" type="text" class="form-control" formControlName="dlNumber"
+              placeholder="e.g. TS09 2020 0012345" autocomplete="off"
+              [attr.aria-invalid]="driverForm.get('dlNumber')?.invalid && driverForm.get('dlNumber')?.touched" />
+            <span class="driver-registration-hint">Use the number shown on your valid driving licence.</span>
+            <span *ngIf="driverForm.get('dlNumber')?.invalid && driverForm.get('dlNumber')?.touched"
+              class="driver-registration-error" role="alert">Your licence number is required.</span>
+          </div>
+
+          <div *ngIf="message" class="alert" [ngClass]="registrationFailed ? 'alert-danger' : 'alert-success'"
+            [attr.role]="registrationFailed ? 'alert' : 'status'">
+            {{ message }}
+          </div>
+
+          <button type="submit" class="button button--primary driver-registration-submit"
+            [disabled]="driverForm.invalid || loading">
+            <span>{{ loading ? 'Submitting for review…' : 'Submit for verification' }}</span>
+            <span *ngIf="!loading" aria-hidden="true">↗</span>
+          </button>
+        </form>
+
+        <p class="driver-registration-footer">
+          Your details stay protected and are only used to verify your driver profile.
+        </p>
+      </div>
     </div>
-</div>
+  </div>
+</section>

@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-driver-registration',
-  templateUrl: './driver-registration.component.html'
+  templateUrl: './driver-registration.component.html',
+  styleUrls: ['./driver-registration.component.css']
 })
 export class DriverRegistrationComponent {
 
@@ -15,6 +16,7 @@ export class DriverRegistrationComponent {
 
   loading = false;
   message = '';
+  registrationFailed = false;
 
   driverForm = this.fb.group({
     dlNumber: ['', Validators.required]
@@ -43,6 +45,7 @@ export class DriverRegistrationComponent {
     }
 
     this.loading = true;
+    this.registrationFailed = false;
 
     const payload = {
       userId,
@@ -62,8 +65,8 @@ export class DriverRegistrationComponent {
       },
       error: () => {
         this.message = 'Registration failed. Try again.';
+        this.registrationFailed = true;
         this.loading = false;
-        this.router.navigate(['/home']);
       }
     });
   }

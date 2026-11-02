@@ -104,13 +104,18 @@ export class PublishRideComponent {
       .subscribe({
         next: (res: any) => {
           this.loading = false;
+          this.errorMessage = null;
           this.successMessage =
             'Ride published successfully. Passengers can now request to join.';
           // this.router.navigate(['/home'], { queryParams: { driverId } });
           this.router.navigate(['/my-publish-rides'])
           this.clearForm();
         },
-        error: (err) => console.error(err)
+        error: (err) => {
+          console.error('Unable to publish ride:', err);
+          this.loading = false;
+          this.errorMessage = 'We couldn’t publish your ride. Please check your connection and try again.';
+        }
 
 
       });

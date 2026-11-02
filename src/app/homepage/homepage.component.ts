@@ -175,6 +175,7 @@ export class HomepageComponent {
     this.driverId = localStorage.getItem('driverId') || '';
     this.email = localStorage.getItem('emergencyEmail') || '';
     this.isLoggedIn = !!localStorage.getItem('username');
+    this.loading = false;
     this.loadChatHistory();
     this.loadUserImage();   // Load image automatically
   }
@@ -228,6 +229,8 @@ export class HomepageComponent {
       this.showErrorAndRedirect('Please login to search and book rides.');
       return;
     }
+    this.loading = true;
+    this.noResultsMessage = '';
     const payload = {
       leavingFrom: this.leavingFrom,
       goingTo: this.goingTo,
@@ -257,6 +260,8 @@ export class HomepageComponent {
         },
         (error) => {
           console.error('Error fetching search results:', error);
+          this.searchResults = [];
+          this.noResultsMessage = 'We could not load rides right now. Please try again in a moment.';
           this.loading = false;
         }
       );

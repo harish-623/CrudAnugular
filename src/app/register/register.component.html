@@ -1,11 +1,28 @@
 <section class="register-section">
+  <div class="register-layout">
+    <aside class="register-story">
+      <a class="register-story__back" routerLink="/home"><span aria-hidden="true">←</span> VyroPool</a>
+      <div class="register-story__body">
+        <p class="section-kicker">A seat for everyone</p>
+        <h2>Make the<br />everyday a little<br /><span>more shared.</span></h2>
+        <p>One account opens the door to better journeys, thoughtful connections, and a community moving in the same direction.</p>
+        <div class="register-story__benefits">
+          <span><i aria-hidden="true">✓</i> Meet your community</span>
+          <span><i aria-hidden="true">✓</i> Find rides that fit your day</span>
+          <span><i aria-hidden="true">✓</i> Travel with more confidence</span>
+        </div>
+      </div>
+      <span class="register-story__footer">YOUR NEXT JOURNEY STARTS HERE</span>
+    </aside>
+
   <div class="register-container">
     <div class="register-card">
       <!-- HEADER -->
       <div class="register-header">
         <div class="header-content">
-          <h1 class="register-title">Create Your Account</h1>
-          <p class="register-subtitle">Join our trusted community of riders & drivers</p>
+          <p class="register-card__kicker">Join the community</p>
+          <h1 class="register-title">Create your account</h1>
+          <p class="register-subtitle">A few details and you’re on your way.</p>
         </div>
         <div class="header-divider"></div>
       </div>
@@ -16,8 +33,10 @@
         <!-- ROW 1: Full Name & Gender -->
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Full Name</label>
+            <label class="form-label" for="register-fullname">Full name</label>
             <input 
+              id="register-fullname"
+              type="text"
               class="form-control" 
               formControlName="fullname" 
               placeholder="Enter your full name"
@@ -29,13 +48,14 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Gender</label>
+            <label class="form-label" for="register-gender">Gender</label>
             <select 
+              id="register-gender"
               class="form-control form-select" 
               formControlName="gender"
               [class.is-invalid]="userForm.get('gender')?.invalid && userForm.get('gender')?.touched"
             >
-              <option value="" disabled selected>Select gender</option>
+              <option value="" disabled>Select gender</option>
               <option value="MALE">Male</option>
               <option value="FEMALE">Female</option>
               <option value="OTHER">Other</option>
@@ -49,8 +69,10 @@
         <!-- ROW 2: Phone & Age -->
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Phone Number</label>
+            <label class="form-label" for="register-phone">Phone number</label>
             <input 
+              id="register-phone"
+              type="tel"
               class="form-control" 
               formControlName="phonenumber" 
               placeholder="10-digit mobile"
@@ -70,8 +92,10 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Age</label>
+            <label class="form-label" for="register-age">Age</label>
             <input 
+              id="register-age"
+              type="number"
               class="form-control" 
               formControlName="age" 
               placeholder="18 or above"
@@ -89,9 +113,10 @@
 
         <!-- EMAIL + OTP -->
         <div class="form-group form-group-full">
-          <label class="form-label">Email Address</label>
+          <label class="form-label" for="register-email">Email address</label>
           <div class="input-group-custom">
             <input 
+              id="register-email"
               type="email" 
               class="form-control" 
               formControlName="email" 
@@ -115,9 +140,14 @@
 
         <!-- OTP VERIFICATION -->
         <div *ngIf="otpSent" class="form-group form-group-full otp-section">
-          <label class="form-label">Verification Code</label>
+          <label class="form-label" for="register-otp">Verification code</label>
           <div class="input-group-custom">
             <input 
+              id="register-otp"
+              type="text"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+              maxlength="6"
               class="form-control" 
               formControlName="otp" 
               placeholder="Enter 6-digit OTP"
@@ -141,9 +171,10 @@
 
         <!-- PASSWORD -->
         <div *ngIf="otpVerified" class="form-group form-group-full">
-          <label class="form-label">Password</label>
+          <label class="form-label" for="register-password">Password</label>
           <div class="password-input-group">
             <input 
+              id="register-password"
               [type]="showPassword ? 'text' : 'password'"
               class="form-control" 
               formControlName="password"
@@ -212,5 +243,6 @@
       </form>
 
     </div>
+  </div>
   </div>
 </section>

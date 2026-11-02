@@ -1,71 +1,75 @@
-<nav class="navbar navbar-expand-lg sticky-top bg-white border-bottom shadow-sm">
-  <div class="container py-2">
-    <a class="navbar-brand fw-bold text-primary" routerLink="/">
-      VyroPool
-      <span class="text-dark">SafeRide</span>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" routerLink="/home" aria-label="VyroPool home" (click)="closeNavigation()">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M5 19.5 9.2 11h13.6l4.2 8.5v5H5v-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9.3 11 7.5 8h17l-1.8 3M5 19.5h22M9 24.5v2m14-2v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="10" cy="21.5" r="1.5" fill="currentColor"/><circle cx="22" cy="21.5" r="1.5" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand__wordmark">Vyro<span>Pool</span></span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-      <span class="navbar-toggler-icon"></span>
+
+    <button class="site-menu-toggle" type="button" (click)="toggleNavigation()"
+      [attr.aria-expanded]="navigationOpen" aria-controls="primary-navigation"
+      [attr.aria-label]="navigationOpen ? 'Close navigation menu' : 'Open navigation menu'">
+      <span></span><span></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarMain">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/support-chat" routerLinkActive="active">AI Support</a>
-        </li>
-        <li class="nav-item" *ngIf="isLoggedIn">
-          <!-- <a class="nav-link" *ngIf="isLoggedIn" [queryParams]="{ driverId: this.driverId }" routerLink="/profile"  >Profile</a> -->
-          <button
-    type="button"
-    class="btn btn-link nav-link text-danger"
-    (click)="goToProfile()">
-   Profile
-  </button>
-        </li>
 
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn" routerLink="/my-publish-rides">My Publish Rides</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
-        </li>
-        
-         <li class="nav-item" *ngIf="isLoggedIn"> 
-          <!-- <a class="nav-link" *ngIf="isLoggedIn" [queryParams]=" { driverId: this.driverId }" routerLink="/my-rides">My Rides</a> -->
-        
-        <button
-    type="button"
-    class="btn btn-link nav-link text-danger"
-    (click)="goToMyRides()">
-    My Rides
-  </button>
-  </li> 
-        
-        
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn" routerLink="/approve-request">Approve Request</a>
-        </li>
+    <nav id="primary-navigation" class="site-nav" [class.site-nav--open]="navigationOpen" aria-label="Main navigation">
+      <div class="site-nav__links">
+        <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeNavigation()">Home</a>
+        <a routerLink="/about" routerLinkActive="is-active" (click)="closeNavigation()">About</a>
+        <a routerLink="/help-center" routerLinkActive="is-active" (click)="closeNavigation()">Help</a>
+        <a *ngIf="isLoggedIn" routerLink="/my-publish-rides" routerLinkActive="is-active"
+          (click)="closeNavigation()">My published rides</a>
+        <a *ngIf="isLoggedIn" routerLink="/approve-request" routerLinkActive="is-active"
+          (click)="closeNavigation()">Requests</a>
+      </div>
 
-        <li class="nav-item" *ngIf="isLoggedIn">
-  <button
-    type="button"
-    class="btn btn-link nav-link text-danger"
-    (click)="logout()">
-    Logout
-  </button>
-</li>
-
-
-        <li class="nav-item">
-          <a class="btn btn-outline-primary" *ngIf="!isLoggedIn" routerLink="/register">Register</a>
-        </li>
-      </ul>
-    </div>
+      <div class="site-nav__actions">
+        <ng-container *ngIf="isLoggedIn; else guestActions">
+          <button type="button" class="nav-text-button" (click)="goToMyRides()">My rides</button>
+          <button type="button" class="nav-text-button" (click)="goToProfile()">Profile</button>
+          <button type="button" class="button button--nav" (click)="logout()">Sign out</button>
+        </ng-container>
+        <ng-template #guestActions>
+          <a class="nav-text-button" routerLink="/login" routerLinkActive="is-active" (click)="closeNavigation()">Sign in</a>
+          <a class="button button--nav" routerLink="/register" (click)="closeNavigation()">Get started <span aria-hidden="true">↗</span></a>
+        </ng-template>
+      </div>
+    </nav>
   </div>
-</nav>
-<!-- <div style="height: 75px;"></div> -->
-<main class="app-main">
+</header>
+
+<main class="app-main" id="main-content">
   <router-outlet></router-outlet>
 </main>
+
+<footer class="site-footer">
+  <div class="site-footer__main">
+    <div class="site-footer__brand">
+      <a class="brand brand--footer" routerLink="/home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M5 19.5 9.2 11h13.6l4.2 8.5v5H5v-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M9.3 11 7.5 8h17l-1.8 3M5 19.5h22M9 24.5v2m14-2v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="10" cy="21.5" r="1.5" fill="currentColor"/><circle cx="22" cy="21.5" r="1.5" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand__wordmark">Vyro<span>Pool</span></span>
+      </a>
+      <p>Better journeys happen together.</p>
+    </div>
+    <div class="site-footer__links">
+      <div><span class="footer-heading">Explore</span><a routerLink="/home" fragment="ride-search">Find a ride</a><a routerLink="/about">Our story</a><a routerLink="/safety">Travel safely</a></div>
+      <div><span class="footer-heading">Here to help</span><a routerLink="/help-center">Help center</a><a routerLink="/trust-safety">Trust &amp; safety</a><a routerLink="/contact-us">Contact us</a></div>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© {{ currentYear }} VyroPool. Made for the miles we share.</span>
+    <a routerLink="/safety">Your safety matters <span aria-hidden="true">↗</span></a>
+  </div>
+</footer>

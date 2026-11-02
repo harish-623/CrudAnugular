@@ -1,14 +1,20 @@
-<div class="container my-4">
+<div class="container my-4 workspace-page passenger-page">
 
   <!-- Page Title -->
-  <div class="text-center mb-4">
-    <h3 class="fw-bold">Passengers Booked for Your Ride</h3>
-    <p class="text-muted">View the list of passengers who have booked this ride</p>
+  <div class="workspace-page__heading">
+    <div>
+      <p class="section-kicker">Your driver dashboard</p>
+      <h1>Passenger list</h1>
+      <p class="workspace-page__description">See who’s joining your trip and get ready for the road.</p>
+    </div>
+    <span class="workspace-page__mark" aria-hidden="true">✳</span>
   </div>
 
   <!-- No Passengers -->
-  <div *ngIf="passengers.length === 0" class="alert alert-info text-center">
-    No passengers have booked this ride yet.
+  <div *ngIf="passengers.length === 0" class="workspace-empty" role="status">
+    <span aria-hidden="true">✳</span>
+    <h2>No passengers yet</h2>
+    <p>Passenger bookings will appear here as soon as someone reserves a seat.</p>
   </div>
 
   <!-- Passenger List -->
@@ -23,22 +29,13 @@
 
             <div class="row">
               <div class="col-md-6">
-                <p class="mb-2">
-                  <strong>Name:</strong> {{ p.name }}
-                </p>
-                <p class="mb-2">
-                  <strong>Email:</strong> {{ p.email }}
-                </p>
+                <p class="request-detail"><span>Passenger</span><strong>{{ p.name }}</strong></p>
+                <p class="request-detail"><span>Email</span><strong>{{ p.email }}</strong></p>
               </div>
 
               <div class="col-md-6">
-                <p class="mb-2">
-                  <strong>Seats Booked:</strong> {{ p.seatsBooked }}
-                </p>
-                <p class="mb-0">
-                  <strong>Booked On:</strong>
-                  {{ p.bookedOn | date:'medium' }}
-                </p>
+                <p class="request-detail"><span>Seats booked</span><strong>{{ p.seatsBooked }}</strong></p>
+                <p class="request-detail"><span>Booked on</span><strong>{{ p.bookedOn | date:'medium' }}</strong></p>
               </div>
             </div>
 

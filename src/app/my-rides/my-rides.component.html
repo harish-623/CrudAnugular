@@ -1,22 +1,29 @@
 
 
-<div class="container my-4">
+<div class="container my-4 workspace-page rides-page">
 
   <!-- Page Title -->
-  <div class="text-center mb-4">
-    <h3 class="fw-bold">My Booked Rides</h3>
-    <p class="text-muted">View and manage your ride bookings</p>
+  <div class="workspace-page__heading">
+    <div>
+      <p class="section-kicker">Your journeys</p>
+      <h1>My booked rides</h1>
+      <p class="workspace-page__description">Everything you need for the rides you’ve booked.</p>
+    </div>
+    <span class="workspace-page__mark" aria-hidden="true">↗</span>
   </div>
 
   <!-- Loading -->
-  <div *ngIf="loading" class="text-center my-5">
-    <div class="spinner-border text-primary" role="status"></div>
-    <p class="mt-3 text-muted">Loading your rides...</p>
+  <div *ngIf="loading" class="workspace-loading" role="status">
+    <span class="loading-orbit" aria-hidden="true"></span>
+    <p>Loading your journeys…</p>
   </div>
 
   <!-- No Results -->
-  <div *ngIf="!loading && noResultsMessage" class="alert alert-info text-center">
-    {{ noResultsMessage }}
+  <div *ngIf="!loading && noResultsMessage" class="workspace-empty" role="status">
+    <span aria-hidden="true">↗</span>
+    <h2>No booked rides yet</h2>
+    <p>{{ noResultsMessage }}</p>
+    <a class="button button--primary" routerLink="/home" fragment="ride-search">Find a ride <span aria-hidden="true">↗</span></a>
   </div>
 
   <!-- Ride Cards -->
@@ -27,7 +34,7 @@
 
         <!-- Card Header -->
         <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
-          <h6 class="mb-0 fw-semibold">
+          <h6 class="mb-0 fw-semibold ride-booking-title">
             Booking #{{ ride.bookingId }}
           </h6>
 
@@ -44,18 +51,20 @@
         <!-- Card Body -->
         <div class="card-body">
 
-          <p><strong>Rider Name:</strong> {{ ride.driverDetails.driverName }}</p>
-          <p><strong>From:</strong> {{ ride.rideDetails.fromLocation }}</p>
-          <p><strong>To:</strong> {{ ride.rideDetails.toLocation }}</p>
-          <p><strong>Car Type:</strong> {{ ride.rideDetails.carType }}</p>
-          <p><strong>Date:</strong> {{ ride.rideDetails.rideDate }}</p>
-          <p><strong>Time:</strong> {{ ride.rideDetails.rideTime }}</p>
-          <p><strong>Seats Booked:</strong> {{ ride.seatsBooked }}</p>
+          <div class="ride-info-grid">
+            <div class="ride-info-item"><span>Driver</span><strong>{{ ride.driverDetails.driverName }}</strong></div>
+            <div class="ride-info-item"><span>From</span><strong>{{ ride.rideDetails.fromLocation }}</strong></div>
+            <div class="ride-info-item"><span>To</span><strong>{{ ride.rideDetails.toLocation }}</strong></div>
+            <div class="ride-info-item"><span>Vehicle</span><strong>{{ ride.rideDetails.carType }}</strong></div>
+            <div class="ride-info-item"><span>Date</span><strong>{{ ride.rideDetails.rideDate }}</strong></div>
+            <div class="ride-info-item"><span>Time</span><strong>{{ ride.rideDetails.rideTime }}</strong></div>
+            <div class="ride-info-item"><span>Seats booked</span><strong>{{ ride.seatsBooked }}</strong></div>
+          </div>
 
           <!-- OTP Section -->
-          <div class="mt-3 p-3 bg-light rounded-3">
+          <div class="booking-otp mt-3">
             <p class="mb-1">
-              <strong>OTP:</strong>
+              <strong>Ride OTP</strong>
               <span class="fw-bold text-primary ms-2">
                 {{ ride.otp || '—' }}
               </span>

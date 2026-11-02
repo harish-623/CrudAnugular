@@ -30,9 +30,13 @@ export class ForgetPasswordComponent implements OnInit {
   }
 
   private showMessage(message: string, cssClass: string): void {
+    this.message = message;
     this.responseMessage = message;   // sets the text (e.g. “OTP sent successfully”)
     this.responseClass = cssClass;    // sets the alert color (Bootstrap class)
-    setTimeout(() => (this.responseMessage = ''), 5000); // clears message after 5 sec
+    setTimeout(() => {
+      this.responseMessage = '';
+      this.message = '';
+    }, 5000);
   }
   togglePassword() {
     this.showPassword = !this.showPassword;
@@ -121,6 +125,9 @@ export class ForgetPasswordComponent implements OnInit {
   }
 
   resetPassword() {
+    this.loading = true;
+    this.message = '';
+    this.responseMessage = '';
     this.http.post(`${environment.apiUrl}/reset-password`, {
       email: this.email,
       otp: this.otp,
@@ -128,21 +135,25 @@ export class ForgetPasswordComponent implements OnInit {
     })
       .subscribe({
         next: (res: any) => {
-          this.loading = false
+          this.loading = false;
           if (res.success) {
-
-            this.message = res.message;   // "Password reset successful"
+            this.message = res.message;
+            this.responseClass = 'alert-success';
 
             // Redirect after success
             setTimeout(() => {
               this.router.navigate(['/login']);
             }, 1500);
           } else {
-            this.message = "Something went wrong. Try again.";
+            this.message = 'Something went wrong. Try again.';
+            this.responseClass = 'alert-danger';
           }
         },
-        error: () => this.message = "Failed to reset password"
+        error: () => {
+          this.loading = false;
+          this.message = 'Failed to reset password. Please try again.';
+          this.responseClass = 'alert-danger';
+        }
       });
   }
 }
-

@@ -13,12 +13,16 @@
 </div> -->
 
 <!-- Ride Details -->
-<div class="container my-4">
+<div class="container my-4 workspace-page ride-details-page">
 
   <!-- Header -->
-  <div class="text-center mb-4">
-    <h3 class="fw-bold">Ride Details</h3>
-    <p class="text-muted">Review ride information before booking</p>
+  <div class="workspace-page__heading">
+    <div>
+      <p class="section-kicker">Make it a shared journey</p>
+      <h1>Ride details</h1>
+      <p class="workspace-page__description">Take a closer look at your route and the person behind the wheel.</p>
+    </div>
+    <span class="workspace-page__mark" aria-hidden="true">↗</span>
   </div>
 
   <!-- Ride Card -->
@@ -30,23 +34,19 @@
         <div class="card-body p-4">
 
           <!-- Rider Info -->
-          <h5 class="fw-semibold mb-3">
-            {{ ride.riderName.fullname }}
-          </h5>
+          <div class="driver-profile">
+            <span class="driver-profile__avatar" aria-hidden="true">{{ (ride.riderName.fullname || 'V').charAt(0) }}</span>
+            <div><span class="section-kicker">YOUR DRIVER</span><h2>{{ ride.riderName.fullname }}</h2></div>
+          </div>
 
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <p><strong>From:</strong> {{ ride.from }}</p>
-              <p><strong>To:</strong> {{ ride.to }}</p>
-              <p><strong>Date:</strong> {{ ride.date }}</p>
-              <p><strong>Time:</strong> {{ ride.time }}</p>
-            </div>
-
-            <div class="col-md-6">
-              <p><strong>Car Type:</strong> {{ ride.carType }}</p>
-              <p><strong>Seats Available:</strong> {{ ride.passengerLimit }}</p>
-              <p><strong>Price:</strong> ₹{{ ride.amount }}</p>
-            </div>
+          <div class="ride-info-grid ride-info-grid--details mb-3">
+            <div class="ride-info-item"><span>Leaving from</span><strong>{{ ride.from }}</strong></div>
+            <div class="ride-info-item"><span>Going to</span><strong>{{ ride.to }}</strong></div>
+            <div class="ride-info-item"><span>Date</span><strong>{{ ride.date }}</strong></div>
+            <div class="ride-info-item"><span>Departure</span><strong>{{ ride.time }}</strong></div>
+            <div class="ride-info-item"><span>Vehicle</span><strong>{{ ride.carType }}</strong></div>
+            <div class="ride-info-item"><span>Seats available</span><strong>{{ ride.passengerLimit }}</strong></div>
+            <div class="ride-info-item ride-info-item--price"><span>Price per seat</span><strong>₹{{ ride.amount }}</strong></div>
           </div>
 
           <hr>

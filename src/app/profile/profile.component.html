@@ -1,4 +1,12 @@
-<div class="container my-5">
+<div class="container my-5 workspace-page profile-page">
+  <div class="workspace-page__heading">
+    <div>
+      <p class="section-kicker">Your account</p>
+      <h1>Your profile</h1>
+      <p class="workspace-page__description">Keep your details up to date for a smoother ride experience.</p>
+    </div>
+    <span class="workspace-page__mark" aria-hidden="true">✳</span>
+  </div>
   <div class="row justify-content-center">
     <div class="col-lg-6">
 
@@ -23,7 +31,7 @@
         <!-- CONTACT INFO -->
         <div class="card-body">
 
-          <h6 class="fw-bold mb-3">Contact Information</h6>
+          <h2 class="profile-section-title">Contact information</h2>
 
           <ul class="list-group list-group-flush">
 
@@ -65,7 +73,7 @@
         <!-- EDIT FORM -->
         <div class="card-body border-top" *ngIf="isEditable">
 
-          <h6 class="fw-bold mb-3">Edit Profile</h6>
+          <h2 class="profile-section-title">Edit profile</h2>
 
           <form (ngSubmit)="updateUser()">
 
